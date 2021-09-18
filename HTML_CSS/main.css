@@ -4,37 +4,136 @@
     padding: 0px;
 }
 
+body
+{
+    overflow-x: hidden;
+    background: #ffffff;
+}
+
+/*******************************************  Icons / Logo / Style text  ******/
+
 #main_logo
 {
     position: relative;
-    height: 500px;
+    min-width: 200px;
     z-index: 100;
-    left: 38vw;
+    max-width: 30%;
+    left: 32vw;
     top: 15vh;
     animation: fadeIn 3.5s ease-in-out;
 }
 
-body
+#down_arrows
 {
-    overflow-x:hidden;
-    background: #ffffff;
+    position: relative;
+    z-index: 100;
+    min-width: 50px;
+    max-width: 1%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    top: 65vh;
+    animation: fadeIn 3.5s ease-in-out;
+}
+
+#header_text
+{
+    position: relative;
+    left:27vw;
+    width: 50%;
+}
+
+#subscribe_image
+{
+    position: relative;
+    margin-top: 20px;;
+    display: block;
+    width: 50%;
+    left:6vw;
+}
+/*******************************************  Main Section ******/
+
+section
+{
+    position: absolute;
+    top: 100vh;
+    width: 100vw;
+    background-color: #7083bb;
+    height: 1500px;
+}
+
+header
+{
+    
+    padding: 25px;
+    padding-bottom: 40px;
+    background-color: #494949;
+}
+
+.container
+{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+
+.article_parts
+{
+    background-color: #CED7EF;
+    border-radius: 10px;
+    margin: 30px;
+    margin-right: 40px;
 }
 
 p
 {
-    position: absolute;
-    overflow-y: hidden;
-    top: 100vh;
-    z-index: 50;
-    height: 150vh;
-    width: 1000vw;
-    opacity: 1;
-    color: #ffffff;
-    background-color: black;
+    position: relative;
+    font-family:'Quicksand', sans-serif;
+    font-size: 150%;
+    font-weight: 500;
+    color: #333333;
+    width: 400px;
+    padding: 20px;
+    text-align: center;
+    left:1.5vw;
 }
 
+.services_image
+{
+    margin:40px;
+    width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#subscribe_button
+{
+    position: relative;
+    font-family:'Quicksand', sans-serif;
+    font-size: 150%;
+    font-weight: 500;
+    text-align: center;
+    background-color: #CED7EF;
+    color: #333333;
+
+    margin-top:50px;
+    padding: 20px;
+
+    border-radius: 50px;
+    left: 7vw;
+    top: 8vh;
+    width: 800px;
+}
+
+
+
 /*******************************************    BIG ANIM    ******/
-/*******************************************  Circle group  ******/
 
 .circle
 {
@@ -44,8 +143,6 @@ p
     animation: breath 10s infinite;
     box-shadow: 1px 5px 10px 0px #000000;
 }
-
-/*******************************************  Individual circles */
 
 .size_1
 {
@@ -58,82 +155,82 @@ p
 
 .size_2
 {
-    width: 500px;
-    height: 500px;
-    left: -200px;
-    bottom: -200px;
+    width: 380px;
+    height: 380px;
+    left: -160px;
+    bottom: -160px;
     opacity: 0.9;
 }
 
 .size_3
 {
-    width: 800px;
-    height: 800px;
-    left: -300px;
-    bottom: -300px;
+    width: 560px;
+    height: 560px;
+    left: -220px;
+    bottom: -220px;
     opacity: 0.8;
 }
 
 .size_4
 {
-    width: 1100px;
-    height: 1100px;
-    left: -400px;
-    bottom: -400px;
+    width: 740px;
+    height: 740px;
+    left: -280px;
+    bottom: -280px;
     opacity: 0.7;
 }
 
 .size_5
 {
-    width: 1400px;
-    height: 1400px;
-    left: -500px;
-    bottom: -500px;
+    width: 920px;
+    height: 920px;
+    left: -340px;
+    bottom: -340px;
     opacity: 0.6;
 }
 
 .size_6
 {
-    width: 1700px;
-    height: 1700px;
-    left: -600px;
-    bottom: -600px;
+    width: 1100px;
+    height: 1100px;
+    left: -400px;
+    bottom: -400px;
     opacity: 0.5;
 }
 
 .size_7
 {
-    width: 2000px;
-    height: 2000px;
-    left: -700px;
-    bottom: -700px;
+    width: 1280px;
+    height: 1280px;
+    left: -460px;
+    bottom: -460px;
     opacity: 0.4;
 }
 
 .size_8
 {
-    width: 2300px;
-    height: 2300px;
-    left: -800px;
-    bottom: -800px;
+    width: 1460px;
+    height: 1460px;
+    left: -520px;
+    bottom: -520px;
     opacity: 0.3;
 }
 
 .size_9
 {
-    width: 2600px;
-    height: 2600px;
-    left: -900px;
-    bottom: -900px;
+    width: 1640px;
+    height: 1640px;
+    left: -580px;
+    bottom: -580px;
     opacity: 0.2;
 }
 
 .size_10
 {
-    width: 2900px;
-    height: 2900px;
-    left: -1000px;
-    bottom: -1000px;
+    width: 1820px;
+    height: 1820px;
+    left: -680px;
+    bottom: -680px;
     opacity: 0.1;
 }
 
@@ -172,8 +269,108 @@ p
 }
 
 /*******************************************  RESPONSIVENESS */
-/*******************************************  TODO ***********/
 
-@media screen {
+@media only screen and (min-width: 600px) 
+{
+    #main_logo
+    {
+        left: 38vw;
+    }
+    #down_arrows
+    {
+        top: 35vh;
+        left: 3vw;
+    }
     
+
+    .size_1
+    {
+        width: 200px;
+        height: 200px;
+        left: -100px;
+        bottom: -100px;
+        opacity: 1;
+    }
+
+    .size_2
+    {
+        width: 500px;
+        height: 500px;
+        left: -200px;
+        bottom: -200px;
+        opacity: 0.9;
+    }
+
+    .size_3
+    {
+        width: 800px;
+        height: 800px;
+        left: -300px;
+        bottom: -300px;
+        opacity: 0.8;
+    }
+
+    .size_4
+    {
+        width: 1100px;
+        height: 1100px;
+        left: -400px;
+        bottom: -400px;
+        opacity: 0.7;
+    }
+
+    .size_5
+    {
+        width: 1400px;
+        height: 1400px;
+        left: -500px;
+        bottom: -500px;
+        opacity: 0.6;
+    }
+
+    .size_6
+    {
+        width: 1700px;
+        height: 1700px;
+        left: -600px;
+        bottom: -600px;
+        opacity: 0.5;
+    }
+
+    .size_7
+    {
+        width: 2000px;
+        height: 2000px;
+        left: -700px;
+        bottom: -700px;
+        opacity: 0.4;
+    }
+
+    .size_8
+    {
+        width: 2300px;
+        height: 2300px;
+        left: -800px;
+        bottom: -800px;
+        opacity: 0.3;
+    }
+
+    .size_9
+    {
+        width: 2600px;
+        height: 2600px;
+        left: -900px;
+        bottom: -900px;
+        opacity: 0.2;
+    }
+
+    .size_10
+    {
+        width: 2900px;
+        height: 2900px;
+        left: -1000px;
+        bottom: -1000px;
+        opacity: 0.1;
+    }
+
 }
