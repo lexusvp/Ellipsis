@@ -6,13 +6,13 @@
 {
     position: absolute;
     border-radius: 100%;
-    background: #7083bb;
     animation: breath 10s infinite;
-    box-shadow: 1px 5px 10px 0px #000000;
-}
+/*     box-shadow: 1px 5px 10px 0px #000000;
+ */}
 
 .size_1
 {
+    background: #7083bb;
     width: 200px;
     height: 200px;
     left: -100px;
@@ -22,6 +22,8 @@
 
 .size_2
 {
+    background: #fdf3c6;
+
     width: 380px;
     height: 380px;
     left: -160px;
@@ -31,6 +33,8 @@
 
 .size_3
 {
+    background: #7083bb;
+
     width: 560px;
     height: 560px;
     left: -220px;
@@ -40,6 +44,8 @@
 
 .size_4
 {
+    background: #fdf3c6;
+
     width: 740px;
     height: 740px;
     left: -280px;
@@ -49,6 +55,8 @@
 
 .size_5
 {
+    background: #7083bb;
+
     width: 920px;
     height: 920px;
     left: -340px;
@@ -58,6 +66,8 @@
 
 .size_6
 {
+    background: #fdf3c6;
+
     width: 1100px;
     height: 1100px;
     left: -400px;
@@ -67,6 +77,8 @@
 
 .size_7
 {
+    background: #7083bb;
+
     width: 1280px;
     height: 1280px;
     left: -460px;
@@ -76,6 +88,8 @@
 
 .size_8
 {
+    background: #fdf3c6;
+
     width: 1460px;
     height: 1460px;
     left: -520px;
@@ -85,6 +99,8 @@
 
 .size_9
 {
+    background: #7083bb;
+
     width: 1640px;
     height: 1640px;
     left: -580px;
@@ -94,6 +110,8 @@
 
 .size_10
 {
+    background: #fdf3c6;
+
     width: 1820px;
     height: 1820px;
     left: -680px;
