@@ -4,6 +4,12 @@
     padding: 0px;
 }
 
+a 
+{
+    color: rgb(56, 56, 56);
+    text-decoration: none; /* no underline */
+}
+
 body
 {
     display: grid;
@@ -50,7 +56,7 @@ body > header img:nth-child(2)
     min-width: 50px;
     max-width: 1%;
 
-    animation: fadeIn 3.5s ease-in-out;
+    animation: fadeIn 3.5s ease-in-out, bounce 0.5s 3s infinite alternate;
 }
 
 
@@ -146,13 +152,17 @@ main > div
     align-items: center;
     padding:50px;
 }
+
 main > div img
 {
     margin-top: 20px;
     margin-bottom: 50px;
     display: block;
     width: 50%;
+
+    animation: bounce 0.5s infinite alternate;
 }
+
 
 main > div a
 {
@@ -304,6 +314,24 @@ main > div a
 
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes rotate_z {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
     }
 }
 
