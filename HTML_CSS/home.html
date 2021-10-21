@@ -5,37 +5,53 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
-
+        
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
-
+        
         <link rel="stylesheet" href="home_page.css">
         <link rel="stylesheet" href="home_anim.css">
-
+        
         <script type="text/javascript" src="modal_handler.js"></script>
     </head>
-
-    <body>
-        <header>
-            <img src="../Graph/images/logo/full_black.png"alt="logo">
-            <img src="../Graph/images/icons/down_arrows.png"alt="down_arrows">
-        </header>
     
-            <div>                                             
-                <div class='circle size_10'></div>
-                <div class='circle size_9'></div>
-                <div class='circle size_8'></div>
-                <div class='circle size_7'></div>
-                <div class='circle size_6'></div>
-                <div class='circle size_5'></div>
-                <div class='circle size_4'></div>
-                <div class='circle size_3'></div>
-                <div class='circle size_2'></div>
-                <div class='circle size_1'></div>
-            </div>
+    <body>
+        <nav>
+            <ul id ="flex" >
+                <li> 
+                    <a href="home.html"  id ="home">Acceuil</a>
+                </li>                          
+                <li> 
+                    <a href="home.html">Services</a>
+                </li>
+                <li> 
+                    <a href="2/account.html"> Account </a>
+                </li>                    
+                <li> 
+                    <a href="2/Contact.html"> Chat </a>
+                </li> 
+            </ul>         
+        </nav>
+        <header>
+            <img src="../Graph/images/logo/full_black.png" alt="logo">
+            <img src="../Graph/images/icons/down_arrows.png" alt="logo">
+        </header>
+        
+        <div>                                        
+            <div class='circle size_10'></div>
+            <div class='circle size_9'></div>
+            <div class='circle size_8'></div>
+            <div class='circle size_7'></div>
+            <div class='circle size_6'></div>
+            <div class='circle size_5'></div>
+            <div class='circle size_4'></div>
+            <div class='circle size_3'></div>
+            <div class='circle size_2'></div>
+            <div class='circle size_1'></div>
+        </div>
 
         <main>
             <header>
-                <img alt="header" src="../Graph/images/main_head.png">
+                <img alt="header" src="../Graph/images/header_img/main_head.png">
             </header>
             <section>
                 <article>
@@ -62,7 +78,7 @@
 
                 <button id="modal_button" class="buttons" onclick="open_modal()">Sign up !</button>
                 <div id="modal_window" class="modal">
-                    <form action="subscribe_form" method="post" class="modal_content">
+                    <form action="signup_account_form" method="post" class="modal_content">
                         <span class="close_modal" onclick="close_modal()">&times;</span>
                         <div class="modal_flex">
                                 <label for="id"> Choose a pseudo :<span class="required_field_star">*</span></label>
@@ -83,7 +99,7 @@
                 
                 <button id="modal_button2" class="buttons" onclick="open_modal2()">Log in !</button>
                 <div id="modal_window2" class="modal">
-                    <form action="subscribe_form" method="post" class="modal_content">
+                    <form action="login_account_form" method="post" class="modal_content">
                         <span class="close_modal" onclick="close_modal()">&times;</span>
                         <div class="modal_flex">
                                 <label for="id"> Enter your pseudo :<span class="required_field_star">*</span></label>
@@ -97,6 +113,7 @@
                     </form>
                 </div>                
         </main>
+
     
     </body>
 </html>

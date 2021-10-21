@@ -5,7 +5,8 @@ function open_modal()
 
 	window.onclick = function (event) 
 	{
-		if (event.target == modal) {
+		if (event.target == modal) 
+		{
 			modal.style.display = "none";
 		}
 	}
@@ -15,7 +16,6 @@ function close_modal()
 {
 	let modal = document.getElementById("modal_window");
 	modal.style.display = "none";
-	
 }
 
 

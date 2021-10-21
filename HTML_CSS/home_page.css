@@ -2,6 +2,7 @@
 {
     margin: 0px;
     padding: 0px;
+    list-style: none;
 }
 
 a 
@@ -177,10 +178,12 @@ main > div a
 /*-----------------------------------------------                  --------------------------------------*/
 /*-----------------------------------------------      MODALS      --------------------------------------*/
 /*-----------------------------------------------                  --------------------------------------*/
+
 .required_field_star
 {
     color: red;
 }
+
 .modal 
 {
     display: none;
@@ -196,7 +199,7 @@ main > div a
 
 .modal_content
 {
-    background-color: rgb(250, 214, 170);
+    background-color: #fad6aa;
     border-radius: 10px;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
@@ -215,7 +218,7 @@ main > div a
 .close_modal
 {
     position: relative;
-    color: rgb(80, 80, 80);
+    color: #505050;
     float: right;
     top:-20px;
     left:10px;
@@ -225,7 +228,7 @@ main > div a
 
 .close_modal:hover, .close_modal:focus 
 {
-    color: rgb(182, 182, 182);
+    color: #b6b6b6;
     text-decoration: none;
     cursor: pointer;
 }
@@ -249,26 +252,55 @@ input, label
 
 #modal_button
 {
-    background-color: rgb(245, 189, 120);
+    background-color: #fad6aa;
 }
 
 #modal_button:hover
 {
-    background-color: rgb(92, 92, 92);
-    color:rgb(245, 189, 120);
+    background-color: #5c5c5c;
+    color:#fad6aa;
 }
 
 #modal_button2
 {
-    background-color: rgb(216, 253, 168);
+    background-color: #d8fda8;
 }
 
 #modal_button2:hover
 {
-    background-color: rgb(92, 92, 92);
-    color:rgb(190, 255, 153);
+    background-color: #5c5c5c;
+    color:#d8fda8;
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------- NAVBAR ---------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+
+nav
+{
+    position: fixed;
+    grid-column: 1 /span 12;
+    width: 100%;
+
+
+    z-index: 1000;
+}
+
+ul
+{
+    display: flex;
+    background-color: #333333;
+}
+
+a
+{
+    color: white;
+}
+
+li:first-child
+{
+    background-color: #CED7EF;
+}
 /*-----------------------------------------------                  --------------------------------------*/
 /*-----------------------------------------------     KEYFRAMES    --------------------------------------*/
 /*-----------------------------------------------                  --------------------------------------*/
@@ -347,5 +379,4 @@ input, label
 
 @media only screen and (min-width: 800px)
 {
-
 }
