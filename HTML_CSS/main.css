@@ -6,134 +6,170 @@
 
 body
 {
-    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-items: center;
+
     background: #ffffff;
+
+    overflow-x: hidden;
+    height: 1500px;
+
 }
 
-/*******************************************  Icons / Logo / Style text  ******/
+/*-----------------------------------------------                  --------------------------------------*/
+/*----------------------------------------------- HOME PAGE HEADER --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
 
-#main_logo
+body > header
 {
-    position: relative;
-    min-width: 200px;
+    grid-column: 1 /span 12;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    height: 100vh;
+}
+
+body > header img:nth-child(1)
+{   
+    grid-column: 1;
+    margin-top: 20vh;
     z-index: 100;
-    max-width: 30%;
-    left: 32vw;
-    top: 15vh;
+    min-width: 200px;
+    max-width: 20%;
     animation: fadeIn 3.5s ease-in-out;
 }
 
-#down_arrows
+body > header img:nth-child(2)
 {
-    position: relative;
+    grid-column: 1;
+    margin-top: 300px;
     z-index: 100;
     min-width: 50px;
     max-width: 1%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    top: 65vh;
+
     animation: fadeIn 3.5s ease-in-out;
 }
 
-#header_text
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------   MAIN SECTION   --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+main
 {
-    position: relative;
-    left:27vw;
-    width: 50%;
+    grid-column: 1 /span 12;
+    grid-row: 2;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+
+    z-index: 100;
+    
+    margin-top: 50px;
+    padding-bottom: 50px;
+
+    background-color: #7083bb;
+
+    width: 100%;
 }
 
-#subscribe_image
+
+main > header
 {
-    position: relative;
-    margin-top: 20px;;
-    display: block;
-    width: 50%;
-    left:6vw;
+    grid-column: 1;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #494949;
+    
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    width: 100%;
 }
-/*******************************************  Main Section ******/
+
+main header img
+{
+    min-width: 300px;
+    max-width: 35%;
+}
+
 
 section
-{
-    position: absolute;
-    top: 100vh;
-    width: 100vw;
-    background-color: #7083bb;
-    height: 1500px;
-}
-
-header
-{
-    
-    padding: 25px;
-    padding-bottom: 40px;
-    background-color: #494949;
-}
-
-.container
 {
     display:flex;
     flex-direction:row;
     flex-wrap: wrap;
     justify-content: center;
-    position: absolute;
+    align-content: center;
+
     width: 100%;
 }
 
-.article_parts
+article
 {
     background-color: #CED7EF;
     border-radius: 10px;
-    margin: 30px;
-    margin-right: 40px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 p
 {
-    position: relative;
     font-family:'Quicksand', sans-serif;
-    font-size: 150%;
-    font-weight: 500;
-    color: #333333;
+    font-size: 1.8rem;
     width: 400px;
-    padding: 20px;
+
+    color: #333333;
     text-align: center;
-    left:1.5vw;
+    padding:20px;
 }
 
-.services_image
+article img
 {
-    margin:40px;
+    margin: 40px;
     width: 250px;
+}
+
+main > div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:50px;
+}
+main > div img
+{
+    margin-top: 20px;
+    margin-bottom: 50px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 50%;
 }
 
-#subscribe_button
+main > div a
 {
-    position: relative;
     font-family:'Quicksand', sans-serif;
-    font-size: 150%;
+    font-size: 2rem;
     font-weight: 500;
     text-align: center;
+
     background-color: #CED7EF;
-    color: #333333;
-
-    margin-top:50px;
-    padding: 20px;
-
-    border-radius: 50px;
-    left: 7vw;
-    top: 8vh;
-    width: 800px;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 
-
-/*******************************************    BIG ANIM    ******/
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------   BIG HOME ANIM  --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
 
 .circle
 {
@@ -234,7 +270,10 @@ p
     opacity: 0.1;
 }
 
-/*******************************************  KEYFRAMES */
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------     KEYFRAMES    --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
 
 @keyframes breath
 {
@@ -268,7 +307,9 @@ p
     }
 }
 
-/*******************************************  RESPONSIVENESS */
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
 
 @media only screen and (min-width: 600px) 
 {
