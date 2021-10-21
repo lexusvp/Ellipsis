@@ -1,0 +1,351 @@
+*
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+a 
+{
+    color: rgb(56, 56, 56);
+    text-decoration: none; /* no underline */
+}
+
+body
+{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-items: center;
+
+    background: #ffffff;
+
+    overflow-x: hidden;
+    height: 1500px;
+
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*----------------------------------------------- HOME PAGE HEADER --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+body > header
+{
+    grid-column: 1 /span 12;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    height: 100vh;
+}
+
+body > header img:nth-child(1)
+{   
+    grid-column: 1;
+    margin-top: 20vh;
+    z-index: 100;
+    min-width: 200px;
+    max-width: 20%;
+    animation: fadeIn 3.5s ease-in-out, breath_2 10s infinite;
+}
+
+body > header img:nth-child(2)
+{
+    grid-column: 1;
+    margin-top: 300px;
+    z-index: 100;
+    min-width: 50px;
+    max-width: 1%;
+
+    animation: fadeIn 3.5s ease-in-out, bounce 0.5s infinite alternate;
+}
+
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------   MAIN SECTION   --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+main
+{
+    grid-column: 1 /span 12;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+
+    z-index: 100;
+    
+    padding-bottom: 50px;
+
+    background-color: #7083bb;
+
+    width: 100%;
+}
+
+
+main > header
+{
+    grid-column: 1;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #494949;
+    
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+main header img
+{
+    min-width: 300px;
+    max-width: 35%;
+}
+
+
+section
+{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    width: 100%;
+}
+
+article
+{
+    background-color: #CED7EF;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+p
+{
+    font-family:'Quicksand', sans-serif;
+    font-size: 1.8rem;
+    width: 400px;
+
+    color: #333333;
+    text-align: center;
+    padding:20px;
+}
+
+article img
+{
+    margin: 40px;
+    width: 250px;
+}
+
+main > div
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:50px;
+}
+
+main > div img
+{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: block;
+    width: 50%;
+
+    animation: bounce 0.5s infinite alternate;
+}
+
+main > div a
+{
+    font-family:'Quicksand', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+
+    background-color: #CED7EF;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------      MODALS      --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+.required_field_star
+{
+    color: red;
+}
+.modal 
+{
+    display: none;
+    position: fixed;
+    z-index: 5000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #ced7ef3b; /* Fallback color */
+}
+
+.modal_content
+{
+    background-color: rgb(250, 214, 170);
+    border-radius: 10px;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+}
+
+.modal_flex
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.close_modal
+{
+    position: relative;
+    color: rgb(80, 80, 80);
+    float: right;
+    top:-20px;
+    left:10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close_modal:hover, .close_modal:focus 
+{
+    color: rgb(182, 182, 182);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input, label
+{
+    display: block;
+    padding: 10px;
+}
+
+.buttons
+{
+    padding: 10px;
+    width: 100px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: solid black 1px;
+}
+
+#modal_button
+{
+    background-color: rgb(245, 189, 120);
+}
+
+#modal_button:hover
+{
+    background-color: rgb(92, 92, 92);
+    color:rgb(245, 189, 120);
+}
+
+#modal_button2
+{
+    background-color: rgb(216, 253, 168);
+}
+
+#modal_button2:hover
+{
+    background-color: rgb(92, 92, 92);
+    color:rgb(190, 255, 153);
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------     KEYFRAMES    --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+@keyframes breath
+{
+    0%
+    {
+        transform: scale(0.8);
+    }
+    
+    50%
+    {
+        transform: scale(1.2);
+    }
+    
+    100%
+    {
+        transform: scale(0.8);
+    }
+}
+
+@keyframes breath_2
+{
+    0%
+    {
+        transform: scale(1);
+    }
+    
+    50%
+    {
+        transform: scale(1.15);
+    }
+    
+    100%
+    {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes rotate_z {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+@media only screen and (min-width: 800px)
+{
+
+}
