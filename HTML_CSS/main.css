@@ -165,7 +165,7 @@ nav ul
     display: flex;
 }
 
-li
+nav li
 {
     display: flex;
     align-items: center;
@@ -186,12 +186,16 @@ li:nth-child(2) a:hover
 {
     background-color: #CED7EF;
     color: #3f3f3f;
+
+    animation: bounce_nav 0.3s infinite alternate;
 }
 
 li:nth-child(3) a:hover
 {
     background-color: #fff2b8;
     color: #3f3f3f;
+
+    animation: bounce_nav2 0.3s infinite alternate;
 }
 
 li:first-child a
@@ -210,6 +214,7 @@ li:nth-child(3)
 {
     position: absolute;
     right: 0px;
+    cursor: pointer;
 
     color: #3f3f3f;
     background-color: #fff2b8;
@@ -325,6 +330,24 @@ li:nth-child(3)
     100%
     {
         transform: scale(1);
+    }
+}
+
+@keyframes bounce_nav {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes bounce_nav2 {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-10px);
     }
 }
 

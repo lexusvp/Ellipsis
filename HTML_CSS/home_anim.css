@@ -7,8 +7,8 @@
     position: absolute;
     border-radius: 100%;
     animation: breath 10s infinite;
-/*     box-shadow: 1px 5px 10px 0px #000000;
- */}
+    box-shadow: 1px 5px 10px 0px #000000;
+}
 
 .size_1
 {
