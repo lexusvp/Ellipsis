@@ -5,6 +5,7 @@
     Hard yellow                 : #fff2b8
     Super Hard yellow           : #fde98d
 
+    Is it even blue ?           : #f6f8ff
     Super soft blue             : #f1f4ff
     Soft blue                   : #CED7EF
     Hard blue                   : #7083bb
@@ -91,7 +92,7 @@ main
     
     padding-bottom: 50px;
 
-    background-color: #f1f4ff;
+    background-color: #f6f8ff;
 
     width: 100%;
 }
@@ -132,7 +133,7 @@ section
 
 article
 {
-    background-color: #f1f4ff;
+    background-color: #f6f8ff;
     border: #3f3f3f solid 3px;
     border-radius: 10px;
     margin: 25px 15px 15px 15px;
@@ -145,7 +146,8 @@ p
 {
     font-family:'Quicksand', sans-serif;
     font-size: 1.8rem;
-    width: 500px;
+    max-width: 500px;
+    min-width: 300px;
 
     color: #333333;
     text-align: center;
@@ -362,17 +364,17 @@ li:nth-child(3)
 {
     0%
     {
-        transform: scale(0.8) /* rotateY(0deg) rotateX(0deg) translateX(0) */;
+        transform: scale(0.8) /*rotateY(0deg) translateY(0px) rotateX(0deg) translateX(0)*/;
     }
     
     50%
     {
-        transform: scale(1.2) /* rotateY(360deg) rotateX(360deg) translateX(1920px) */;
+        transform: scale(1.2) /*rotateY(360deg) translateY(-800px) rotateX(360deg) translateX(1600px)*/;
     }
     
     100%
     {
-        transform: scale(0.8) /* rotateY(0deg) rotateX(0deg) translateX(0) */;
+        transform: scale(0.8) /*rotateY(0deg) translateY(0px) rotateX(0deg) translateX(0)*/;
     }
 }
 
@@ -385,7 +387,7 @@ li:nth-child(3)
     
     50%
     {
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
     
     100%
