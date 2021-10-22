@@ -74,7 +74,8 @@ main > img
     width: 250px;
     margin-bottom: 20px;
 }
-form
+
+main > form
 {
     display: flex;
     flex-direction: column;
@@ -87,13 +88,13 @@ form
     text-align: center;
 }
 
-form > div
+main > form > div
 {
     display: flex;
     padding-bottom: 15px;
 }
 
-input, label
+#update_account_form input, #update_account_form label 
 {
     display: block;
     padding: 10px;
@@ -115,7 +116,6 @@ article img
     height: 300px;
     padding: 0px 15px 0px 0px;
     margin-bottom: 15px;
-
 }
 
 article
@@ -158,60 +158,134 @@ nav
 
     z-index: 1000;
 }
+
 nav ul
 {   
-    padding: 0px;
     background-color: #3f3f3f;
     display: flex;
 }
 
-nav li
+li
 {
     display: flex;
+    align-items: center;
 }
 
-a
+a, #chat_button
 {
+    font-size: 1rem;
+    
+    border: #3f3f3f solid 1px;
     background-color: #686868;
     color: #ffffff;
     padding:15px;
-    border: #3f3f3f solid 1px;
+
 }
 
-nav li:nth-child(2) a:hover
+li:nth-child(2) a:hover
 {
     background-color: #CED7EF;
     color: #3f3f3f;
 }
 
-nav li:nth-child(3) a:hover
+li:nth-child(3) a:hover
 {
     background-color: #fff2b8;
     color: #3f3f3f;
 }
 
-nav li:first-child a
+li:first-child a
 {
     color: #3f3f3f;
     background-color: #CED7EF;
 }
 
-nav li:last-child a
-{
-    color: #3f3f3f;
-    background-color: #fff2b8;
-}
-
-nav li:nth-child(4)
-{
-    position: absolute;
-    right: 0px;
-}
-
-nav li:nth-child(3)
+li:nth-child(3)
 {
     position: absolute;
     right: 63px;
+}
+
+#chat_button
+{
+    position: absolute;
+    right: 0px;
+
+    color: #3f3f3f;
+    background-color: #fff2b8;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------        CHAT      --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+#chat_container
+{
+    display: none;
+
+    position: fixed;
+    z-index: 100;
+    bottom: 70px;
+    right: 20px;
+
+    background-color: #f1f4ff;
+    border: solid 1px black;
+    border-radius: 5px;
+
+    padding: 20px 20px 20px 20px;
+    width: 400px;
+    height: 400px;
+}
+
+#chat_thread
+{
+    background-color: rgb(255, 255, 255);
+    z-index: 10;
+    height: 300px;
+    width: 400px;
+    border-radius: 5px;
+}
+
+#chat_container div
+{
+    width: 400px;
+    text-align: center;
+}
+
+#chat_container form
+{
+    display: flex;
+    padding: 10px;
+}
+
+#chat_container input
+{
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#chat_container input:first-child
+{
+    width: 300px;
+}
+
+#close_chat
+{
+    position: relative;
+    color: #505050;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    top: -28px;
+    left: 18px;
+}
+
+#close_chat:hover
+{
+    color: #b6b6b6;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/

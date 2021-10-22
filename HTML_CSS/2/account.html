@@ -7,6 +7,7 @@
         
         <link href="../main.css" rel="stylesheet">
         <script type="text/javascript" src="../modal_handler.js"></script>
+        <script type="text/javascript" src="../chat_handler.js"></script>
     
         <title>My account</title>
     </head>
@@ -22,9 +23,9 @@
             <ul>
                 <li>Your actual pseudo is :</li>
                 <li>Your actual email adress is :</li>
-
             </ul>
-            <form action="update_account_form">
+
+            <form action="update_account_form" id="update_account_form">
                 
                 <div>
                     <label for="id"> Choose a new pseudo :</label>
@@ -49,7 +50,23 @@
                 <input type="reset" name="reset"class="buttons">                         
                 <input type="submit" name="submit"class="buttons">
             </form>
+
+            <section id="chat_container">
+                <span class="close_modal" id="close_chat" onclick="close_chat()">&times;</span>
+                <div>
+                    <div id="chat_thread">
+                        
+                    </div>
+                    <form>
+                        <div>
+                            <input type="text" name="message" placeholder="Enter your message here !">
+                            <input type="submit" value="Send !">
+                        </div>
+                    </form>
+                </div>
+            </section>
         </main>
+
 
         <nav>
             <ul>
@@ -60,12 +77,13 @@
                     <a href="services.html">Services</a>
                 </li>
                 <li> 
-                    <a href="2/account.html" id ="home"> Account </a>
+                    <a href="account.html" id ="home"> Account </a>
                 </li>                    
                 <li> 
-                    <a href="2/Contact.html"> Chat </a>
+                    <button id="chat_button" onclick="open_chat()"> Chat </button>
                 </li> 
             </ul>         
         </nav>
+
     </body>
 </html>

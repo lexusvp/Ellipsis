@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="home_anim.css">
         
         <script type="text/javascript" src="modal_handler.js"></script>
+        <script type="text/javascript" src="chat_handler.js"></script>
     </head>
     
     <body>
@@ -27,7 +28,7 @@
                     <a href="2/account.html"> Account </a>
                 </li>                    
                 <li> 
-                    <a href="2/Contact.html"> Chat </a>
+                    <button id="chat_button" onclick="open_chat()"> Chat </button>
                 </li> 
             </ul>         
         </nav>
@@ -35,7 +36,7 @@
             <img src="../Graph/images/logo/full_black.png" alt="logo">
             <img src="../Graph/images/icons/down_arrows.png" alt="logo">
         </header>
-        
+
         <div>                                        
             <div class='circle size_10'></div>
             <div class='circle size_9'></div>
@@ -53,7 +54,7 @@
             <header>
                 <img alt="header" src="../Graph/images/header_img/main_head.png">
             </header>
-            <section>
+            <section id="article_container">
                 <article>
                     <img alt="stats" src="../Graph/images/icons/statistics.svg">
                     <p>
@@ -73,7 +74,8 @@
                     </p>
                 </article>
             </section>
-            <div>
+
+            <section id="subscribe_container">
                 <img id="subscribe_image" alt="account" src="../Graph/images/icons/account_icon.svg">
 
                 <button id="modal_button" class="buttons" onclick="open_modal()">Sign up !</button>
@@ -111,7 +113,23 @@
                                 <input type="submit" name="submit" value="Sign in"class="buttons"> 
                         </div>
                     </form>
-                </div>                
+                </div>
+            </section>
+
+            <section id="chat_container">
+                <span class="close_modal" id="close_chat" onclick="close_chat()">&times;</span>
+                <div>
+                    <div id="chat_thread">
+                        
+                    </div>
+                    <form id="form">
+                        <div>
+                            <input type="text" name="message" placeholder="Enter your message here !">
+                            <input type="submit" value="Send !">
+                        </div>
+                    </form>
+                </div>
+            </section>
         </main>
 
     

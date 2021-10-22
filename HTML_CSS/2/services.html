@@ -7,6 +7,8 @@
         
         <link href="../main.css" rel="stylesheet">
         <script type="text/javascript" src="../modal_handler.js"></script>
+        <script type="text/javascript" src="../chat_handler.js"></script>
+
     
         <title>My account</title>
     </head>
@@ -41,8 +43,23 @@
                 </article>
 
             </section>
+            <section id="chat_container">
+                <span class="close_modal" id="close_chat" onclick="close_chat()">&times;</span>
+                <div>
+                    <div id="chat_thread">
+                        
+                    </div>
+                    <form>
+                        <div>
+                            <input type="text" name="message" placeholder="Enter your message here !">
+                            <input type="submit" value="Send !">
+                        </div>
+                    </form>
+                </div>
+            </section>
         </main>
 
+        
         <nav>
             <ul>
                 <li> 
@@ -55,9 +72,10 @@
                     <a href="account.html" id ="home"> Account </a>
                 </li>                    
                 <li> 
-                    <a href="2/Contact.html"> Chat </a>
+                    <button id="chat_button" onclick="open_chat()"> Chat </button>
                 </li> 
             </ul>         
         </nav>
+
     </body>
 </html>
