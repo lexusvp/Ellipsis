@@ -1,0 +1,173 @@
+/*  
+    Is it even yellow ?         : #fffdf7
+    Super soft yellow           : #fffae8
+    Soft yellow                 : #fdf3c6
+    Hard yellow                 : #fff2b8
+    Super Hard yellow           : #fde98d
+
+    Super soft blue             : #f1f4ff
+    Soft blue                   : #CED7EF
+    Hard blue                   : #7083bb
+*/
+
+body
+{
+    background: #CED7EF;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------      HEADER      --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+body > header
+{
+    background-color: #494949;
+    width:100%;
+    
+    padding-top: 3vh;
+    padding-bottom: 2vh;
+}
+
+body > header img:nth-child(1)
+{   
+    width: 200px;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------   MAIN SECTION   --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+main
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 20px 20px 80px 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+main > img
+{
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+main > form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 10px;
+    margin: 5px 15px 5px 15px; /* 15% from the top and centered */
+    padding: 5px 15px 0px 15px;
+    width: 90%;
+    text-align: center;
+}
+
+main > form > div
+{
+    display: flex;
+    padding-bottom: 15px;
+}
+
+#update_account_form input, #update_account_form label 
+{
+    display: block;
+    padding: 10px;
+}
+
+article img
+{
+    width: 500px;
+    height: 300px;
+    padding: 0px 15px 0px 0px;
+    margin-bottom: 15px;
+}
+
+article
+{
+    padding:15px;
+    margin: 5px 15px 15px 0px;
+}
+
+p
+{
+    max-height: 300px;
+    padding: 0px 20px 0px 20px;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------      NAVBAR      --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+nav
+{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+
+    z-index: 1000;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------        CHAT      --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+#chat_container
+{
+    bottom: 70px;
+    right: 20px;
+}
+
+/*-----------------------------------------------                  --------------------------------------*/
+/*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
+/*-----------------------------------------------                  --------------------------------------*/
+
+@media only screen and (max-width: 800px)
+{
+    main
+    {
+        margin: 8px;
+        padding-top: 0;
+    }
+
+    main > img
+    {
+        margin: 10px;
+    }
+    form
+    {
+        width: 350px;
+    }        
+    
+    form div
+    {
+        padding: 5px;
+    }
+
+    label
+    {
+        padding: 1px;
+        margin-right: 5px;
+    }
+
+    article
+    {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-height: 700px)
+{
+    ul
+    {
+        padding-top: 10px;
+    }
+    main > img
+    {
+        display: none;
+    }
+}

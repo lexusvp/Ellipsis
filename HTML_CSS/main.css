@@ -10,7 +10,6 @@
     Hard blue                   : #7083bb
 */
 
-
 *
 {
     margin: 0px;
@@ -29,28 +28,16 @@ body
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
-
-    background: #CED7EF;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
 /*-----------------------------------------------      HEADER      --------------------------------------*/
 /*-----------------------------------------------                  --------------------------------------*/
 
-header
+body > header
 {
     grid-column: 1 /span 12;
-    background-color: #494949;
-    width:100%;
     text-align: center;
-    
-    padding-top: 3vh;
-    padding-bottom: 2vh;
-}
-
-header img:nth-child(1)
-{   
-    width: 200px;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
@@ -61,48 +48,23 @@ main
 {
     grid-column: 1 /span 12;
     background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 20px 80px 20px;
-    padding: 15px;
-    border-radius: 5px;
+
+    z-index: 100;
 }
 
-main > img
-{
-    width: 250px;
-    margin-bottom: 20px;
-}
-
-main > form
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    border-radius: 10px;
-    margin: 5px 15px 5px 15px; /* 15% from the top and centered */
-    padding: 5px 15px 0px 15px;
-    width: 90%;
-    text-align: center;
-}
-
-main > form > div
-{
-    display: flex;
-    padding-bottom: 15px;
-}
-
-#update_account_form input, #update_account_form label 
-{
-    display: block;
-    padding: 10px;
-}
 
 .buttons
 {
+    width: 100px;
+    cursor: pointer;
+    
+    border: solid black 1px;
+    border-radius: 5px;
+
+    margin-bottom: 10px;
     margin-top: 10px;
+
+    padding: 10px;
 }
 
 .required_field_star
@@ -110,41 +72,22 @@ main > form > div
     color: red;
 }
 
-article img
-{
-    width: 500px;
-    height: 300px;
-    padding: 0px 15px 0px 0px;
-    margin-bottom: 15px;
-}
-
 article
 {
     display: flex;
     justify-items: center;
     align-items: center;
-    border: solid #3f3f3f 3px;
-    padding:15px;
-    margin: 5px 15px 15px 0px;
+    border: #3f3f3f solid 3px;
 }
 
 p
 {
+    font-family:'Quicksand', sans-serif;
+    font-size: 1.8rem;
+    color: #333333;
+
     overflow-y:auto;
-    max-height: 300px;
-    padding: 0px 20px 0px 20px;
 }
-
-.services_buttons
-{
-    padding: 5px;
-    margin: 10px 0px 0px 10px;
-    border-radius: 5px;
-    border: solid black 1px;
-    background-color: #CED7EF;
-
-}
-
 
 /*-----------------------------------------------                  --------------------------------------*/
 /*-----------------------------------------------      NAVBAR      --------------------------------------*/
@@ -153,7 +96,6 @@ p
 nav
 {
     position: fixed;
-    bottom: 0px;
     width: 100%;
 
     z-index: 1000;
@@ -230,8 +172,6 @@ li:nth-child(3)
 
     position: fixed;
     z-index: 100;
-    bottom: 70px;
-    right: 20px;
 
     background-color: #f1f4ff;
     border: solid 1px black;
@@ -380,55 +320,5 @@ li:nth-child(3)
     }
     100% {
         transform: rotateZ(360deg);
-    }
-}
-
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
-
-@media only screen and (max-width: 800px)
-{
-    main
-    {
-        margin: 8px;
-        padding-top: 0;
-    }
-
-    main > img
-    {
-        margin: 10px;
-    }
-    form
-    {
-        width: 350px;
-    }        
-    
-    form div
-    {
-        padding: 5px;
-    }
-
-    label
-    {
-        padding: 1px;
-        margin-right: 5px;
-    }
-
-    article
-    {
-        flex-direction: column;
-    }
-}
-
-@media only screen and (max-height: 700px)
-{
-    ul
-    {
-        padding-top: 10px;
-    }
-    main > img
-    {
-        display: none;
     }
 }

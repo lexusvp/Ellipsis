@@ -6,8 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link href="../main.css" rel="stylesheet">
-        <script type="text/javascript" src="../modal_handler.js"></script>
-        <script type="text/javascript" src="../chat_handler.js"></script>
+        <link href="./account.css" rel="stylesheet">
+
+        <script type="text/javascript" src="../../JS/chat_handler.js"></script>
     
         <title>My account</title>
     </head>
@@ -26,27 +27,22 @@
             </ul>
 
             <form action="update_account_form" id="update_account_form">
-                
                 <div>
                     <label for="id"> Choose a new pseudo :</label>
                     <input type="text" name="id" placeholder="Bob_653" required>
                 </div>
-
                 <div>
                     <label for="password"> Choose a new password :</label>
                     <input type="password" name="password" placeholder="Z2Cn$%*e1256DF" required>    
                 </div>
-
                 <div>
                     <label for="email"> Choose a new email adress :</label>
                     <input type="email" name="email" placeholder="myemail@something.com" required>       
                 </div>
-                
                 <div>
                     <label for="password"> Enter your current password :<span class="required_field_star">*</span></label>
                     <input type="password" name="password" placeholder="Z2Cn$%*e1256DF" required>    
                 </div>
-                
                 <input type="reset" name="reset"class="buttons">                         
                 <input type="submit" name="submit"class="buttons">
             </form>

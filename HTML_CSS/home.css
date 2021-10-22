@@ -1,41 +1,10 @@
-/*      
-    Is it even yellow ?         : #fffdf7
-    Super soft yellow           : #fffae8
-    Soft yellow                 : #fdf3c6
-    Hard yellow                 : #fff2b8
-    Super Hard yellow           : #fde98d
-
-    Is it even blue ?           : #f6f8ff
-    Super soft blue             : #f1f4ff
-    Soft blue                   : #CED7EF
-    Hard blue                   : #7083bb
-*/
-
-
-*
-{
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-}
-
-a 
-{
-    color: rgb(56, 56, 56);
-    text-decoration: none; /* no underline */
-}
 
 body
 {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    justify-items: center;
-    
-    background: #ffffff;
-    
-    overflow-x: hidden;
     height: 80vh;
 
+    overflow-x: hidden;
+    background: #ffffff;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
@@ -43,9 +12,7 @@ body
 /*-----------------------------------------------                  --------------------------------------*/
 
 body > header
-{
-    grid-column: 1 /span 12;
-    
+{    
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
@@ -81,20 +48,13 @@ body > header img:nth-child(2)
 
 main
 {
-    grid-column: 1 /span 12;
-
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
 
-
-    z-index: 100;
-    
-    padding-bottom: 50px;
-
-    background-color: #ffffff;
-
     width: 100%;
+
+    padding-bottom: 50px;
 }
 
 
@@ -132,23 +92,20 @@ main header img
 
 article
 {
+    flex-direction: column;
+
     background-color: #ffffff;
     border: #3f3f3f solid 3px;
-    border-radius: 10px;
+    border-radius: 5px;
+
     margin: 25px 15px 15px 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 p
 {
-    font-family:'Quicksand', sans-serif;
-    font-size: 1.8rem;
     max-width: 500px;
     min-width: 300px;
 
-    color: #333333;
     text-align: center;
     padding:20px;
 }
@@ -180,11 +137,6 @@ main #subscribe_container img
 /*-----------------------------------------------                  --------------------------------------*/
 /*-----------------------------------------------      MODALS      --------------------------------------*/
 /*-----------------------------------------------                  --------------------------------------*/
-
-.required_field_star
-{
-    color: red;
-}
 
 .modal 
 {
@@ -241,17 +193,6 @@ main #subscribe_container img
     padding: 10px;
 }
 
-.buttons
-{
-    padding: 10px;
-    width: 100px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    border: solid black 1px;
-}
-
 #modal_button
 {
     background-color: #fff2b8;
@@ -280,73 +221,7 @@ main #subscribe_container img
 
 nav
 {
-    position: fixed;
     grid-column: 1 /span 12;
-    width: 100%;
-
-    
-    z-index: 1000;
-}
-
-nav ul
-{   
-    background-color: #3f3f3f;
-    display: flex;
-}
-
-nav li
-{
-    display: flex;
-    align-items: center;
-}
-
-a, #chat_button
-{
-    font-size: 1rem;
-    
-    border: #3f3f3f solid 1px;
-    background-color: #686868;
-    color: #ffffff;
-    padding:15px;
-
-}
-
-li:nth-child(2) a:hover
-{
-    background-color: #CED7EF;
-    color: #3f3f3f;
-
-    animation: bounce_nav 0.3s infinite alternate;
-}
-
-li:nth-child(3) a:hover
-{
-    background-color: #fff2b8;
-    color: #3f3f3f;
-
-    animation: bounce_nav2 0.3s infinite alternate;
-}
-
-li:first-child a
-{
-    color: #3f3f3f;
-    background-color: #CED7EF;
-}
-
-li:nth-child(3)
-{
-    position: absolute;
-    right: 63px;
-}
-
-#chat_button
-{
-    position: absolute;
-    right: 0px;
-    cursor: pointer;
-
-    color: #3f3f3f;
-    background-color: #fff2b8;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
@@ -355,168 +230,8 @@ li:nth-child(3)
 
 #chat_container
 {
-    display: none;
-
-    position: fixed;
-    z-index: 100;
     bottom: 20px;
     right: 20px;
-
-    background-color: #f1f4ff;
-    border: solid 1px black;
-    border-radius: 5px;
-
-    padding: 20px 20px 20px 20px;
-    width: 400px;
-    height: 400px;
-}
-
-#chat_thread
-{
-    background-color: rgb(255, 255, 255);
-    z-index: 10;
-    height: 300px;
-    width: 400px;
-}
-
-#chat_container div
-{
-    margin: auto;
-    text-align: center;
-    width: 400px;
-}
-
-#chat_container form
-{
-    display: flex;
-    padding: 10px;
-}
-
-#chat_container input
-{
-    padding: 10px;
-    margin-top: 10px;
-}
-
-#chat_container input:first-child
-{
-    width: 300px;
-}
-
-#close_chat
-{
-    position: relative;
-    top: -28px;
-    left: 18px;
-}
-
-
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------     KEYFRAMES    --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
-
-@keyframes breath
-{
-    0%
-    {
-        transform: scale(0.8) /*rotateY(0deg) translateY(0px) rotateX(0deg) translateX(0)*/;
-    }
-    
-    50%
-    {
-        transform: scale(1.2) /*rotateY(360deg) translateY(-800px) rotateX(360deg) translateX(1600px)*/;
-    }
-    
-    100%
-    {
-        transform: scale(0.8) /*rotateY(0deg) translateY(0px) rotateX(0deg) translateX(0)*/;
-    }
-}
-
-@keyframes breath_2
-{
-    0%
-    {
-        transform: scale(1);
-    }
-    
-    50%
-    {
-        transform: scale(1.2);
-    }
-    
-    100%
-    {
-        transform: scale(1);
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    1% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes bounce {
-    0% {
-        transform: translateY(0px);
-    }
-    100% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes bounce_nav {
-    0% {
-        transform: translateX(0px);
-    }
-    100% {
-        transform: translateX(10px);
-    }
-}
-
-@keyframes bounce_nav2 {
-    0% {
-        transform: translateX(0px);
-    }
-    100% {
-        transform: translateX(-10px);
-    }
-}
-
-@keyframes rotate_z {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    100% {
-        transform: rotateZ(360deg);
-    }
-}
-
-@keyframes rotate_x {
-    0% {
-        transform: rotateX(0deg);
-    }
-    100% {
-        transform: rotateX(360deg);
-    }
-}
-
-@keyframes rotate_y {
-    0% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(360deg);
-    }
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
