@@ -1,3 +1,16 @@
+/*  
+    Is it even yellow ?         : #fffdf7
+    Super soft yellow           : #fffae8
+    Soft yellow                 : #fdf3c6
+    Hard yellow                 : #fff2b8
+    Super Hard yellow           : #fde98d
+
+    Super soft blue             : #f1f4ff
+    Soft blue                   : #CED7EF
+    Hard blue                   : #7083bb
+*/
+
+
 *
 {
     margin: 0px;
@@ -17,7 +30,7 @@ body
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
 
-    background: #7083bb;
+    background: #CED7EF;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
@@ -47,7 +60,53 @@ header img:nth-child(1)
 main
 {
     grid-column: 1 /span 12;
-    background-color: #fff2b8;
+    background-color: #fffdf7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+main > img
+{
+    width: 250px;
+    margin-bottom: 20px;
+}
+form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 10px;
+    margin: 5px 15px 5px 15px; /* 15% from the top and centered */
+    padding: 5px 15px 0px 15px;
+    width: 500px;
+    text-align: center;
+}
+
+form > div
+{
+    display: flex;
+    padding-bottom: 15px;
+}
+
+input, label
+{
+    display: block;
+    padding: 10px;
+}
+
+.buttons
+{
+    margin-top: 10px;
+}
+
+.required_field_star
+{
+    color: red;
 }
 
 /*-----------------------------------------------                  --------------------------------------*/
@@ -56,19 +115,19 @@ main
 
 nav
 {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
 
     z-index: 1000;
 }
-ul
+nav ul
 {   
     background-color: #3f3f3f;
     display: flex;
 }
 
-li
+nav li
 {
     display: flex;
 }
@@ -78,39 +137,40 @@ a
     background-color: #686868;
     color: #ffffff;
     padding:15px;
+    border: #3f3f3f solid 1px;
 }
 
-li:nth-child(2) a:hover
+nav li:nth-child(2) a:hover
 {
     background-color: #CED7EF;
     color: #3f3f3f;
 }
 
-li:nth-child(3) a:hover
+nav li:nth-child(3) a:hover
 {
     background-color: #fff2b8;
     color: #3f3f3f;
 }
 
-li:first-child a
+nav li:first-child a
 {
     color: #3f3f3f;
     background-color: #CED7EF;
 }
 
-li:last-child a
+nav li:last-child a
 {
     color: #3f3f3f;
     background-color: #fff2b8;
 }
 
-li:nth-child(4)
+nav li:nth-child(4)
 {
     position: absolute;
     right: 0px;
 }
 
-li:nth-child(3)
+nav li:nth-child(3)
 {
     position: absolute;
     right: 63px;

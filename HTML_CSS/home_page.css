@@ -1,4 +1,6 @@
-/*  Super soft yellow           : #fffae8
+/*      
+    Is it even yellow ?         : #fffdf7
+    Super soft yellow           : #fffae8
     Soft yellow                 : #fdf3c6
     Hard yellow                 : #fff2b8
     Super Hard yellow           : #fde98d
@@ -63,7 +65,7 @@ body > header img:nth-child(1)
 body > header img:nth-child(2)
 {
     grid-column: 1;
-    margin-top: 300px;
+    margin-top: 250px;
     z-index: 100;
     min-width: 50px;
     max-width: 1%;
@@ -130,9 +132,10 @@ section
 
 article
 {
-    background-color: #CED7EF;
+    background-color: #f1f4ff;
+    border: #3f3f3f solid 3px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 25px 15px 15px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -142,7 +145,7 @@ p
 {
     font-family:'Quicksand', sans-serif;
     font-size: 1.8rem;
-    width: 400px;
+    width: 500px;
 
     color: #333333;
     text-align: center;
@@ -311,6 +314,8 @@ a
     background-color: #686868;
     color: #ffffff;
     padding:15px;
+    border: #3f3f3f solid 1px;
+
 }
 
 li:nth-child(2) a:hover
@@ -425,6 +430,25 @@ li:nth-child(3)
 /*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
 /*-----------------------------------------------                  --------------------------------------*/
 
-@media only screen and (min-width: 800px)
+@media only screen and (max-width: 800px)
 {
+    nav
+    {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+
+        z-index: 1000;
+    }
+
+    body > header img:nth-child(2)
+    {
+        grid-column: 1;
+        margin-top: 250px;
+        z-index: 100;
+        min-width: 50px;
+        max-width: 1%;
+
+        animation: fadeIn 3.5s ease-in-out, bounce 0.5s infinite alternate;
+    }
 }
