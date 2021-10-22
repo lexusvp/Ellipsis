@@ -57,7 +57,7 @@ p
     padding: 0px 20px 0px 20px;
 }
 
-.services_buttons
+article > button
 {
     padding: 5px;
     margin: 10px 0px 0px 10px;
