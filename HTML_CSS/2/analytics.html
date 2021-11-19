@@ -1,0 +1,105 @@
+<!DOCTYPE html>                 <!-- THIS PAGE SHOULD ONLY BE VISIBLE BY ADMINS -- TODO -->
+<html lang="en">            
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="../main.css" rel="stylesheet">
+        <link href="./analytics.css" rel="stylesheet">
+        <link href="./second_main.css" rel="stylesheet" >
+        <script type="text/javascript" src="../../JS/chat_handler.js"></script>
+        <script src="../../JS/plotly.js"></script>
+
+    
+        <title> Analytics </title>
+    </head>
+
+    <body>
+        <header>
+            <img alt="header" src="../../Graph/images/header_img/analytics_head.png">
+        </header>
+        
+        <main>
+            <section>
+                <div id="tester" ></div>
+                <script>
+                    var trace1 = {
+                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        y: [10, 15, 13, 17, 23, 36, 45, 59, 60, 60],
+                        type: 'scatter',
+                        line: {
+                            color: "#000000"
+                        }
+                        };
+    
+                    var trace2 = {
+                        x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        y: [16, 5, 11, 12, 5, 38, 56, 25, 42, 72],
+                        type: 'scatter',
+                        line: {
+                            color: "#000000"
+                        }
+                        };
+    
+                    var data = [trace1, trace2];
+    
+                    var layout = {
+                        width: 1500,
+                        height: 500,
+                        paper_bgcolor: '#adb699',
+                        plot_bgcolor: '#adb699',
+                        modebar: {
+                            activecolor: "#ffffff",
+                            color: "#ffffff"
+                        },
+                        hoverlabel: {
+                            font: {
+                                size: 16
+                            }
+                        }
+                    };
+    
+                    let div = document.getElementById("tester");
+                    console.log(Plotly.newPlot(div, data, layout));
+                </script>
+            </section>    
+
+            <section id="chat_container">
+                <span class="close_modal" id="close_chat" onclick="close_chat()">&times;</span>
+                <div>
+                    <div id="chat_thread">
+                        
+                    </div>
+                    <form>
+                        <div>
+                            <input type="text" name="message" placeholder="Enter your message here !">
+                            <input type="submit" value="Send !">
+                        </div>
+                    </form>
+                </div>
+            </section>     
+        </main>
+
+        <nav>
+            <ul>
+                <li> 
+                    <a href="../index.html">Acceuil</a>
+                </li>                          
+                <li> 
+                    <a href="services.html">Services</a>
+                </li>
+                <li> 
+                    <a href="account.html" id ="home"> Account </a>
+                </li>                    
+                <li> 
+                    <a href="analytics.html"> Analytics </a>
+                </li>      
+                <li> 
+                    <button id="chat_button" onclick="open_chat()"> Chat </button>
+                </li> 
+            </ul>         
+        </nav>
+
+    </body>
+</html>
