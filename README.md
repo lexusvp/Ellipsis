@@ -10,5 +10,6 @@ Fonctionnalités:
 - Fonction de vérification d'identité via un code envoyé par mail
 
 - Fonction de récupération logs d'inscriptions / connexions / déconnexions / suppressions de compte / messages et erreurs
+- Analytics logs DB /!\
 
 ...
