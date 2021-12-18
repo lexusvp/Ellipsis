@@ -5,7 +5,7 @@
    window.addEventListener("scroll", () => {
       if (window.scrollY > triggElement.offsetTop) {
          nav.style.bottom = "0px";
-         chat.style.bottom = "";
+         chat.style.bottom = "70px";
       } if (window.scrollY + window.innerHeight < triggElement.offsetTop) {
          chat.style.bottom = "15px";
          nav.style.bottom = "";
