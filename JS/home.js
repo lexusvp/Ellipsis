@@ -1,12 +1,13 @@
-(() => {
+(function navAndChatMovement() {
    const triggElement = document.querySelector("main > div");
    const nav = document.querySelector("nav");
-   console.log(triggElement.offsetTop);
+   const chat = document.querySelector("#chat_container");
    window.addEventListener("scroll", () => {
       if (window.scrollY > triggElement.offsetTop) {
          nav.style.bottom = "0px";
-      } 
-      if (window.scrollY + window.innerHeight < triggElement.offsetTop) {
+         chat.style.bottom = "";
+      } if (window.scrollY + window.innerHeight < triggElement.offsetTop) {
+         chat.style.bottom = "15px";
          nav.style.bottom = "";
       }
    })
