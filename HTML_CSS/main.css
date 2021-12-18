@@ -140,6 +140,7 @@ nav ul li button {
 /*================================>>  MODALS  <<=================================*/
 
 .modal {
+    z-index: 100;
     display: none;
     position: fixed;
     left: 0;
