@@ -1,11 +1,10 @@
 body
 {
-    background: #CED7EF;
+    background: var(--soft-blue);
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------   MAIN SECTION   --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*==================================>>  MAIN  <<=================================*/
+
 main 
 {
     background-color: #ffffff;  
@@ -38,5 +37,5 @@ article > button
     margin: 10px 0px 0px 10px;
     border-radius: 5px;
     border: solid black 1px;
-    background-color: #CED7EF;
+    background-color: var(--soft-blue);
 }

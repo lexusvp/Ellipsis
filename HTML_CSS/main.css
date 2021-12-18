@@ -1,14 +1,17 @@
-/*  
-    Is it even yellow ?         : #fffdf7
-    Super soft yellow           : #fffae8
-    Soft yellow                 : #fdf3c6
-    Hard yellow                 : #fff2b8
-    Super Hard yellow           : #fde98d
+:root {
+    --main-black: #3f3f3f;
+    --main-grey: #5c5c5c;
 
-    Super soft blue             : #f1f4ff
-    Soft blue                   : #CED7EF
-    Hard blue                   : #7083bb
-*/
+    --hard-blue: #7083bb;
+    --soft-blue: #CED7EF;
+    --supersoft-blue: #f1f4ff;
+
+    --hard-yellow: #fff2b8;
+    --soft-yellow: #fdf3c6;
+    --supersoft-yellow: #fffae8;
+    --white-yellow: #fffdf7;
+
+}
 
 *
 {
@@ -30,9 +33,7 @@ body
     justify-items: center;
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------      HEADER      --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*================================>>  HEADER  <<================================*/
 
 body > header
 {
@@ -40,9 +41,7 @@ body > header
     text-align: center;
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------   MAIN SECTION   --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*==================================>>  MAIN  <<=================================*/
 
 main
 {
@@ -75,7 +74,7 @@ article
     display: flex;
     justify-items: center;
     align-items: center;
-    border: #3f3f3f solid 3px;
+    border: var(--main-black) solid 3px;
 }
 
 p
@@ -87,9 +86,7 @@ p
     overflow-y:auto;
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------      NAVBAR      --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*==================================>>  NAV  <<=================================*/
 
 nav
 {
@@ -101,7 +98,7 @@ nav
 
 nav ul
 {   
-    background-color: #3f3f3f;
+    background-color: var(--main-black);
     display: flex;
 }
 
@@ -115,8 +112,8 @@ a, #chat_button
 {
     font-size: 1rem;
     
-    border: #3f3f3f solid 1px;
-    background-color: #686868;
+    border: var(--main-black) solid 1px;
+    background-color: var(--main-grey);
     color: #ffffff;
     padding:15px;
 
@@ -124,24 +121,24 @@ a, #chat_button
 
 li:nth-child(2) a:hover
 {
-    background-color: #CED7EF;
-    color: #3f3f3f;
+    background-color: var(--soft-blue);
+    color: var(--main-black);
 
     animation: bounce_nav 0.3s infinite alternate;
 }
 
 li:nth-child(3) a:hover
 {
-    background-color: #fff2b8;
-    color: #3f3f3f;
+    background-color: var(--hard-yellow);
+    color: var(--main-black);
 
     animation: bounce_nav2 0.3s infinite alternate;
 }
 
 li:first-child a
 {
-    color: #3f3f3f;
-    background-color: #CED7EF;
+    color: var(--main-black);
+    background-color: var(--soft-blue);
 }
 
 li:nth-child(3)
@@ -156,13 +153,11 @@ li:nth-child(3)
     right: 0px;
     cursor: pointer;
 
-    color: #3f3f3f;
-    background-color: #fff2b8;
+    color: var(--main-black);
+    background-color: var(--hard-yellow);
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------        CHAT      --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*==================================>>  CHAT  <<=================================*/
 
 #chat_container
 {
@@ -171,7 +166,7 @@ li:nth-child(3)
     position: fixed;
     z-index: 100;
 
-    background-color: #f1f4ff;
+    background-color: var(--supersoft-blue);
     border: solid 1px black;
     border-radius: 5px;
 
@@ -182,7 +177,7 @@ li:nth-child(3)
 
 #chat_thread
 {
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     z-index: 10;
     height: 300px;
     width: 400px;
@@ -215,7 +210,7 @@ li:nth-child(3)
 #close_chat
 {
     position: relative;
-    color: #505050;
+    color: var(--main-grey);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -231,9 +226,7 @@ li:nth-child(3)
     cursor: pointer;
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------     KEYFRAMES    --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*==================================>>  ANIMS  <<=================================*/
 
 @keyframes breath
 {

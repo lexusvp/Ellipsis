@@ -1,18 +1,12 @@
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------   BIG HOME ANIM  --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
-
-.circle
-{
+.circle {    
     position: absolute;
     border-radius: 100%;
     animation: breath 10s infinite;
     box-shadow: 1px 5px 10px 0px #000000;
 }
 
-.size_1
-{
-    background: #7083bb;
+.size_1 {
+    background: var(--hard-blue);
     width: 200px;
     height: 200px;
     left: -100px;
@@ -20,9 +14,8 @@
     opacity: 1;
 }
 
-.size_2
-{
-    background: #fdf3c6;
+.size_2 {
+    background: var(--soft-yellow);
 
     width: 380px;
     height: 380px;
@@ -31,9 +24,8 @@
     opacity: 0.9;
 }
 
-.size_3
-{
-    background: #7083bb;
+.size_3 {
+    background: var(--hard-blue);
 
     width: 560px;
     height: 560px;
@@ -42,9 +34,8 @@
     opacity: 0.8;
 }
 
-.size_4
-{
-    background: #fdf3c6;
+.size_4 {
+    background: var(--soft-yellow);
 
     width: 740px;
     height: 740px;
@@ -53,9 +44,8 @@
     opacity: 0.7;
 }
 
-.size_5
-{
-    background: #7083bb;
+.size_5 {
+    background: var(--hard-blue);
 
     width: 920px;
     height: 920px;
@@ -64,9 +54,8 @@
     opacity: 0.6;
 }
 
-.size_6
-{
-    background: #fdf3c6;
+.size_6 {
+    background: var(--soft-yellow);
 
     width: 1100px;
     height: 1100px;
@@ -75,9 +64,8 @@
     opacity: 0.5;
 }
 
-.size_7
-{
-    background: #7083bb;
+.size_7 {
+    background: var(--hard-blue);
 
     width: 1280px;
     height: 1280px;
@@ -86,9 +74,8 @@
     opacity: 0.4;
 }
 
-.size_8
-{
-    background: #fdf3c6;
+.size_8 {
+    background: var(--soft-yellow);
 
     width: 1460px;
     height: 1460px;
@@ -97,9 +84,8 @@
     opacity: 0.3;
 }
 
-.size_9
-{
-    background: #7083bb;
+.size_9 {
+    background: var(--hard-blue);
 
     width: 1640px;
     height: 1640px;
@@ -108,9 +94,8 @@
     opacity: 0.2;
 }
 
-.size_10
-{
-    background: #fdf3c6;
+.size_10 {
+    background: var(--soft-yellow);
 
     width: 1820px;
     height: 1820px;
@@ -119,14 +104,11 @@
     opacity: 0.1;
 }
 
-/*-----------------------------------------------                  --------------------------------------*/
-/*-----------------------------------------------  RESPONSIVENESS  --------------------------------------*/
-/*-----------------------------------------------                  --------------------------------------*/
+/*/=========================>> RESPONSIVENESS <<=========================/*/
 
 @media only screen and (min-width: 800px) 
 {  
-    .size_1
-    {
+    .size_1 {
         width: 200px;
         height: 200px;
         left: -100px;
@@ -134,8 +116,7 @@
         opacity: 1;
     }
 
-    .size_2
-    {
+    .size_2 {
         width: 500px;
         height: 500px;
         left: -200px;
@@ -143,8 +124,7 @@
         opacity: 0.9;
     }
 
-    .size_3
-    {
+    .size_3 {
         width: 800px;
         height: 800px;
         left: -300px;
@@ -152,8 +132,7 @@
         opacity: 0.8;
     }
 
-    .size_4
-    {
+    .size_4 {
         width: 1100px;
         height: 1100px;
         left: -400px;
@@ -161,8 +140,7 @@
         opacity: 0.7;
     }
 
-    .size_5
-    {
+    .size_5 {
         width: 1400px;
         height: 1400px;
         left: -500px;
@@ -170,8 +148,7 @@
         opacity: 0.6;
     }
 
-    .size_6
-    {
+    .size_6 {
         width: 1700px;
         height: 1700px;
         left: -600px;
@@ -179,8 +156,7 @@
         opacity: 0.5;
     }
 
-    .size_7
-    {
+    .size_7 {
         width: 2000px;
         height: 2000px;
         left: -700px;
@@ -188,8 +164,7 @@
         opacity: 0.4;
     }
 
-    .size_8
-    {
+    .size_8 {
         width: 2300px;
         height: 2300px;
         left: -800px;
@@ -197,8 +172,7 @@
         opacity: 0.3;
     }
 
-    .size_9
-    {
+    .size_9 {
         width: 2600px;
         height: 2600px;
         left: -900px;
@@ -206,8 +180,7 @@
         opacity: 0.2;
     }
 
-    .size_10
-    {
+    .size_10 {
         width: 2900px;
         height: 2900px;
         left: -1000px;
