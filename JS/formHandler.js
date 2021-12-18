@@ -6,14 +6,15 @@ function formsHandler() {
          e.preventDefault();
          const current = forms[i];
 
-         if (i === 0) {    // Case of chat form
+         if (current.name === "chat") {
             const message = document.querySelector("#chat_container input[type='text']").value;
-            if (messageValidation(message)) {
-               // Info: Send to DB -> Display
-            }
+            // Info: Send to DB -> Display
          }
-         else if (registerValidation(current)) {
+         else if (current.name === "register" && registerValidation(current)) {
             // Info: Send to DB -> Confirm
+         }
+         else if (current.name === "login" && loginValidation(current)) {
+            // Info: Send to DB -> Test -> Connect / Display
          }
       })
    }

@@ -86,8 +86,9 @@
         <section class="modal">
             <div id="chat_container">
                 <div></div>
-                <form>
-                    <input type="text" name="message" placeholder="Enter your message here !">
+                <form name="chat">
+                    <input type="text" name="message" placeholder="Enter your message here !" 
+                    minlength=1 maxlength="600">
                     <input type="submit" value="Send !">
                 </form>
             </div>
@@ -98,7 +99,7 @@
             
             <button class="modal_buttons buttons" id="signup_button"> Sign up !</button>
             <div class="modal">
-                <form action="signup_account_form" method="post">
+                <form action="signup_account_form" method="post" name="register">
                     <label for="id"> Choose a pseudo :<span class="required_field_star">*</span></label>
                     <input type="text" name="id" placeholder="Bob_653" required>
                     <label for="password"> Choose a secure password :<span class="required_field_star">*</span></label>
@@ -113,7 +114,7 @@
             
             <button class="modal_buttons buttons" id="login_button"> Log in !</button>
             <div class="modal">
-                <form action="login_account_form" method="post">
+                <form action="login_account_form" method="post" name="login">
                     <label for="id"> Enter your pseudo :<span class="required_field_star">*</span></label>
                     <input type="text" name="id" required>
                     <label for="password"> Enter your password :<span class="required_field_star">*</span></label>
