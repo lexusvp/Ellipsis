@@ -1,41 +1,37 @@
-body
-{
-    background: var(--soft-blue);
-}
-
 /*==================================>>  MAIN  <<=================================*/
-
-main 
-{
-    background-color: #ffffff;  
+main {
     margin: 20px 20px 80px 20px;
     padding: 15px;
 }
-article img
-{
+article img {
     width: 500px;
     height: 300px;
     padding: 0px 15px 0px 0px;
     margin-bottom: 15px;
 }
 
-article
-{
+article {
     padding:15px;
     margin: 5px 15px 15px 0px;
 }
 
-p
-{
+p {
     max-height: 300px;
     padding: 0px 20px 0px 20px;
 }
 
-article > button
-{
+article > button {
     padding: 5px;
     margin: 10px 0px 0px 10px;
     border-radius: 5px;
     border: solid black 1px;
     background-color: var(--soft-blue);
+}
+
+/*===========================>>  RESPONSIVENESS  <<============================*/
+
+@media only screen and (max-width: 800px) {
+    article {
+        flex-direction: column;
+    }
 }

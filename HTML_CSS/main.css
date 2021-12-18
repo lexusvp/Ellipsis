@@ -13,45 +13,39 @@
 
 }
 
-*
-{
+* {
     margin: 0px;
     padding: 0px;
     list-style: none;
     text-decoration: none;
 }
 
-a 
-{
-    color: rgb(56, 56, 56);
+a {
+    color: --main-black;
 }
 
-body
-{
+body {
     display: grid;
+    width: 100%;
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
 }
 
 /*================================>>  HEADER  <<================================*/
 
-body > header
-{
+body > header {
     grid-column: 1 /span 12;
     text-align: center;
 }
 
 /*==================================>>  MAIN  <<=================================*/
 
-main
-{
+main {
     grid-column: 1 /span 12;
-    z-index: 100;
 }
 
 
-.buttons
-{
+.buttons {
     width: 100px;
     cursor: pointer;
     
@@ -64,91 +58,77 @@ main
     padding: 10px;
 }
 
-.required_field_star
-{
+.required_field_star {
     color: red;
 }
 
-article
-{
+article {
     display: flex;
     justify-items: center;
     align-items: center;
     border: var(--main-black) solid 3px;
 }
 
-p
-{
+p {
     font-family:'Quicksand', sans-serif;
-    font-size: 1.8rem;
-    color: #333333;
+    font-size: 1.3rem;
+    color: --main-black;
 
     overflow-y:auto;
 }
 
 /*==================================>>  NAV  <<=================================*/
 
-nav
-{
+nav {
     position: fixed;
-    width: 100%;
-
+    width: 100%;   
     z-index: 1000;
 }
 
-nav ul
-{   
+nav ul {   
     background-color: var(--main-black);
     display: flex;
 }
 
-nav li
-{
+nav li {
     display: flex;
     align-items: center;
 }
 
-a, #chat_button
-{
+a, nav ul li button {
     font-size: 1rem;
     
     border: var(--main-black) solid 1px;
     background-color: var(--main-grey);
     color: #ffffff;
     padding:15px;
-
 }
 
-li:nth-child(2) a:hover
-{
+li:nth-child(2) a:hover {
     background-color: var(--soft-blue);
     color: var(--main-black);
 
     animation: bounce_nav 0.3s infinite alternate;
 }
 
-li:nth-child(3) a:hover
-{
+li:nth-child(3) a:hover {
     background-color: var(--hard-yellow);
     color: var(--main-black);
 
     animation: bounce_nav2 0.3s infinite alternate;
 }
 
-li:first-child a
-{
+li:first-child a {
     color: var(--main-black);
     background-color: var(--soft-blue);
 }
 
-li:nth-child(3)
-{
+li:nth-child(3) {
     position: absolute;
-    right: 63px;
+    right: 67px;
 }
 
-#chat_button
-{
+nav ul li button {
     position: absolute;
     right: 0px;
     cursor: pointer;
@@ -157,113 +137,78 @@ li:nth-child(3)
     background-color: var(--hard-yellow);
 }
 
+/*================================>>  MODALS  <<=================================*/
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #3f3f3fa4; /* Fallback color */
+}
+
 /*==================================>>  CHAT  <<=================================*/
 
-#chat_container
-{
-    display: none;
-
+#chat_container {
     position: fixed;
-    z-index: 100;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 70px;
+    right: 20px;
+    
     background-color: var(--supersoft-blue);
-    border: solid 1px black;
-    border-radius: 5px;
-
-    padding: 20px 20px 20px 20px;
-    width: 400px;
-    height: 400px;
-}
-
-#chat_thread
-{
-    background-color: #ffffff;
-    z-index: 10;
-    height: 300px;
-    width: 400px;
-    border-radius: 5px;
-}
-
-#chat_container div
-{
     width: 400px;
     text-align: center;
 }
 
-#chat_container form
-{
-    display: flex;
+#chat_container > div {
+    background-color: #ffffff;
+    margin-top: 20px;
+    height: 250px;
+    width: 350px;
+    border-radius: 5px;
+}
+
+#chat_container > form {
     padding: 10px;
 }
 
-#chat_container input
-{
+#chat_container input {
     padding: 10px;
     margin-top: 10px;
 }
 
-#chat_container input:first-child
-{
+#chat_container input:first-child {
     width: 300px;
-}
-
-#close_chat
-{
-    position: relative;
-    color: var(--main-grey);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-
-    top: -28px;
-    left: 18px;
-}
-
-#close_chat:hover
-{
-    color: #b6b6b6;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 /*==================================>>  ANIMS  <<=================================*/
 
-@keyframes breath
-{
-    0%
-    {
+@keyframes breath {
+    0% {
         transform: scale(0.8);
-    }
-    
-    50%
-    {
+    }  
+    50% {
         transform: scale(1.2);
-    }
-    
-    100%
-    {
+    }  
+    100% {
         transform: scale(0.8);
     }
 }
-
-@keyframes breath_2
-{
-    0%
-    {
+@keyframes breath_2 {
+    0% {
         transform: scale(1);
-    }
-    
-    50%
-    {
+    }   
+    50% {
         transform: scale(1.15);
     }
-    
-    100%
-    {
+    100% {
         transform: scale(1);
     }
 }
-
 @keyframes bounce_nav {
     0% {
         transform: translateX(0px);
@@ -272,7 +217,6 @@ li:nth-child(3)
         transform: translateX(10px);
     }
 }
-
 @keyframes bounce_nav2 {
     0% {
         transform: translateX(0px);
@@ -281,21 +225,17 @@ li:nth-child(3)
         transform: translateX(-10px);
     }
 }
-
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
-
     1% {
         opacity: 0;
     }
-
     100% {
         opacity: 1;
     }
 }
-
 @keyframes bounce {
     0% {
         transform: translateY(0px);
@@ -304,7 +244,6 @@ li:nth-child(3)
         transform: translateY(-20px);
     }
 }
-
 @keyframes rotate_z {
     0% {
         transform: rotateZ(0deg);

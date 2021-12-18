@@ -1,15 +1,10 @@
-body
-{
-    height: 80vh;
-
+body {
     overflow-x: hidden;
-    background: #ffffff;
 }
 
 /*====================================>>  HEADER  <<====================================*/
 
-body > header
-{    
+header {    
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
@@ -17,21 +12,21 @@ body > header
     height: 100vh;
 }
 
-body > header img:nth-child(1)
-{   
+header img:nth-child(1) {   
+    z-index: 100;
     grid-column: 1;
     margin-top: 20vh;
-    z-index: 100;
     min-width: 200px;
     max-width: 20%;
     animation: fadeIn 3.5s ease-in-out, breath_2 10s infinite;
 }
 
-body > header img:nth-child(2)
-{
-    grid-column: 1;
-    margin-top: 250px;
+header img:nth-child(2) {
     z-index: 100;
+    grid-column: 1;
+    position: relative;
+
+    margin-top: 10vh;
     min-width: 50px;
     max-width: 1%;
 
@@ -40,23 +35,15 @@ body > header img:nth-child(2)
 
 /*====================================>>  MAIN  <<====================================*/
 
-main
-{
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
+main {
+    z-index: 100;
     background-color: #ffffff;
-
-
     width: 100%;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
 
-main > header
-{
-    grid-column: 1;
-
+main > div {
     padding-top: 25px;
     padding-bottom: 25px;
     background-color: var(--main-black);
@@ -64,40 +51,31 @@ main > header
     display: grid;
     justify-items: center;
     align-items: center;
-
     width: 100%;
 }
 
-main header img
-{
+main > div img {
     min-width: 300px;
     max-width: 35%;
 }
 
-#article_container
-{
+section:nth-child(2) {
     display:flex;
-    flex-direction:row;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-
-    width: 100%;
 }
 
-article
-{
+article {
     flex-direction: column;
-
-    background-color: #ffffff;
+    width: 500px;
+    margin: 25px 15px 15px 15px;
+    
     border: var(--main-black) solid 3px;
     border-radius: 5px;
-
-    margin: 25px 15px 15px 15px;
 }
 
-p
-{
+p {
     max-width: 500px;
     min-width: 300px;
 
@@ -105,145 +83,74 @@ p
     padding:20px;
 }
 
-article img
-{
-    margin: 40px;
-    width: 250px;
+article img {
+    margin: 15px 0px 5px 0px;
+    width: 170px;
 }
 
-main #subscribe_container
-{
+section:nth-child(5) {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding:50px;
 }
 
-main #subscribe_container img
-{
-    margin-top: 20px;
-    margin-bottom: 50px;
+section:nth-child(5) > img {
     display: block;
     width: 250px;
+    margin-bottom: 50px;
 
     animation: bounce 0.5s infinite alternate;
 }
 
 /*====================================>>  MODALS  <<====================================*/
 
-.modal 
-{
-    display: none;
-    position: fixed;
-    z-index: 5000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #3f3f3fa4; /* Fallback color */
-}
-
-.modal_content
-{
-    background-color: var(--white-yellow);
-    border-radius: 5px;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    width: 250px;
-    text-align: center;
-}
-
-.modal_flex
-{
+.modal > form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 250px;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
 
-.close_modal
-{
-    position: relative;
-    color: var(--main-grey);
-    float: right;
-    top:-20px;
-    left:10px;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close_modal:hover, .close_modal:focus 
-{
-    color: #b6b6b6;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#subscribe_container input, #subscribe_container label
-{
+.modal > form input, .modal > form label {
     display: block;
     padding: 10px;
 }
 
-#modal_button
-{
+#signup_button {
     background-color: var(--hard-yellow);
 }
-
-#modal_button:hover
-{
+#signup_button:hover {
     background-color: var(--main-grey);
     color:var(--hard-yellow);
 }
 
-#modal_button2
-{
+#login_button{
     background-color: var(--soft-blue);
 }
-
-#modal_button2:hover
-{
+#login_button:hover{
     background-color: var(--main-grey);
     color:var(--soft-blue);
-}
-
-/*====================================>>  NAV  <<====================================*/
-
-nav
-{
-    grid-column: 1 /span 12;
-}
-
-/*====================================>>  CHAT  <<====================================*/
-
-#chat_container
-{
-    bottom: 20px;
-    right: 20px;
 }
 
 /*================================>>  RESPONSIVENESS  <<================================*/
 
 @media only screen and (max-width: 800px)
 {
-    nav
-    {
-        position: fixed;
+    nav {
         bottom: 0px;
         width: 100%;
-
-        z-index: 1000;
     }
 
-    body > header img:nth-child(2)
-    {
-        grid-column: 1;
-        margin-top: 250px;
-        z-index: 100;
+    header img:nth-child(2) {
         min-width: 50px;
         max-width: 1%;
-
-        animation: fadeIn 3.5s ease-in-out, bounce 0.5s infinite alternate;
     }
 }

@@ -1,15 +1,19 @@
-/*================================>>  HEADER  <<================================*/
-
-body > header
+body
 {
-    background-color: var(--main-black);
-    width:100%;
-    
-    padding-top: 3vh;
-    padding-bottom: 2vh;
+    background: var(--soft-blue);
 }
 
-body > header img:nth-child(1)
+/*================================>>  HEADER  <<================================*/
+
+header
+{
+    background-color: var(--main-black);
+    width:100%;   
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+header img:nth-child(1)
 {   
     width: 200px;
 }
@@ -22,7 +26,7 @@ main
     flex-direction: column;
     align-items: center;
 
-    margin: 20px 20px 80px 20px;
+    background-color: #ffffff;  
 }
 
 /*================================>>  NAV  <<================================*/
@@ -38,52 +42,4 @@ nav
 {
     bottom: 70px;
     right: 20px;
-}
-
-/*===========================>>  RESPONSIVENESS  <<============================*/
-
-@media only screen and (max-width: 800px)
-{
-    main
-    {
-        margin: 8px;
-        padding-top: 0;
-    }
-
-    main > img
-    {
-        margin: 10px;
-    }
-    form
-    {
-        width: 350px;
-    }        
-    
-    form div
-    {
-        padding: 5px;
-    }
-
-    label
-    {
-        padding: 1px;
-        margin-right: 5px;
-    }
-
-    article
-    {
-        flex-direction: column;
-    }
-}
-
-@media only screen and (max-height: 700px)
-{
-    ul
-    {
-        padding-top: 10px;
-    }
-    main > img
-    {
-        display: none;
-    }
 }

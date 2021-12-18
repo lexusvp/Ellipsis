@@ -1,63 +1,64 @@
-body
-{
-    background: var(--soft-blue);
-}
-
 /*================================>>  MAIN  <<================================*/
-
-main 
-{
-    background-color: #ffffff;
-    margin: 20px 20px 80px 20px;
-    padding: 15px;
+main {
+    width: 500px;
+    height: 5000px;
 }
-main > img
-{
+main > img {
     width: 250px;
     margin-bottom: 20px;
 }
 
-main > form
-{
+main > form {
     display: flex;
     flex-direction: column;
     align-items: center;
 
+
     border-radius: 10px;
-    margin: 5px 15px 5px 15px; /* 15% from the top and centered */
-    padding: 5px 15px 0px 15px;
+    margin: 5px 0px 5px 0px; /* 15% from the top and centered */
+    padding: 5px 0px 0px 0px;
     width: 90%;
     text-align: center;
 }
 
-main > form > div
-{
+main > form > div {
     display: flex;
     padding-bottom: 15px;
 }
 
-main > form input, main > form label 
-{
+main > form input, main > form label  {
     display: block;
     padding: 10px;
 }
 
-article img
-{
-    width: 500px;
-    height: 300px;
-    padding: 0px 15px 0px 0px;
-    margin-bottom: 15px;
-}
+/*================================>>  RESPONSIVENESS  <<================================*/
 
-article
-{
-    padding:15px;
-    margin: 5px 15px 15px 0px;
-}
+@media only screen and (max-width: 800px) {
+    main {
+        width: 450px;
+        margin: 20px 10px 80px 10px;
+        padding: 15px 0px 15px 0px;
+        ;
+    }      
+    form div {
+        padding: 5px;
+    }
+    form div > label {
+        padding: 10px 5px 10px 0px;
+        margin-right: 5px;
+    }
 
-p
-{
-    max-height: 300px;
-    padding: 0px 20px 0px 20px;
+}
+@media only screen and (min-width: 800px) {
+    main {
+        width: 450px;
+        margin: 20px 20px 80px 20px;
+        padding: 15px;
+    }      
+}
+@media only screen and (max-height: 800px) {
+    main > img
+    {
+        display: none;
+    }
 }

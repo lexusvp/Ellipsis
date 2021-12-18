@@ -9,9 +9,11 @@
         <link href="./services.css" rel="stylesheet"> 
         <link href="./second_main.css" rel="stylesheet"> 
 
-        <script type="text/javascript" src="../../JS/chat_handler.js"></script>
-
-        <title>My account</title>
+        <script type="text/javascript" src="../../JS/modalHandler.js" defer></script>
+        <script type="text/javascript" src="../../JS/formHandler.js" defer></script>
+    
+        <script type="text/javascript" src="../../JS/main.js" defer></script>
+        <title>Services</title>
     </head>
 
     <body>
@@ -19,6 +21,15 @@
             <img alt="header" src="../../Graph/images/header_img/services_head.png">
         </header>
         
+        <section class="modal">
+            <div id="chat_container">
+                <div></div>
+                <form>
+                    <input type="text" name="message" placeholder="Enter your message here !">
+                    <input type="submit" value="Send !">
+                </form>
+            </div>
+        </section>
         <main>
             <section>
                 <article>
@@ -42,24 +53,8 @@
                     </p>
                     <button> I'm interested !</button>
                 </article>
-            </section>
-            
-            <section id="chat_container">
-                <span class="close_modal" id="close_chat" onclick="close_chat()">&times;</span>
-                <div>
-                    <div id="chat_thread">
-                        
-                    </div>
-                    <form>
-                        <div>
-                            <input type="text" name="message" placeholder="Enter your message here !">
-                            <input type="submit" value="Send !">
-                        </div>
-                    </form>
-                </div>
-            </section>
+            </section>  
         </main>
-
         <nav>
             <ul>
                 <li> 
@@ -69,13 +64,10 @@
                     <a href="services.html">Services</a>
                 </li>
                 <li> 
-                    <a href="account.html" id ="home"> Account </a>
-                </li>                    
+                    <a href="account.html"> Account </a>
+                </li>                        
                 <li> 
-                    <a href="analytics.html"> Analytics </a>
-                </li>          
-                <li> 
-                    <button id="chat_button" onclick="open_chat()"> Chat </button>
+                    <button class="modal_buttons"> Chat </button>
                 </li> 
             </ul>         
         </nav>
