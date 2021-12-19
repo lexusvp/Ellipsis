@@ -1,19 +1,29 @@
+const currentUser = "moi" // TODO: Find a way to define current user in the backend
+
 function formsHandler() {
    const forms = document.forms;
 
    for (let i=0 ; i<forms.length ; i++) {
       const currentForm = forms[i];
+
       currentForm.addEventListener("submit", (e) => {
          e.preventDefault();
          const formData = document.querySelectorAll(`form[name=${currentForm.name}] input`)
 
          if (currentForm.name === "chat") {
-            const message = formData[0].value;
-            const messageLog = new Log("message", message);
-            // Info: Send to DB -> Display
+            const messageHistory = [];
+
+            if(formData[0].value !== "") {
+               messageHistory.push(["moi", formData[0].value]);
+               const messageLog = new Log("message", formData[0].value);
+               // Info: Send to DB -> Display
+   
+               chatDisplay(messageHistory);
+            }
          }
          else if (currentForm.name === "register") {
-            if (registerValidation(formData)) {
+            const failedConstraint = registerValidation(formData);
+            if (failedConstraint === "") {
                const data = {
                   id: formData[0].value,
                   email: formData[2].value
@@ -21,75 +31,49 @@ function formsHandler() {
                const registerLog = new Log("registerAttempt", data);
                
                // Info: Send to DB -> Confirm
-               formSucceeded(currentForm, "register");
+               formAnim(currentForm, true, "register");
             }
             else {
-               // TODO : Return which field failed from server
-               // formFailed(currentForm, "register");            
+               formAnim(currentForm, false, "register", failedConstraint)
             }
          }
+
          else if (currentForm.name === "login") {
-            if (loginValidation(formData)) {
+            if (pseudoValidation(formData[0].value)) {
                const data = {
                   id: formData[0].value
                };
                const loginLog = new Log("loginAttempt", data);
    
                // Info: Send to DB -> Test -> Connect / Display
-               formSucceeded(currentForm, "login");
+               formAnim(currentForm, true, "login");
             }
             else {
-               // TODO : Return which field failed from server
-               formFailed(currentForm, "login");            
+               formAnim(currentForm, false, "login", "id");            
             }
          }
       })
    }
 }
 function registerValidation(data) {
-   let count = 0;
    for (let i=0 ; i<data.length ; i++) {
-      switch(data[i].name) {  
-         case "id":
-            if(pseudoValidation(data[i].value)) {
-               count++;
-            } else {
-               console.log("pseudo invalide");
-            }
-            break;
-         case "password":
-            if(passwordValidation(data[i].value)) {
-               count++;
-            } else {
-               console.log("mdp invalide");
-            }
-            break;
-         case "email":
-            if(mailValidation(data[i].value)) {
-               count++;
-            } else {
-               console.log("mail invalide");
-            }
-            break;
-         default:
-            break;
+      if (data[i].name === "id") {
+         if(!pseudoValidation(data[i].value)) {
+            return "id";
+         }
+      } 
+      else if (data[i].name === "password") {
+         if(!passwordValidation(data[i].value)) {
+            return "pass";
+         } 
       }
    }
-   return count === 3;
-}
-function loginValidation(data) {
-   const id = data[0].value;
-   if (pseudoValidation(id)) {
-      return true;
-   }  else {
-      console.log("pseudo invalide");
-      return false;
-   }
+   return "";
 }
 
 //=====================>> FORM ANIMS <<======================//
 
-function formSucceeded(form, type, success = true) {
+function formAnim(form, success, type, message="") {
 
    const childs = document.querySelectorAll(`form[name=${type}] > *`);
    const container = document.querySelector(`#${type}_container`);
@@ -98,53 +82,61 @@ function formSucceeded(form, type, success = true) {
    const textP = document.createElement("p");
    const answers = {
       login: {
-         successText: "Welcome back !",
-         failText: "Your pseudo and/or password are incorrect :( !"
+         success: "Welcome back !",
+         idFail: "Your pseudo and/or password are incorrect :( !"
       },
       register: {
-         successText: "Welcome !",
-         failTextId: "This pseudo is already in use :( !",
-         failTextMail: "This mail is already in use :( !",
+         success: "Welcome !",
+         idFail: "This pseudo did not fit the requirements !",
+         passFail: "The password did not fit the requirements !",
+         mailFail: "The mail is not valid !",
       }
    };
 
-   form.style.transition = "1s background-color, 0.8s height";
    for (let child of childs) {
       child.style.display = "none";
    }
+   
+   textP.style.color = "white";
+   textP.style.padding = "0px";
+   form.style.transition = "1s background-color, 0.8s height, 0.8s width";
+   container.style.cursor = "pointer";
 
-   if (success && type === "login") {
+   if (success) {
       form.style.backgroundColor = "var(--main-green)";
-      form.style.height = "28px";
-      container.style.height = "28px";
-      img.style.visibility = "visible";
-      
-      textP.style.padding = "0px";
-      textP.textContent = answers[type].successText;
-   } else if (success && type === "register") {
-      form.style.backgroundColor = "var(--main-green)";
-      form.style.height = "28px";   
-      container.style.height = "28px";
-      img.style.visibility = "visible";
+      form.style.height = "45px";
+      form.style.width = "500px";   
+      container.style.height = "45px";
+      container.style.width = "500px";
 
-      textP.style.padding = "0px";
-      textP.textContent = answers[type].successText;
-   }  
-   else {
-      if (type === "login") {
-         form.style.backgroundColor = "var(--main-red)";
-         form.style.height = "60px";   
-         container.style.height = "60px";
-
-         textP.style.padding = "0px";
-         textP.textContent = answers[type].failText;
-      }
-      else {
-      }
+      textP.textContent = answers[type].success;
+      img.style.visibility = "visible";
    }
-   form.appendChild(textP);
-}   
+   else {
+      form.style.backgroundColor = "var(--main-red)";
+      form.style.height = "100px";   
+      form.style.width = "500px";   
+      container.style.height = "100px";
+      container.style.width = "500px";
 
-function formFailed(form, type) {
-   return formSucceeded(form, type, success = false);
+      textP.textContent = answers[type][`${message}Fail`];
+   }
+   container.addEventListener("click", () => {
+      for (let child of childs) {
+         form.style.backgroundColor = "";
+         form.style.height = "";   
+         form.style.width = "";   
+         container.style.height = "";
+         container.style.width = "";
+         container.style.cursor = "";
+
+         child.style.animation = "fadeIn 1.2s ease-in forwards";
+         child.style.display = "";
+
+         textP.style.display = "none";
+         img.style.visibility = "hidden";
+      }
+      textP.remove();
+   })
+   form.appendChild(textP);
 }

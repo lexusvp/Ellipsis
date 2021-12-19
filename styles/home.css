@@ -37,7 +37,7 @@ header img:nth-child(2) {
 
 main {
     z-index: 100;
-    background-color: #ffffff;
+    background-color: var(--main-white);
     width: 100%;
     padding-bottom: 20px;
 }
@@ -67,14 +67,25 @@ section:nth-child(2) {
 
 article {
     flex-direction: column;
+    box-sizing: border-box;
     width: 500px;
-    margin: 25px 15px 15px 15px;
+    height: 430px;
+    margin: 25px 15px 25px 15px;
+    box-shadow: 5px 5px 5px var(--main-black);
     
     border: var(--main-black) solid 3px;
     border-radius: 5px;
 }
+article:hover {
+    
+    transition: 0.3s border, 0.5s shadow, 0.3s height;
+    height: 475px;
+    box-shadow: 10px 10px 5px var(--main-black);
+    border: var(--hard-blue) solid 25px;
+    border-radius: 5px;
+}
 
-p {
+article p {
     max-width: 500px;
     min-width: 300px;
 
@@ -84,7 +95,7 @@ p {
 
 article img {
     margin: 15px 0px 5px 0px;
-    width: 170px;
+    width: 140px;
 }
 
 section:nth-child(5) {
@@ -103,6 +114,11 @@ section:nth-child(5) > img {
 }
 
 /*====================================>>  MODALS  <<====================================*/
+
+form p {
+    font-size: 2rem;
+}
+
 #login_container, #register_container{
     z-index: 0;
     position: relative;
@@ -150,7 +166,7 @@ form[name="register"] {
     border-radius: 2px;
     padding: 5px 20px 10px 20px;
     width: 270px;
-    background-color: #ffffff;
+    background-color: var(--main-white);
 }
 
 #login_container > form input, #register_container > form input {
@@ -164,6 +180,7 @@ form[name="register"] {
 }
 
 #signup_button {
+    transition: 0.4s background-color, 0.3s color;
     background-color: var(--hard-yellow);
 }
 #signup_button:hover {
@@ -172,6 +189,7 @@ form[name="register"] {
 }
 
 #login_button{
+    transition: 0.4s background-color, 0.3s color;
     background-color: var(--soft-blue);
 }
 #login_button:hover{

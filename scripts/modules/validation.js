@@ -7,8 +7,4 @@ function pseudoValidation(str) {
    const validationRegex = /^[a-zA-Z]{4,10}[0-9]{0,3}$/;
    return (validationRegex.test(str));
 }
-function mailValidation(str) {
-   return (str.length > 0);
-}
-
 

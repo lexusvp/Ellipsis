@@ -9,6 +9,7 @@
         <link href="../styles/services.css" rel="stylesheet"> 
         <link href="../styles/second_main.css" rel="stylesheet"> 
 
+        <script type="text/javascript" src="../scripts/modules/chatDisplay.js"></script>
         <script type="text/javascript" src="../scripts/modules/modalHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/logsHandler.js" defer></script>
@@ -25,9 +26,9 @@
         <section class="modal">
             <div id="chat_container">
                 <div></div>
-                <form>
+                <form name = "chat">
                     <input type="text" name="message" placeholder="Enter your message here !">
-                    <input type="submit" value="Send !">
+                    <input type="submit" value="Send !" class ="forms_buttons">
                 </form>
             </div>
         </section>
