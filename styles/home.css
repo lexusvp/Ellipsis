@@ -103,21 +103,59 @@ section:nth-child(5) > img {
 }
 
 /*====================================>>  MODALS  <<====================================*/
+#login_container, #register_container{
+    z-index: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+#login_container{
+    height: 215px;
+    top: 200px;
+}
+#login_container > img{
+    visibility: hidden;
+    position: fixed;
+    top: 75px;
+    animation: wiggle 0.2s linear infinite alternate;
+}
 
-.modal > form {
+#register_container > img{
+    visibility: hidden;
+    position: fixed;
+    top: 75px;
+    animation: wiggle 0.2s linear infinite alternate;
+}
+#register_container{
+    height: 400px;
+    top: 150px;
+}
+
+form[name="login"] {
+    margin: 0px;
+    position: relative;
+    height: 225px;
+}
+form[name="register"] {
+    margin: 0px;
+    position: relative;
+    height: 375px;
+}
+
+#login_container > form, #register_container > form{
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-
-    margin: 15% auto; /* 15% from the top and centered */
+    border-radius: 2px;
     padding: 20px;
     width: 250px;
     background-color: #ffffff;
-    border-radius: 5px;
 }
 
-.modal > form input, .modal > form label {
+#login_container > form input, #login_container > form label,
+#register_container > form input, #register_container > form label
+{
     display: block;
     padding: 10px;
 }

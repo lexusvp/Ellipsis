@@ -5,7 +5,8 @@ function modalHandler() {
 	// Info: open all modals
 	for (let i=0 ; i<userEventsButtons.length ; i++) {
 		userEventsButtons[i].addEventListener("click", () => {
-			allModals[i].style.display = "block";
+			allModals[i].style.visibility = "visible";
+			allModals[i].style.opacity = "100";
 		})
 	}
 	
@@ -13,7 +14,8 @@ function modalHandler() {
 	window.addEventListener("mousedown", (e) => {					
 		for (let modal of allModals) {
 			if (e.target === modal) {
-				modal.style.display = "none";
+				modal.style.opacity = '0';
+				modal.style.visibility = 'hidden';
 			}
 		}
 	})

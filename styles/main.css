@@ -1,6 +1,9 @@
 :root {
     --main-black: #3f3f3f;
     --main-grey: #5c5c5c;
+    
+    --main-green: #82b376;
+    --main-red: #b65a5a;
 
     --hard-blue: #7083bb;
     --soft-blue: #CED7EF;
@@ -140,9 +143,14 @@ nav ul li button {
 /*================================>>  MODALS  <<=================================*/
 
 .modal {
-    z-index: 100;
-    display: none;
+    z-index: 1000;
+    display: flex;
     position: fixed;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .2s, opacity .2s;
+    
     left: 0;
     top: 0;
     width: 100%;
@@ -157,11 +165,12 @@ nav ul li button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     right: 20px;
+    border-radius: 2px;
     
     background-color: var(--supersoft-blue);
     width: 400px;
-    text-align: center;
 }
 
 #chat_container > div {
@@ -250,5 +259,13 @@ nav ul li button {
     }
     100% {
         transform: rotateZ(360deg);
+    }
+}
+@keyframes wiggle {
+    0% {
+        transform: rotateZ(10deg) translateX(20px);
+    } 
+    100% {
+        transform: rotateZ(-10deg) translateX(-20px);
     }
 }
