@@ -10,13 +10,12 @@ function modalHandler() {
 	}
 	
 	// Info: close all modals
-	window.onclick = (e) => {					
+	window.addEventListener("mousedown", (e) => {					
 		for (let modal of allModals) {
-			if (e.target == modal)
-			{
+			if (e.target === modal) {
 				modal.style.display = "none";
 			}
 		}
-	}	
+	})
 }
 
