@@ -39,6 +39,7 @@ function formsHandler() {
                formSucceeded(currentForm, "login");
             }
             else {
+               // TODO : Return which field failed from server
                formFailed(currentForm, "login");            
             }
          }
@@ -106,6 +107,7 @@ function formSucceeded(form, type, success = true) {
          failTextMail: "This mail is already in use :( !",
       }
    };
+
    form.style.transition = "1s background-color, 0.8s height";
    for (let child of childs) {
       child.style.display = "none";
@@ -113,16 +115,16 @@ function formSucceeded(form, type, success = true) {
 
    if (success && type === "login") {
       form.style.backgroundColor = "var(--main-green)";
-      form.style.height = "30px";
-      container.style.height = "30px";
+      form.style.height = "28px";
+      container.style.height = "28px";
       img.style.visibility = "visible";
       
       textP.style.padding = "0px";
       textP.textContent = answers[type].successText;
    } else if (success && type === "register") {
       form.style.backgroundColor = "var(--main-green)";
-      form.style.height = "30px";   
-      container.style.height = "30px";
+      form.style.height = "28px";   
+      container.style.height = "28px";
       img.style.visibility = "visible";
 
       textP.style.padding = "0px";
@@ -141,7 +143,8 @@ function formSucceeded(form, type, success = true) {
       }
    }
    form.appendChild(textP);
-}
+}   
+
 function formFailed(form, type) {
    return formSucceeded(form, type, success = false);
 }
