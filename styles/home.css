@@ -81,7 +81,7 @@ article:hover {
     transition: 0.3s border, 0.5s shadow, 0.3s height;
     height: 475px;
     box-shadow: 10px 10px 5px var(--main-black);
-    border: var(--hard-blue) solid 25px;
+    border: var(--primary-hard) solid 25px;
     border-radius: 5px;
 }
 
@@ -181,20 +181,20 @@ form[name="register"] {
 
 #signup_button {
     transition: 0.4s background-color, 0.3s color;
-    background-color: var(--hard-yellow);
+    background-color: var(--secondary-hard);
 }
 #signup_button:hover {
     background-color: var(--main-grey);
-    color:var(--hard-yellow);
+    color:var(--secondary-hard);
 }
 
 #login_button{
     transition: 0.4s background-color, 0.3s color;
-    background-color: var(--soft-blue);
+    background-color: var(--primary-soft);
 }
 #login_button:hover{
     background-color: var(--main-grey);
-    color:var(--soft-blue);
+    color:var(--primary-soft);
 }
 
 /*================================>>  RESPONSIVENESS  <<================================*/

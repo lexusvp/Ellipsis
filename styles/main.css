@@ -1,23 +1,30 @@
 :root {
-    --main-white: #fcfcfc;
+    --primary-hard: var(--hard-blue);
+    --primary-soft: var(--soft-blue);
+    --primary-softer: var(--supersoft-blue);
 
+    --secondary-hard: var(--hard-yellow);
+    --secondary-soft: var(--soft-yellow);
+    --secondary-softer: var(--supersoft-yellow);
+
+    
+    --main-red: #b65a5a;
+    
+    --hard-blue: #7083bb;
+    --soft-blue: #CED7EF;
+    --supersoft-blue: #f1f4ff;
+    --hard-green: #a9b976;
+    --soft-green: #cdd6b0;
+    --supersoft-green: #d5dfbd;
+    --hard-yellow: #fff2b8;
+    --soft-yellow: #fdf3c6;
+    --supersoft-yellow: #fffae8;
+    
     --main-black: #3f3f3f;
     --main-grey: #5c5c5c;
     --light-grey: #9c9c9c;
     --very-light-grey: #e6e6e6;
-    
-    --main-green: #82b376;
-    --main-red: #b65a5a;
-
-    --hard-blue: #7083bb;
-    --soft-blue: #CED7EF;
-    --supersoft-blue: #f1f4ff;
-
-    --hard-yellow: #fff2b8;
-    --soft-yellow: #fdf3c6;
-    --supersoft-yellow: #fffae8;
-    --white-yellow: #fffdf7;
-
+    --main-white: #fcfcfc;
 }
 
 ::-webkit-scrollbar {
@@ -30,7 +37,7 @@
     background: var(--light-grey);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--hard-blue);
+    background: var(--primary-hard);
 }
 
 * {
@@ -94,7 +101,7 @@ main {
     color: var(--main-black);
 }
 .forms_buttons:hover {
-    background-color: var(--soft-blue);
+    background-color: var(--primary-soft);
 }
 
 #password_requirements {
@@ -147,14 +154,14 @@ li:nth-child(1) a:hover {
 }
 
 li:nth-child(2) a:hover {
-    background-color: var(--soft-blue);
+    background-color: var(--primary-soft);
     color: var(--main-black);
 
     animation: bounce_nav 0.3s infinite alternate;
 }
 
 li:nth-child(3) a:hover {
-    background-color: var(--hard-yellow);
+    background-color: var(--secondary-hard);
     color: var(--main-black);
 
     animation: bounce_nav2 0.3s infinite alternate;
@@ -166,7 +173,7 @@ li:nth-child(4) button:hover {
 
 li:first-child a {
     color: var(--main-black);
-    background-color: var(--soft-blue);
+    background-color: var(--primary-soft);
 }
 
 li:nth-child(3) {
@@ -180,7 +187,7 @@ nav ul li button {
     cursor: pointer;
 
     color: var(--main-black);
-    background-color: var(--hard-yellow);
+    background-color: var(--secondary-hard);
 }
 
 /*================================>>  MODALS  <<=================================*/
@@ -221,7 +228,7 @@ nav ul li button {
     border: solid var(--main-black) 1px;
     border-radius: 1px;
     
-    background-color: var(--supersoft-blue);
+    background-color: var(--primary-softer);
     width: 400px;
 }
 
