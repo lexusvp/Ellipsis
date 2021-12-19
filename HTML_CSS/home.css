@@ -1,0 +1,154 @@
+body {
+    overflow-x: hidden;
+}
+
+/*====================================>>  HEADER  <<====================================*/
+
+header {    
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    height: 100vh;
+}
+
+header img:nth-child(1) {   
+    z-index: 100;
+    grid-column: 1;
+    margin-top: 20vh;
+    min-width: 200px;
+    max-width: 20%;
+    animation: fadeIn 3.5s ease-in-out, breath_2 10s infinite;
+}
+
+header img:nth-child(2) {
+    z-index: 100;
+    grid-column: 1;
+    position: relative;
+
+    margin-top: 10vh;
+    min-width: 50px;
+    max-width: 1%;
+
+    animation: fadeIn 3.5s ease-in-out, bounce 0.5s infinite alternate;
+}
+
+/*====================================>>  MAIN  <<====================================*/
+
+main {
+    z-index: 100;
+    background-color: #ffffff;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+main > div {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: var(--main-black);
+    
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
+main > div img {
+    min-width: 300px;
+    max-width: 35%;
+}
+
+section:nth-child(2) {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+article {
+    flex-direction: column;
+    width: 500px;
+    margin: 25px 15px 15px 15px;
+    
+    border: var(--main-black) solid 3px;
+    border-radius: 5px;
+}
+
+p {
+    max-width: 500px;
+    min-width: 300px;
+
+    text-align: center;
+    padding:20px;
+}
+
+article img {
+    margin: 15px 0px 5px 0px;
+    width: 170px;
+}
+
+section:nth-child(5) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:50px;
+}
+
+section:nth-child(5) > img {
+    display: block;
+    width: 250px;
+    margin-bottom: 50px;
+
+    animation: bounce 0.5s infinite alternate;
+}
+
+/*====================================>>  MODALS  <<====================================*/
+
+.modal > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 250px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.modal > form input, .modal > form label {
+    display: block;
+    padding: 10px;
+}
+
+#signup_button {
+    background-color: var(--hard-yellow);
+}
+#signup_button:hover {
+    background-color: var(--main-grey);
+    color:var(--hard-yellow);
+}
+
+#login_button{
+    background-color: var(--soft-blue);
+}
+#login_button:hover{
+    background-color: var(--main-grey);
+    color:var(--soft-blue);
+}
+
+/*================================>>  RESPONSIVENESS  <<================================*/
+
+@media only screen and (max-width: 800px)
+{
+    nav {
+        bottom: 0px;
+        width: 100%;
+    }
+
+    header img:nth-child(2) {
+        min-width: 50px;
+        max-width: 1%;
+    }
+}

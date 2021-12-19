@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="../main.css" rel="stylesheet">
+        <link href="./account.css" rel="stylesheet">
+        <link href="./second_main.css" rel="stylesheet"> 
+
+        <script type="text/javascript" src="../../scripts/modalHandler.js" defer></script>
+        <script type="text/javascript" src="../../scripts/formHandler.js" defer></script>
+        <script src="../../scripts/plotly.js"></script>    
+
+        <script type="text/javascript" src="../../scripts/main.js" defer></script>    
+        <title>My account</title>
+    </head>
+
+    <body>
+        <header>
+            <img alt="header" src="../../Graph/images/header_img/account_head.png">
+        </header>
+        
+        <section class="modal">
+            <div id="chat_container">
+                <div></div>
+                <form>
+                    <input type="text" name="message" placeholder="Enter your message here !">
+                    <input type="submit" value="Send !">
+                </form>
+            </div>
+        </section>
+        
+        <main>
+            <img alt="account" src="../../Graph/images/icons/account_icon.svg">
+            
+            <ul>
+                <li>Your actual pseudo is :</li>
+                <li>Your actual email adress is :</li>
+            </ul>
+
+            <form action="update_account_form">
+                <div>
+                    <label for="id" id="test"> New pseudo :</label>
+                    <input type="text" name="id" placeholder="Bob_653" required>
+                </div>
+                <div>
+                    <label for="password"> New password :</label>
+                    <input type="password" name="password" placeholder="Z2Cn$%*e1256DF" required>    
+                </div>
+                <div>
+                    <label for="email"> New email adress :</label>
+                    <input type="email" name="email" placeholder="myemail@something.com" required>       
+                </div>
+                <div>
+                    <label for="password"> Current password :<span class="required_field_star">*</span></label>
+                    <input type="password" name="password" placeholder="Z2Cn$%*e1256DF" required>    
+                </div>
+                <input type="reset" name="reset" class="buttons">                         
+                <input type="submit" name="submit" class="buttons">
+            </form>
+        </main>
+
+        <nav>
+            <ul>
+                <li> 
+                    <a href="../index.html">Acceuil</a>
+                </li>                          
+                <li> 
+                    <a href="services.html">Services</a>
+                </li>
+                <li> 
+                    <a href="account.html"> Account </a>
+                </li>                    
+                <li> 
+                    <button class="modal_buttons"> Chat </button>
+                </li>     
+            </ul>         
+        </nav>
+
+    </body>
+</html>

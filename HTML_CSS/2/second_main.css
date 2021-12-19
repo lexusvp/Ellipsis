@@ -1,0 +1,39 @@
+body {
+    background: var(--soft-blue);
+}
+
+/*================================>>  HEADER  <<================================*/
+
+header {
+    background-color: var(--main-black);
+    width:100%;   
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+header img:nth-child(1) {   
+    width: 200px;
+}
+
+/*================================>>  MAIN  <<================================*/
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #ffffff;  
+}
+
+/*================================>>  NAV  <<================================*/
+
+nav {
+    bottom: 0px;
+}
+
+/*===============================>>  CHAT  <<=================================*/
+
+#chat_container {
+    bottom: 70px;
+    right: 20px;
+}
