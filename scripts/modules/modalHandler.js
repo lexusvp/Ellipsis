@@ -1,4 +1,4 @@
-function handleModals() {
+function modalHandler() {
 	const userEventsButtons = document.querySelectorAll(".modal_buttons"); 
 	const allModals = document.querySelectorAll(".modal");
 	
