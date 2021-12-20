@@ -4,12 +4,6 @@ main {
     width: fit-content;
     margin: 15px 15px 15px 15px;
 }
-
-form[name=update] > img {
-    width: 250px;
-    margin-bottom: 20px;
-}
-
 form[name=update] {
     background-color: var(--main-white);
     display: flex;
@@ -17,9 +11,14 @@ form[name=update] {
     align-items: center;
     padding: 15px;
     width: 400px;
-    height: 585px;
     text-align: center;
 }
+
+form[name=update] > img {
+    width: 250px;
+    margin-bottom: 20px;
+}
+
 
 form[name=update] > div{
     display: flex;
@@ -41,7 +40,15 @@ form[name=update] input, form[name=update] label  {
     }
 }
 @media only screen and (max-height: 785px) {
+    form {
+        height: 325px;
+    }
     form > img {
         display: none;
+    }
+}
+@media only screen and (min-height: 785px) {
+    form {
+        height: 585px;
     }
 }

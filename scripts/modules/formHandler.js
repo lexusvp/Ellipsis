@@ -1,4 +1,4 @@
-const currentUser = "moi" // TODO: Find a way to define current user in the backend
+//== TODO: Find a way to define current user in the backend
 
 function formsHandler() {
    const forms = document.forms;
@@ -16,7 +16,7 @@ function formsHandler() {
             if(formData[0].value !== "") {
                messageHistory.push(["moi", formData[0].value]);
                const messageLog = new Log("message", formData[0].value);
-               // Info: Send to DB -> Display
+               //== Info: Send to DB -> Display
    
                chatDisplay(messageHistory);
             }
@@ -30,7 +30,7 @@ function formsHandler() {
                };
                const registerLog = new Log("registerAttempt", data);
                
-               // Info: Send to DB -> Confirm
+               //== Info: Send to DB -> Confirm
                formAnim(currentForm, true, "register");
             }
             else {
@@ -44,7 +44,7 @@ function formsHandler() {
                };
                const loginLog = new Log("loginAttempt", data);
    
-               // Info: Send to DB -> Test -> Connect / Display
+               //== Info: Send to DB -> Test -> Connect / Display
                formAnim(currentForm, true, "login");
             }
             else {
@@ -60,11 +60,11 @@ function formsHandler() {
                };
                const updateLog = new Log("updateAttempt", data);
                
-               // Info: Send to DB -> Confirm
-               updateFormAnim(currentForm, true);
+               //== Info: Send to DB -> Confirm
+               formAnim(currentForm, true, "update");
             }
             else {
-               updateFormAnim(currentForm, false, failedConstraint)
+               formAnim(currentForm, false, "update", failedConstraint)
             }
          }
       })
@@ -88,9 +88,10 @@ function registerValidation(data) {
 
 //=====================>> FORM ANIMS <<======================//
 
+//== Note: Possbile refactoring / improvements possible
 function formAnim(form, success, type, message="") {
 
-   const childs = document.querySelectorAll(`form[name=${type}] > *`);
+   const childs = document.querySelectorAll(`form[name=${type}] *`);
    const img = document.querySelector(`form[name=${type}] img`);
    const textP = document.createElement("p");
 
@@ -104,23 +105,31 @@ function formAnim(form, success, type, message="") {
          idFail: "This pseudo did not fit the requirements !",
          passFail: "The password did not fit the requirements !",
          mailFail: "The mail is not valid !",
+      },
+      update: {
+         success: "Update successful !",
+         idFail: "This pseudo did not fit the requirements !",
+         passFail: "The new password did not fit the requirements !",
+         mailFail: "The new mail is not valid !",
       }
    };
 
    for (let child of childs) {
-      if (child.tagName == "IMG") continue;
+      if (child.tagName == "IMG" && type !== "update") continue;
       child.style.display = "none";
    }
    
-   textP.style.color = "white";
-   textP.style.padding = "0px";
+   textP.style.color = "var(--main-white)";
+   textP.style.fontSize = "1.6rem";
    form.style.transition = "1s background-color, 0.8s height, 0.8s width";
    form.style.cursor = "pointer";
 
    if (success) {
       form.style.backgroundColor = "var(--hard-green)";
       form.style.height = "45px";
-      form.style.width = "500px";   
+      if (window.innerWidth > 650) form.style.width = "500px";   
+      else form.style.width = "400px";   
+
 
       textP.textContent = answers[type].success;
       img.style.visibility = "visible";
@@ -128,8 +137,10 @@ function formAnim(form, success, type, message="") {
    }
    else {
       form.style.backgroundColor = "var(--main-red)";
-      form.style.height = "100px";   
-      form.style.width = "500px";   
+      if (type !== "update") form.style.height = "100px";  
+      else form.style.height = "80px";
+      if (window.innerWidth > 650) form.style.width = "500px";   
+      else form.style.width = "400px";   
 
       textP.textContent = answers[type][`${message}Fail`];
    }
@@ -140,59 +151,11 @@ function formAnim(form, success, type, message="") {
          form.style.width = "";   
          form.style.cursor = "";
 
-         child.style.animation = "fadeIn 1.2s ease-in forwards";
+         child.style.animation = "fadeIn 1.5s ease-in forwards";
          child.style.display = "";
 
          textP.style.display = "block";
-         img.style.visibility = "hidden";
-      }
-      textP.remove();
-   })
-   form.appendChild(textP);
-}
-
-function updateFormAnim(form, success, message ="") {
-   
-   const childs = document.querySelectorAll(`form *`);
-   const textP = document.createElement("p");
-   const answers = {
-      success: "Update successful !",
-      idFail: "This pseudo did not fit the requirements !",
-      passFail: "The new password did not fit the requirements !",
-      mailFail: "The new mail is not valid !",
-   };
-
-   for (let child of childs) {
-      child.style.display = "none";
-   }
-   textP.style.color = "var(--main-white)";
-   textP.style.fontSize = "1.6rem";
-   form.style.transition = "1s background-color, 0.8s height, 0.8s width";
-   form.style.cursor = "pointer";
-
-   if (success) {
-      form.style.backgroundColor = "var(--hard-green)";
-      form.style.height = "40px";
-      form.style.width = "700px";   
-
-      textP.textContent = answers.success;
-   }
-   else {
-      form.style.backgroundColor = "var(--main-red)";
-      form.style.height = "40px";
-      form.style.width = "700px";
-
-      textP.textContent = answers[`${message}Fail`];
-   }
-   form.addEventListener("click", () => {
-      for (let child of childs) {
-         form.style.backgroundColor = "";
-         form.style.height = "";
-         form.style.width = "";
-         form.style.cursor = "";
-
-         child.style.animation = "fadeIn 1.5s ease-in forwards";
-         child.style.display = "";
+         if (type !== "update") img.style.visibility = "hidden";
       }
       textP.remove();
    })

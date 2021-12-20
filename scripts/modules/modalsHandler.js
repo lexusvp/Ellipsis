@@ -1,8 +1,8 @@
-function modalHandler() {
+function modalsHandler() {
 	const userEventsButtons = document.querySelectorAll(".modal_buttons"); 
 	const allModals = document.querySelectorAll(".modal");
 	
-	// Info: open all modals
+	//== Info: open any modal
 	for (let i=0 ; i<userEventsButtons.length ; i++) {
 		userEventsButtons[i].addEventListener("click", () => {
 			allModals[i].style.visibility = "visible";
@@ -10,7 +10,7 @@ function modalHandler() {
 		})
 	}
 	
-	// Info: close all modals
+	//== Info: close any modal
 	window.addEventListener("mousedown", (e) => {					
 		for (let modal of allModals) {
 			if (e.target === modal) {
