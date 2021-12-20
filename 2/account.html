@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+
         <link href="../styles/main.css" rel="stylesheet">
         <link href="../styles/account.css" rel="stylesheet">
         <link href="../styles/second_main.css" rel="stylesheet"> 
@@ -16,7 +17,8 @@
         <script type="text/javascript" src="../scripts/modules/modalHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/logsHandler.js" defer></script>
-
+        
+        <script type="text/javascript" src="../scripts/account.js" defer></script>
         <script type="text/javascript" src="../scripts/main.js" defer></script>    
         <title>My account</title>
     </head>
@@ -27,24 +29,22 @@
         </header>
         
         <section class="modal">
-            <div id="chat_container">
+            <form name = "chat">
                 <div></div>
-                <form name = "chat">
-                    <input type="text" name="message" placeholder="Enter your message here !">
-                    <input type="submit" value="Send !" class ="forms_buttons">
-                </form>
-            </div>
+                <input type="text" name="message" placeholder="Enter your message here !">
+                <input type="submit" value="Send !" class ="forms_buttons">
+            </form>
         </section>
         
-        <main>
-            <img alt="account" src="../assets/images/icons/account_icon.svg">
-            
-            <ul>
-                <li>Your actual pseudo is :</li>
-                <li>Your actual email adress is :</li>
-            </ul>
-
+        <main>                
             <form action="update_account_form" name="update">
+                <img alt="account" src="../assets/images/icons/account_icon.svg">
+                
+                <ul>
+                    <li>Your actual pseudo is :</li>
+                    <li>Your actual email adress is :</li>
+                </ul>
+
                 <div>
                     <label for="id" id="test"> New pseudo :</label>
                     <input type="text" name="id" placeholder="Bob_653">
@@ -59,7 +59,7 @@
                 </div>
                 <div>
                     <label for="password"> Current password :<span class="required_field_star">*</span></label>
-                    <input type="password" name="password" placeholder="Z2Cn$%*e1256DF" required>    
+                    <input type="password" name="current_password" placeholder="Z2Cn$%*e1256DF" required>    
                 </div>
                 <input type="submit" name="submit" class="buttons forms_buttons">
             </form>

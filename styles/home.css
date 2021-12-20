@@ -71,6 +71,7 @@ article {
     width: 500px;
     height: 430px;
     margin: 25px 15px 25px 15px;
+    padding: 15px 20px 30px 20px ;
     box-shadow: 5px 5px 5px var(--main-black);
     
     border: var(--main-black) solid 3px;
@@ -78,7 +79,7 @@ article {
 }
 article:hover {
     
-    transition: 0.3s border, 0.5s shadow, 0.3s height;
+    transition: 0.5s border, 0.5s shadow, 0.5s height;
     height: 475px;
     box-shadow: 10px 10px 5px var(--main-black);
     border: var(--primary-hard) solid 25px;
@@ -90,7 +91,6 @@ article p {
     min-width: 300px;
 
     text-align: center;
-    padding:20px;
 }
 
 article img {
@@ -119,62 +119,50 @@ form p {
     font-size: 2rem;
 }
 
-#login_container, #register_container{
+form[name=login], form[name=register] {
     z-index: 0;
     position: relative;
     display: flex;
     justify-content: center;
-}
-#login_container{
-    height: 225px;
-    top: 200px;
-}
-#login_container > img{
-    visibility: hidden;
-    position: fixed;
-    top: 75px;
-    animation: wiggle 0.2s linear infinite alternate;
-}
-
-#register_container > img{
-    visibility: hidden;
-    position: fixed;
-    top: 75px;
-    animation: wiggle 0.2s linear infinite alternate;
-}
-#register_container{
-    height: 340px;
-    top: 150px;
-}
-
-form[name="login"] {
-    margin: 0px;
-    position: relative;
-    height: 225px;
-}
-form[name="register"] {
-    margin: 0px;
-    position: relative;
-    height: 340px;
-}
-
-#login_container > form, #register_container > form{
-    display: flex;
-    flex-direction: column;
     align-items: center;
     text-align: center;
+    flex-direction: column;
+
     border-radius: 2px;
     padding: 5px 20px 10px 20px;
     width: 270px;
     background-color: var(--main-white);
 }
+form[name=login] {
+    height: 225px;
+    top: 200px;
+    margin: 0px;
+    position: relative;
+}
+form[name=register]{
+    height: 340px;
+    top: 150px;
+    margin: 0px;
+    position: relative;
+    height: 340px;
+}
+form[name=login] > img{
+    visibility: hidden;
+    position: fixed;
+    top: 75px;
+}
+form[name=register] > img{
+    visibility: hidden;
+    position: fixed;
+    top: 75px;
+}
 
-#login_container > form input, #register_container > form input {
+form[name=login] input, form[name=register] input {
     display: block;
     padding: 10px;
     width: 200px;
 }
-#login_container > form label, #register_container > form label {
+form[name=login] label, form[name=register] label {
     display: block;
     padding: 10px 10px 5px 10px;
 }

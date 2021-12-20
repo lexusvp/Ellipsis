@@ -6,7 +6,7 @@ function formsHandler() {
    for (let i=0 ; i<forms.length ; i++) {
       const currentForm = forms[i];
 
-      currentForm.addEventListener("submit", (e) => {
+      currentForm.addEventListener("submit", function submitEvent(e) {
          e.preventDefault();
          const formData = document.querySelectorAll(`form[name=${currentForm.name}] input`)
 
@@ -37,7 +37,6 @@ function formsHandler() {
                formAnim(currentForm, false, "register", failedConstraint)
             }
          }
-
          else if (currentForm.name === "login") {
             if (pseudoValidation(formData[0].value)) {
                const data = {
@@ -50,6 +49,22 @@ function formsHandler() {
             }
             else {
                formAnim(currentForm, false, "login", "id");            
+            }
+         }
+         else if (currentForm.name === "update") {
+            const failedConstraint = registerValidation(formData);
+            if (failedConstraint === "") {
+               const data = {
+                  id: formData[0].value,
+                  email: formData[2].value
+               };
+               const updateLog = new Log("updateAttempt", data);
+               
+               // Info: Send to DB -> Confirm
+               updateFormAnim(currentForm, true);
+            }
+            else {
+               updateFormAnim(currentForm, false, failedConstraint)
             }
          }
       })
@@ -76,10 +91,9 @@ function registerValidation(data) {
 function formAnim(form, success, type, message="") {
 
    const childs = document.querySelectorAll(`form[name=${type}] > *`);
-   const container = document.querySelector(`#${type}_container`);
-   const img = document.querySelector(`#${type}_container > img`);
-
+   const img = document.querySelector(`form[name=${type}] img`);
    const textP = document.createElement("p");
+
    const answers = {
       login: {
          success: "Welcome back !",
@@ -94,47 +108,91 @@ function formAnim(form, success, type, message="") {
    };
 
    for (let child of childs) {
+      if (child.tagName == "IMG") continue;
       child.style.display = "none";
    }
    
    textP.style.color = "white";
    textP.style.padding = "0px";
    form.style.transition = "1s background-color, 0.8s height, 0.8s width";
-   container.style.cursor = "pointer";
+   form.style.cursor = "pointer";
 
    if (success) {
       form.style.backgroundColor = "var(--hard-green)";
       form.style.height = "45px";
       form.style.width = "500px";   
-      container.style.height = "45px";
-      container.style.width = "500px";
 
       textP.textContent = answers[type].success;
       img.style.visibility = "visible";
+      img.style.animation = "wiggle 0.2s linear infinite alternate";
    }
    else {
       form.style.backgroundColor = "var(--main-red)";
       form.style.height = "100px";   
       form.style.width = "500px";   
-      container.style.height = "100px";
-      container.style.width = "500px";
 
       textP.textContent = answers[type][`${message}Fail`];
    }
-   container.addEventListener("click", () => {
+   form.addEventListener("click", () => {
       for (let child of childs) {
          form.style.backgroundColor = "";
          form.style.height = "";   
          form.style.width = "";   
-         container.style.height = "";
-         container.style.width = "";
-         container.style.cursor = "";
+         form.style.cursor = "";
 
          child.style.animation = "fadeIn 1.2s ease-in forwards";
          child.style.display = "";
 
-         textP.style.display = "none";
+         textP.style.display = "block";
          img.style.visibility = "hidden";
+      }
+      textP.remove();
+   })
+   form.appendChild(textP);
+}
+
+function updateFormAnim(form, success, message ="") {
+   
+   const childs = document.querySelectorAll(`form *`);
+   const textP = document.createElement("p");
+   const answers = {
+      success: "Update successful !",
+      idFail: "This pseudo did not fit the requirements !",
+      passFail: "The new password did not fit the requirements !",
+      mailFail: "The new mail is not valid !",
+   };
+
+   for (let child of childs) {
+      child.style.display = "none";
+   }
+   textP.style.color = "var(--main-white)";
+   textP.style.fontSize = "1.6rem";
+   form.style.transition = "1s background-color, 0.8s height, 0.8s width";
+   form.style.cursor = "pointer";
+
+   if (success) {
+      form.style.backgroundColor = "var(--hard-green)";
+      form.style.height = "40px";
+      form.style.width = "700px";   
+
+      textP.textContent = answers.success;
+   }
+   else {
+      form.style.backgroundColor = "var(--main-red)";
+      form.style.height = "40px";
+      form.style.width = "700px";
+
+      textP.textContent = answers[`${message}Fail`];
+   }
+   form.addEventListener("click", () => {
+      for (let child of childs) {
+         form.style.backgroundColor = "";
+         form.style.height = "";
+         form.style.width = "";
+         form.style.cursor = "";
+
+         child.style.animation = "fadeIn 1.5s ease-in forwards";
+         child.style.display = "";
       }
       textP.remove();
    })

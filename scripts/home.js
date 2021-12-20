@@ -1,7 +1,7 @@
 (function navAndChatMovement() {
    const triggElement = document.querySelector("main > div");
    const nav = document.querySelector("nav");
-   const chat = document.querySelector("#chat_container");
+   const chat = document.querySelector("form[name=chat]");
 
    chat.style.bottom = "15px";
    window.addEventListener("scroll", () => {

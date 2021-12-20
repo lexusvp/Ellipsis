@@ -59,10 +59,12 @@ body {
 a {
     color: var(--main-black);
 }
-
 p {
     font-size: 1.1rem;
     color: var(--main-black);
+}
+form {
+    padding: 10px;
 }
 
 
@@ -210,7 +212,7 @@ nav ul li button {
 
 /*==================================>>  CHAT  <<=================================*/
 
-#chat_container p{
+form[name=chat] p{
     overflow-y:auto;
 }
 
@@ -218,7 +220,7 @@ nav ul li button {
     background-color: transparent; /* Fallback color */
 }
 
-#chat_container {
+form[name=chat] {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -232,7 +234,7 @@ nav ul li button {
     width: 400px;
 }
 
-#chat_container > div {
+form[name=chat] > div {
     overflow-y: auto;
     background-color: var(--main-white);
     margin-top: 20px;
@@ -241,16 +243,12 @@ nav ul li button {
     border-radius: 5px;
 }
 
-#chat_container > form {
-    padding: 10px;
-}
-
-#chat_container input {
+form[name=chat] input {
     padding: 10px;
     margin-top: 10px;
 }
 
-#chat_container input:first-child {
+form[name=chat] input:first-child {
     width: 300px;
 }
 

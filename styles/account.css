@@ -1,32 +1,33 @@
 /*================================>>  MAIN  <<================================*/
 
 main {
-    width: 500px;
+    width: fit-content;
+    margin: 15px 15px 15px 15px;
 }
-main > img {
+
+form[name=update] > img {
     width: 250px;
     margin-bottom: 20px;
 }
 
-main > form {
+form[name=update] {
+    background-color: var(--main-white);
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
-    border-radius: 10px;
-    margin: 5px 0px 5px 0px; /* 15% from the top and centered */
-    padding: 5px 0px 0px 0px;
-    width: 90%;
+    padding: 15px;
+    width: 400px;
+    height: 585px;
     text-align: center;
 }
 
-main > form > div {
+form[name=update] > div{
     display: flex;
-    padding-bottom: 15px;
+    align-items: center;
+    margin-top: 10px;
 }
 
-main > form input, main > form label  {
+form[name=update] input, form[name=update] label  {
     display: block;
     padding: 10px;
 }
@@ -34,31 +35,13 @@ main > form input, main > form label  {
 /*================================>>  RESPONSIVENESS  <<================================*/
 
 @media only screen and (max-width: 800px) {
-    main {
-        width: 450px;
-        margin: 20px 10px 80px 10px;
-        padding: 15px 0px 15px 0px;
-        ;
-    }      
-    form div {
-        padding: 5px;
-    }
     form div > label {
         padding: 10px 5px 10px 0px;
         margin-right: 5px;
     }
-
 }
-@media only screen and (min-width: 800px) {
-    main {
-        width: 450px;
-        margin: 20px 20px 80px 20px;
-        padding: 15px;
-    }      
-}
-@media only screen and (max-height: 800px) {
-    main > img
-    {
+@media only screen and (max-height: 785px) {
+    form > img {
         display: none;
     }
 }
