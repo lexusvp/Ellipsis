@@ -103,7 +103,7 @@ function formAnim(form, success, type, message="") {
    container.style.cursor = "pointer";
 
    if (success) {
-      form.style.backgroundColor = "var(--main-green)";
+      form.style.backgroundColor = "var(--hard-green)";
       form.style.height = "45px";
       form.style.width = "500px";   
       container.style.height = "45px";
