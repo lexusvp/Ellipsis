@@ -70,7 +70,7 @@ form {
 
 /*================================>>  HEADER  <<================================*/
 
-body > header {
+body header {
     grid-column: 1 /span 12;
     text-align: center;
 }
@@ -80,7 +80,6 @@ body > header {
 main {
     grid-column: 1 /span 12;
 }
-
 
 .buttons {
     width: 120px;
@@ -158,15 +157,11 @@ li:nth-child(1) a:hover {
 li:nth-child(2) a:hover {
     background-color: var(--primary-soft);
     color: var(--main-black);
-
-    animation: bounce_nav 0.3s infinite alternate;
 }
 
 li:nth-child(3) a:hover {
     background-color: var(--secondary-hard);
     color: var(--main-black);
-
-    animation: bounce_nav2 0.3s infinite alternate;
 }
 li:nth-child(4) button:hover {
     background-color: var(--main-grey);
@@ -276,20 +271,12 @@ form[name=chat] input:first-child {
         transform: scale(1);
     }
 }
-@keyframes bounce_nav {
+@keyframes bounce {
     0% {
         transform: translateX(0px);
     }
     100% {
         transform: translateX(10px);
-    }
-}
-@keyframes bounce_nav2 {
-    0% {
-        transform: translateX(0px);
-    }
-    100% {
-        transform: translateX(-10px);
     }
 }
 @keyframes fadeIn {

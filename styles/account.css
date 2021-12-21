@@ -1,9 +1,5 @@
 /*================================>>  MAIN  <<================================*/
 
-main {
-    width: fit-content;
-    margin: 15px 15px 15px 15px;
-}
 form[name=update] {
     background-color: var(--main-white);
     display: flex;
@@ -31,16 +27,39 @@ form[name=update] input, form[name=update] label  {
     padding: 10px;
 }
 
+main header {
+    margin: 30px;
+    padding-bottom: 20px;
+}
+main header > img {
+    width: 300px;
+}
+
+/*=================================>>  DATA SECTION  <<=================================*/
+
+main section {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-white);
+    width:80vw;
+    height:fit-content;
+}
+
 /*================================>>  RESPONSIVENESS  <<================================*/
 
-@media only screen and (max-width: 800px) {
-    form div > label {
+@media only screen and (max-width: 1200px) {
+    form[name=update] div > label {
         padding: 10px 5px 10px 0px;
         margin-right: 5px;
     }
+    main section {
+        flex-direction: column;
+    }
 }
 @media only screen and (max-height: 785px) {
-    form {
+    form[name=update] {
         height: 325px;
     }
     form > img {
@@ -48,7 +67,7 @@ form[name=update] input, form[name=update] label  {
     }
 }
 @media only screen and (min-height: 785px) {
-    form {
+    form[name=update] {
         height: 585px;
     }
 }
