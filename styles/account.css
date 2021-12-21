@@ -71,6 +71,6 @@ canvas {
 }
 @media only screen and (min-height: 785px) {
     form[name=update] {
-        height: 585px;
+        height: 615px;
     }
 }

@@ -20,7 +20,7 @@ const config = {
          backgroundColor: ['#a9b976', "#ffffff", '#b65a5a'],
          borderColor: '#a9b976',
          pointBackgroundColor: 'rgba(100, 150, 100, 0.0)',
-         cubicInterpolationMode: "monotone",
+         // cubicInterpolationMode: "monotone",
       },
       {
          label: "Prévision du nombre d'utilisateurs des autres sites :/",
@@ -31,7 +31,7 @@ const config = {
          fill: '#b65a5a20',
 
          pointBackgroundColor: "#ffffff",
-         cubicInterpolationMode: "monotone",
+         // cubicInterpolationMode: "monotone",
       },
       {
          type: 'bar', 

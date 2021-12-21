@@ -5,7 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <link href="../styles/main.css" rel="stylesheet">
         <link href="../styles/services.css" rel="stylesheet"> 
         <link href="../styles/second_main.css" rel="stylesheet"> 
@@ -15,6 +16,7 @@
         <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/logsHandler.js" defer></script>
 
+        <script type="text/javascript" src="../scripts/services.js" defer></script>
         <script type="text/javascript" src="../scripts/main.js" defer></script>
         <title>Services</title>
     </head>
@@ -31,33 +33,32 @@
                 <input type="submit" value="Send !" class ="forms_buttons">
             </form>
         </section>
-        <main>
-            <section>
-                <article>
-                    <img alt="account" src="../assets/images/services/datacenter_image.webp">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                    <button> I'm interested !</button>
-                </article>
-                <article>
-                    <img alt="account" src="../assets/images/services/network_image.jpg">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                    <button> I'm interested !</button>
-                </article>
-                <article>
-                    <img alt="account" src="../assets/images/services/cybersécurité_image.jpg">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem fugiat quia ullam fugit magnam! Quas, sed tempore consectetur iure nihil velit aut itaque minima. Odit incidunt aspernatur similique sed. Itaque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                    </p>
-                    <button> I'm interested !</button>
-                </article>
-            </section>  
+
+        <main id="activities_main">
+            <nav>
+                <button class="tab_buttons"> Service 1 </button>
+                <button class="tab_buttons"> Service 2 </button>
+                <button class="tab_buttons"> Service 3 </button>
+                <button class="tab_buttons"> Service 4 </button>
+                <button class="tab_buttons"> Service 5 </button>
+                <button class="tab_buttons"> Service 6 </button>
+                <button class="tab_buttons"> Service 7 </button>
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </nav>
+            <article class="activities">
+                <h2>Titre</h2>
+                <p>London is the capital city of England.</p>
+                <img src="https://picsum.photos/id/237/200/300" alt="whatevr">
+            </article>
+            <article class="activities">
+                <h2>Titre 2 </h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est sequi incidunt molestiae ullam vel sunt, quod officia doloremque repellat, aliquam veniam obcaecati possimus hic adipisci nobis debitis numquam dolorem repudiandaeLorem ipsum, dolor sit amet consectetur adipisicing elit. Est sequi incidunt molestiae ullam vel sunt, quod officia doloremque repellat, aliquam veniam obcaecati possimus hic adipisci nobis debitis numquam dolorem repudiandae.</p>
+                <img src="https://picsum.photos/id/237/200/300" alt="whatevr">
+            </article>
         </main>
         
-        <nav>
+        <nav id="main_menu">
             <ul>
                 <li> 
                     <a href="../index.html">Acceuil</a>

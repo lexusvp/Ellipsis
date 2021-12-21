@@ -41,14 +41,13 @@
 }
 
 * {
+    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     list-style: none;
     text-decoration: none;
     font-family:'Quicksand', sans-serif;
-
 }
-
 body {
     display: grid;
     width: 100%;
@@ -117,28 +116,27 @@ article {
     display: flex;
     justify-items: center;
     align-items: center;
-    border: var(--main-black) solid 3px;
 }
 
 /*==================================>>  NAV  <<=================================*/
 
-nav {
+#main_menu {
     position: fixed;
     width: 100%;   
     z-index: 1000;
 }
 
-nav ul {   
+#main_menu ul {   
     background-color: var(--main-black);
     display: flex;
 }
 
-nav li {
+#main_menu li {
     display: flex;
     align-items: center;
 }
 
-a, nav ul li button {
+a, #main_menu ul li button {
     font-size: 1rem;
 
     transition: 0.3s background-color, 0.3s color;
@@ -178,7 +176,7 @@ li:nth-child(3) {
     right: 67px;
 }
 
-nav ul li button {
+#main_menu ul li button {
     position: absolute;
     right: 0px;
     cursor: pointer;
