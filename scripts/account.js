@@ -1,7 +1,7 @@
 /*=================================>> CHARTS  <<=================================*/
 
-const ctx1 = 'testChart';
-const config1 = {
+const ctx = 'testChart';
+const config = {
    type: 'line',
    data: {
       labels: [
@@ -12,38 +12,63 @@ const config1 = {
          'May',
          'June',
       ],
-      datasets: [{
-         backgroundColor: 'rgb(255, 99, 132)',
-         borderColor: 'rgb(255, 99, 132)',
-         data: [0, 10, 5, 2, 20, 30, 45]
-      }]
-   },
+      datasets: [
+      {
+         label: "Prévision du nombre d'utilisateurs de mon site :)",
+         data: [1, 500, 2500, 12500, 75000, 375000],
+         
+         backgroundColor: ['#a9b976', "#ffffff", '#b65a5a'],
+         borderColor: '#a9b976',
+         pointBackgroundColor: 'rgba(100, 150, 100, 0.0)',
+         cubicInterpolationMode: "monotone",
+      },
+      {
+         label: "Prévision du nombre d'utilisateurs des autres sites :/",
+         data: [375000, 75000, 12500, 2500, 500, 1],
+
+         backgroundColor: '#b65a5a',
+         borderColor: '#b65a5a',
+         fill: '#b65a5a20',
+
+         pointBackgroundColor: "#ffffff",
+         cubicInterpolationMode: "monotone",
+      },
+      {
+         type: 'bar', 
+         label: "Des barres stylées",
+         data: [0, 50000, 120000, 190000, 50000, 0],
+         
+         backgroundColor: ['#CED7EF', "#CED7EF", '#CED7EF', '#7083bb', "#CED7EF", "#CED7EF"],
+      },
+   ]},
    options: {
-      responsive: false,
-   }
-}
-const ctx2 = 'testChart2';
-const config2 = {
-   type: 'line',
-   data: {
-      labels: [
-         'January',
-         'February',
-         'March',
-         'April',
-         'May',
-         'June',
-      ],
-      datasets: [{
-         backgroundColor: 'rgb(255, 99, 132)',
-         borderColor: 'rgb(255, 99, 132)',
-         data: [0, 10, 5, 2, 20, 30, 45]
-      }]
+      responsive: false, 
+      plugins: {
+         title: {
+            display: true,
+            text: "Mon super graphique de test !",
+            align: "center",
+            position: "bottom",
+            font: {
+               size: 18,
+               family: 'Quicksand',
+            },
+            padding: {
+               top: 10,
+               bottom: 30
+            }
+         },
+      },
+      elements: {
+         bar: {
+            borderRadius: 5,
+         }
+      }
    },
-   options: {
-      responsive: false,
-   }
 }
 
-const myChart = new Chart(ctx1, config1);
-const myChart2 = new Chart(ctx2, config2);
+const chart = new Chart(ctx, config);
+Chart.defaults.font  = {
+   size: 12,
+   family: "Quicksand",
+}
