@@ -81,22 +81,26 @@ main {
 }
 
 .buttons {
+    transition: 0.2s background-color;
     width: 120px;
     cursor: pointer;
 
     font-size: 1.2rem;
     
-    border: solid black 1px;
+    border: solid 1px var(--light-grey);
     border-radius: 2px;
     margin-top: 20px;
 
     padding: 10px;
 }
-.forms_buttons {
-    border: solid black 1px;
-    cursor: pointer;
+input { 
+    outline: none;
+    background-color: var(--main-white);
+    border: solid 1px var(--light-grey);
 
-    transition: 0.2s background-color;
+}
+
+.forms_buttons {
     background-color: var(--very-light-grey);
     color: var(--main-black);
 }
@@ -108,13 +112,10 @@ main {
     height:30px;
     font-size: 11px;
 }
-.required_field_star {
-    color: red;
-}
 
 article {
     display: flex;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
 }
 
@@ -127,8 +128,8 @@ article {
 }
 
 #main_menu ul {   
-    background-color: var(--main-black);
     display: flex;
+    background-color: var(--main-black);
 }
 
 #main_menu li {
@@ -147,7 +148,22 @@ a, #main_menu ul li button {
     padding:15px;
 }
 
+li:nth-child(1) a {
+    color: var(--main-black);
+    background-color: var(--primary-soft);
+}
 li:nth-child(1) a:hover {
+    background-color: var(--main-grey);
+    color: var(--main-white);
+}
+#main_menu li:nth-child(4) button {
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+    color: var(--main-black);
+    background-color: var(--secondary-hard);
+}
+#main_menu li:nth-child(4) button:hover {
     background-color: var(--main-grey);
     color: var(--main-white);
 }
@@ -156,34 +172,16 @@ li:nth-child(2) a:hover {
     background-color: var(--primary-soft);
     color: var(--main-black);
 }
-
+li:nth-child(3) {
+    position: absolute;
+    right: 68px;
+}
 li:nth-child(3) a:hover {
     background-color: var(--secondary-hard);
     color: var(--main-black);
 }
-li:nth-child(4) button:hover {
-    background-color: var(--main-grey);
-    color: var(--main-white);
-}
 
-li:first-child a {
-    color: var(--main-black);
-    background-color: var(--primary-soft);
-}
 
-li:nth-child(3) {
-    position: absolute;
-    right: 67px;
-}
-
-#main_menu ul li button {
-    position: absolute;
-    right: 0px;
-    cursor: pointer;
-
-    color: var(--main-black);
-    background-color: var(--secondary-hard);
-}
 
 /*================================>>  MODALS  <<=================================*/
 
@@ -239,6 +237,7 @@ form[name=chat] > div {
 form[name=chat] input {
     padding: 10px;
     margin-top: 10px;
+
 }
 
 form[name=chat] input:first-child {

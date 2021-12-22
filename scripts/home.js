@@ -1,6 +1,6 @@
 (function navAndChatMovement() {
    const triggElement = document.querySelector("main > header");
-   const nav = document.querySelector("nav");
+   const nav = document.querySelector("#main_menu");
    const chat = document.querySelector("form[name=chat]");
 
    chat.style.bottom = "15px";

@@ -63,7 +63,7 @@ canvas {
 }
 @media only screen and (max-height: 785px) {
     form[name=update] {
-        height: 325px;
+        height: 345px;
     }
     form > img {
         display: none;
