@@ -11,3 +11,18 @@
       });
    }
 })();
+
+(function burgerHandler() {
+   var burgerButton = document.querySelector("#drop_button");
+   var buttons = document.getElementsByClassName("tab_buttons");
+   
+   burgerButton.addEventListener("click", () => {
+      for (let button of buttons) {
+         if (button.style.display === "block") {
+            button.style.display = "none";
+         } else {
+            button.style.display = "block";
+         }
+      }
+   })
+ })();

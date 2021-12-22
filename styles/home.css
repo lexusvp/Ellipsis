@@ -54,7 +54,11 @@ main header {
 }
 
 main > header img {
-    min-width: 300px;
+    min-width: 400px;
+    max-width: 35%;
+}
+section header > img {
+    min-width: 400px;
     max-width: 35%;
 }
 
