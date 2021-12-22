@@ -1,14 +1,13 @@
 function responsiveHandler() {
-
    initialState();
    dynamicState();
 }
 
 function initialState() {
-   if (window.innerWidth < 800) { 
+   if (window.innerWidth < 1300) { 
       navIcons("small");
    }
-   if (window.innerWidth >= 800) {
+   if (window.innerWidth >= 1300) {
       navIcons("big");
    }
 }
@@ -22,7 +21,6 @@ function dynamicState() {
       }
    });
 }
-
 function navIcons(size) {
    const links = document.querySelectorAll("#main_menu li > a, #main_menu li > button");
    const lefSideButton = document.querySelector("#main_menu li:nth-child(3)");

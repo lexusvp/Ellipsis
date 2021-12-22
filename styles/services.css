@@ -1,11 +1,12 @@
 /*==================================>>  MAIN  <<=================================*/
 body > main {
     margin: 0px 50px 15px 50px;
-    height: 1500px;
-    background-color: var(--main-white);
 }
 main nav {
     display: flex;
+    justify-content: flex-end;
+    z-index: 100;
+
     height: 65px;
     width: 100%;
     background-color: var(--very-light-grey);
@@ -25,6 +26,7 @@ main button, main input {
     padding: 20px;
     transition: 0.3s;
 }
+
 main nav button:hover {
     cursor: pointer;
     background-color: var(--very-light-grey);
@@ -32,41 +34,75 @@ main nav button:hover {
 input:hover {
     background-color: var(--very-light-grey);
 }
-#drop_button {
-    display: none;
+.dropdown {        
+    position: absolute;
+    left: 0px;
 }
 
+.autocomplete_box{ 
+    position: absolute;
+    background-color: var(--main-white);
+    top: 167px;
+    max-height: 500px;
+    right: 0px;
+    width: 318px;
+}
+.autocomplete_box li {
+    user-select: none;
+    transition: 0.4s;
+    position: relative;
+    box-sizing: content-box;
+    list-style: none;
+    cursor: default;
+    padding: 10px;
+}
+.autocomplete_box li:hover{
+    cursor: pointer;
+    background-color: var(--very-light-grey);    
+}
 
 /*===========================>>  ARTICLES <<============================*/
 
+main section {
+    width: 100%;
+    background-color: var(--main-white);
+
+    height: 1000px;
+    max-height: 0;
+    
+    transition: max-height 1.5s, background-color 2s;
+    overflow: hidden;
+}
 .activities {
     grid-column: 1 /span 12;
     margin: 20px;
-    
+
     display: none;
-    flex-direction: column;
-    padding: 20px;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    padding: 20px;
 }
-.activities img 
-{
+.activities img { 
+
     margin-top: 10px;
     border: solid 2px var(--very-light-grey);
     border-radius: 2px;
     padding: 20px;
 }
+
 nav + article {
     border: none;
 }
 
-
 /*===========================>>  RESPONSIVENESS  <<============================*/
 
 @media only screen and (max-width: 1300px) {
+    .autocomplete_box {
+        right: 59px;
+    }
     .dropdown {
-        position: relative;
         display: inline-block;
     }
     .dropdown_content {

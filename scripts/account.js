@@ -1,5 +1,10 @@
 /*=================================>> CHARTS  <<=================================*/
 
+Chart.defaults.font  = {
+   size: 12,
+   family: "Quicksand",
+}
+const chartList = [];
 const ctx = 'testChart';
 const config = {
    type: 'line',
@@ -66,9 +71,23 @@ const config = {
       }
    },
 }
-
 const chart = new Chart(ctx, config);
-Chart.defaults.font  = {
-   size: 12,
-   family: "Quicksand",
+chartList.push(chart);
+
+//== TODO: Factor this in respHandler
+function responsiveChart(chartList) {
+   if(window.innerWidth > 800) {
+      chart.resize(500, 400);
+   } else {
+      chart.resize(400, 350);
+   }
+   window.addEventListener("resize", (e) => {
+      if(window.innerWidth > 800) {
+         chart.resize(500, 400);
+      } else {
+         chart.resize(400, 350);
+      }
+   }) 
 }
+responsiveChart(chartList);
+

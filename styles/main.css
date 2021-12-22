@@ -50,9 +50,10 @@
 }
 body {
     display: grid;
-    width: 100%;
+    width: 100vw;
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
+    overflow-x: hidden;
 }
 
 a {
@@ -123,7 +124,7 @@ article {
 
 #main_menu {
     position: fixed;
-    width: 100%;   
+    width: 100vw;   
     z-index: 1000;
 }
 
@@ -168,20 +169,18 @@ li:nth-child(1) a:hover {
     color: var(--main-white);
 }
 
-li:nth-child(2) a:hover {
+#main_menu li:nth-child(2) a:hover {
     background-color: var(--primary-soft);
     color: var(--main-black);
 }
-li:nth-child(3) {
+#main_menu li:nth-child(3) {
     position: absolute;
-    right: 68px;
+    right: 69px;
 }
-li:nth-child(3) a:hover {
+#main_menu li:nth-child(3) a:hover {
     background-color: var(--secondary-hard);
     color: var(--main-black);
 }
-
-
 
 /*================================>>  MODALS  <<=================================*/
 
@@ -203,10 +202,6 @@ li:nth-child(3) a:hover {
 
 /*==================================>>  CHAT  <<=================================*/
 
-form[name=chat] p{
-    overflow-y:auto;
-}
-
 #chat_modal {
     background-color: transparent; /* Fallback color */
 }
@@ -219,29 +214,35 @@ form[name=chat] {
     text-align: center;
     right: 20px;
     border: solid var(--main-black) 1px;
-    border-radius: 1px;
+    border-radius: 2px;
     
     background-color: var(--primary-softer);
     width: 400px;
 }
 
 form[name=chat] > div {
-    overflow-y: auto;
+    overflow: auto;
     background-color: var(--main-white);
-    margin-top: 20px;
+    margin-top: 10px;
+    padding: 5px;
     height: 250px;
     width: 350px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 form[name=chat] input {
     padding: 10px;
     margin-top: 10px;
-
 }
 
-form[name=chat] input:first-child {
+form[name=chat] textarea {
+    margin: 10px 5px 5px 5px;
+    padding: 5px;
     width: 300px;
+    resize: none;
+    /* border: none; */
+    outline: none;
+
 }
 
 /*==================================>>  ANIMS  <<=================================*/

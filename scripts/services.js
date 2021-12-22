@@ -1,13 +1,24 @@
-(function tabHandler() {
-   
+(function tabHandler() {  
+   console.log(window.location)
    let buttons = document.getElementsByClassName("tab_buttons");
    let articles = document.querySelectorAll("article");
+   let section = document.querySelector("main section");
+   let clicked = false;
 
-   for (let i=0 ; i<buttons.length ; i++) 
-   {
+   for (let i=0 ; i<buttons.length ; i++) {
       buttons[i].addEventListener("click", () => {
-         for (let article of articles) article.style.display = "none";
-         articles[i].style.display = "flex";
+         if (!clicked) {
+            for (let article of articles) article.style.display = "none";
+
+            articles[i].style.display = "flex";
+            section.style.maxHeight = "1500px";
+
+            clicked = true;
+         } else {
+            section.style.maxHeight = "0";
+
+            clicked = false;
+         }
       });
    }
 })();
@@ -25,4 +36,4 @@
          }
       }
    })
- })();
+})();

@@ -38,6 +38,7 @@ main header > img {
 /*=================================>>  DATA SECTION  <<=================================*/
 
 main section {
+    display: none;
     padding: 30px;
     display: flex;
     justify-content: center;

@@ -4,7 +4,12 @@ function chatDisplay(messageList) {
    for (elements of messageList) {
       const currentP = document.createElement("p");
       currentP.style.padding = "5px";
-      currentP.style.fontSize = "1rem";
+      currentP.style.marginBottom = "5px";
+      currentP.style.inlineSize = "334px";
+      currentP.style.overflowWrap = "break-word";
+
+      currentP.style.backgroundColor = "var(--very-light-grey)";
+      currentP.style.fontSize = "0.9rem";
 
       currentP.textContent = elements[1];
       chatDisplay.appendChild(currentP);

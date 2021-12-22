@@ -14,7 +14,9 @@ function formsHandler() {
             const messageHistory = [];
 
             if(formData[0].value !== "") {
-               messageHistory.push(["moi", formData[0].value]);
+               const message = document.querySelector("textarea")
+               messageHistory.push(["moi", message.value]);
+
                const messageLog = new Log("message", formData[0].value);
                //== Info: Send to DB -> Display
    
@@ -126,7 +128,7 @@ function formAnim(form, success, type, message="") {
 
    if (success) {
       form.style.backgroundColor = "var(--hard-green)";
-      form.style.height = "45px";
+      form.style.height = "65px";
       if (window.innerWidth > 650) form.style.width = "500px";   
       else form.style.width = "400px";   
 
@@ -137,8 +139,7 @@ function formAnim(form, success, type, message="") {
    }
    else {
       form.style.backgroundColor = "var(--main-red)";
-      if (type !== "update") form.style.height = "100px";  
-      else form.style.height = "80px";
+      form.style.height = "100px";
       if (window.innerWidth > 650) form.style.width = "500px";   
       else form.style.width = "400px";   
 
