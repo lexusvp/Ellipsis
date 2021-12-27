@@ -57,7 +57,7 @@ main > header img {
     min-width: 400px;
     max-width: 35%;
 }
-section header > img {
+section > header > img {
     min-width: 400px;
     max-width: 35%;
 }
@@ -99,16 +99,15 @@ article p {
 
 article img {
     margin: 15px 0px 5px 0px;
-    width: 140px;
+    width: 30%;
+    min-width: 100px;
 }
-
 section > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding:50px;
 }
-
 section > div:nth-child(2) > img {
     display: block;
     width: 250px;
@@ -193,11 +192,6 @@ form[name=login] label, form[name=register] label {
 
 @media only screen and (max-width: 800px)
 {
-    #main_menu {
-        bottom: 0px;
-        width: 100%;
-    }
-
     header img:nth-child(2) {
         min-width: 200px;
     }

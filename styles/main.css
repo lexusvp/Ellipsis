@@ -63,10 +63,6 @@ p {
     font-size: 1.1rem;
     color: var(--main-black);
 }
-form {
-    padding: 10px;
-}
-
 
 /*================================>>  HEADER  <<================================*/
 
@@ -124,6 +120,7 @@ article {
 
 #main_menu {
     position: fixed;
+    bottom: 0px;
     width: 100vw;   
     z-index: 1000;
 }
@@ -201,48 +198,127 @@ li:nth-child(1) a:hover {
 }
 
 /*==================================>>  CHAT  <<=================================*/
-
-#chat_modal {
-    background-color: transparent; /* Fallback color */
-}
-
-form[name=chat] {
+#chat_container {
     position: fixed;
+    visibility: hidden;
+    z-index: 101;
+    
+    bottom: 53px;
+    right: 0px;
+    border: none;
+    outline: none;
+}
+form[name=chat] {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     right: 20px;
-    border: solid var(--main-black) 1px;
+    background-color: var(--main-black);
     border-radius: 2px;
-    
-    background-color: var(--primary-softer);
-    width: 400px;
+    width: 350px;
 }
 
-form[name=chat] > div {
+#messages_display {
+    display: flex;
+    flex-direction: column;
     overflow: auto;
     background-color: var(--main-white);
-    margin-top: 10px;
     padding: 5px;
     height: 250px;
-    width: 350px;
-    border-radius: 2px;
-}
-
-form[name=chat] input {
-    padding: 10px;
-    margin-top: 10px;
-}
-
-form[name=chat] textarea {
-    margin: 10px 5px 5px 5px;
-    padding: 5px;
-    width: 300px;
-    resize: none;
-    /* border: none; */
+    width: 100%;
+    border: none;
     outline: none;
+}
 
+form[name=chat] > header {
+    display: flex;
+    align-content: flex-start;
+    border: none;
+    background-color: var(--main-white);
+    padding: 10px;
+}
+form[name=chat] > header > div {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-evenly;
+    margin-left: 15px;
+}
+form[name=chat] h4{
+    /* color: white; */
+    font-size: 0.9rem;
+}
+form[name=chat] p{
+    /* color: white; */
+    font-size: 0.8rem;
+}
+form[name=chat] img {
+    background-color: var(--main-black);
+    box-shadow: 0rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1) ;
+    border-radius: 100%;
+    padding: 5px;
+}
+form[name=chat] footer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background-color: var(--main-black);
+    padding: 5px;
+    height: 60px;
+    width: 100%;
+}
+form[name=chat] input[type=textarea]  {
+    padding: 10px;
+    margin: 5px;
+    width: 250px;
+    resize: none;
+    border-radius: 9999px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.191);
+}
+#chat_container > aside {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50px;
+}
+
+#chat_container > aside > button {
+    background-color: var(--main-black);
+    color: white;
+    height: 60px;
+    width: 53px;
+    position: relative;
+    cursor: pointer;
+    margin: 5px;
+    left: -58px;
+    top: 393px;
+    border: none;
+    outline: none;
+}
+#chat_container > aside > button:hover {
+    background-color: var(--main-white);
+    color: var(--main-black);
+}
+#chat_container aside > ul{
+    background-color: var(--main-black);
+
+    position: absolute;
+    left: -53px;
+    top: 133px;
+    display: none;
+    border: none;
+}
+#chat_container aside > ul img, #chat_container aside > ul li {
+    height: 53px;
+    width: 53px;
+}
+#chat_container aside > ul img:hover {
+    background-color: #7083bb;
 }
 
 /*==================================>>  ANIMS  <<=================================*/

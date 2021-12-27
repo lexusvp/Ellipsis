@@ -64,16 +64,19 @@ input:hover {
 /*===========================>>  ARTICLES <<============================*/
 
 main section {
+    z-index: 0;
     width: 100%;
     background-color: var(--main-white);
 
-    height: 1000px;
     max-height: 0;
     
     transition: max-height 1.5s, background-color 2s;
     overflow: hidden;
 }
 .activities {
+    position: relative;
+    top: -650px;
+    z-index: 10;
     grid-column: 1 /span 12;
     margin: 20px;
 
@@ -94,6 +97,14 @@ main section {
 
 nav + article {
     border: none;
+}
+
+svg {
+    text-align: center;
+    bottom: -650px;
+    width: 100%;
+    z-index: -6;
+    position: relative;
 }
 
 /*===========================>>  RESPONSIVENESS  <<============================*/

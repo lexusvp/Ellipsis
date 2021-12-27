@@ -14,13 +14,14 @@ function formsHandler() {
             const messageHistory = [];
 
             if(formData[0].value !== "") {
-               const message = document.querySelector("textarea")
+               const message = document.querySelector("input[type=textarea]")
                messageHistory.push(["moi", message.value]);
 
                const messageLog = new Log("message", formData[0].value);
                //== Info: Send to DB -> Display
    
-               chatDisplay(messageHistory);
+               console.log("submit ok")
+               displayChatMessages(messageHistory);
             }
          }
          else if (currentForm.name === "register") {
