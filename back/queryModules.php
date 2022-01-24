@@ -1,7 +1,9 @@
 <?php
-   include './queryHandler.php';
+   include './connectionModule.php';
 
-   function insertUsers() {
+   //========================>> USER QUERIES <<========================//
+
+   function createUser() {
       $condition = (
          !empty($_POST['user_name']) && 
          !empty($_POST['user_firstname']) &&
@@ -25,22 +27,17 @@
          return $response[0];
       }  
    }  
-   function readUsers() {
-      $userSelect = "SELECT * FROM users";
-      $result = queryDatabase($userSelect);
-      while ($donnees = $result[1]->fetch()) {
-         echo $donnees['user_name'] . "/" .
-              $donnees['user_firstname'] . "/" .
-              $donnees['user_login'] . "/" .
-              $donnees['user_mdp'];
-      }  
-   }
+   function checkUser() {}
+   function updateUser() {}
 
-   if ($_GET["type"] === "select") {
-      readUsers();
-   } else if ($_GET["type"] === "insert") {
-      insertUsers();
-   }
+   //=======================>> MESSAGE QUERIES <<=====================//
+
+   function createMessage() {}
+
+   //=========================>> LOG QUERIES <<======================//
+
+   function createLog() {}
+
 ?>
 
 

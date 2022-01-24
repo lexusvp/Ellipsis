@@ -1,18 +1,29 @@
 <?php
-   function queryDatabase($prepared, $queryArgs = NULL) { 
-      $dsn = "mysql:host=localhost;dbname=ellipsis";
+   include './queryModules.php';
 
-      $database = new PDO($dsn, "root", "root", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-      $database -> exec("set names utf8");
-      $query = $database -> prepare($prepared);
+   //==========================>> CALL ZONE <<======================//
 
-      try {
-         $success = $query->execute($queryArgs); 
-      }  catch (Exception $e) { 
-         echo("<script>console.log(".json_encode($e).");</script>");            
-         die("La requête a échoué !");
-      }
+   $queryType = $_GET["type"];
+   switch($queryType) {
+      case "createUser":
+         createUser();
+         break;
+      case "checkUser":
+         checkUser();
+         break;
+      case "updateUser":
+         updateUser();
+         break;
 
-      return [$success, $query];
+      case "createMessage":
+         createMessage();
+         break;
+      case "createLog":
+         createLog();
+         break;
+
+      default:
+         die("No valid arguments in URL, WTF are you doing ?");
+         break;
    }
 ?>

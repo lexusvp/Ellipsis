@@ -9,3 +9,19 @@ function pseudoValidation(str) {
    const validationRegex = /^[a-zA-Z]{4,10}[0-9]{0,3}$/; 
    return (validationRegex.test(str));
 }
+
+function registerValidation(data) {
+   for (let i=0 ; i<data.length ; i++) {
+      if (data[i].name === "id") {
+         if(!pseudoValidation(data[i].value)) {
+            return "id";
+         }
+      } 
+      else if (data[i].name === "password") {
+         if(!passwordValidation(data[i].value)) {
+            return "pass";
+         } 
+      }
+   }
+   return "";
+}
