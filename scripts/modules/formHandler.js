@@ -9,7 +9,7 @@ function formsHandler() {
    for (let i=0 ; i<forms.length ; i++) {
       const currentForm = forms[i];
 
-      currentForm.addEventListener("submit", function submitEvent(e) {
+      currentForm.addEventListener("submit", (e) => {
          e.preventDefault();
          const formData = document.querySelectorAll(`form[name=${currentForm.name}] input`)
 
@@ -26,18 +26,21 @@ function formsHandler() {
                displayChatMessages(messageHistory);
             }
          }
+
          else if (currentForm.name === "register") {
             const failedConstraint = registerValidation(formData);
             if (failedConstraint === "") {
                const data = {
-                  id: formData[0].value,
+                  login: formData[0].value,
+                  password: formData[1].value,
                   email: formData[2].value
                };
+
                const formattedFormData = new FormData(currentForm);
                queryDatabase("createUser", formattedFormData);
 
-               const registerLog = new Log("registerAttempt", data);
-               queryDatabase("createLog", registerLog);
+               // const registerLog = new Log("registerAttempt", data);
+               // queryDatabase("createLog", registerLog);
 
                formAnim(currentForm, true, "register");
             }
@@ -48,25 +51,25 @@ function formsHandler() {
          else if (currentForm.name === "login") {
             if (pseudoValidation(formData[0].value)) {
                const data = {
-                  id: formData[0].value
+                  pseudo: formData[0].value
                };
                const formattedFormData = new FormData(currentForm);
                queryDatabase("checkUser", formattedFormData);
 
-               const loginLog = new Log("loginAttempt", data);
-               queryDatabase("createLog", loginLog);
+               // const loginLog = new Log("loginAttempt", data);
+               // queryDatabase("createLog", loginLog);
 
                formAnim(currentForm, true, "login");
             }
             else {
-               formAnim(currentForm, false, "login", "id");            
+               formAnim(currentForm, false, "login", "pseudo");            
             }
          }
          else if (currentForm.name === "update") {
             const failedConstraint = registerValidation(formData);
             if (failedConstraint === "") {
                const data = {
-                  id: formData[0].value,
+                  pseudo: formData[0].value,
                   email: formData[2].value
                };
                const formattedFormData = new FormData(currentForm);
@@ -88,34 +91,15 @@ function formsHandler() {
 //=====================>> QUERY HANDLING <<======================//
 
 async function queryDatabase(type, data) {
+   console.log(data);
    const response = await fetch                    //== REMINDER: BOTH POST && GET
    (
-      `../../back/queryModules.php?type=${type}`, {      
+      `./back/queryHandler.php?type=${type}`, {      
       method: 'POST',
       body: data
    });
-
-   switch(type) {
-      case "createUser":
-         console.log("Query sent to DB");
-         break;
-      case "checkUser":
-         console.log("Query sent to DB");
-         break;
-      case "updateUser":
-         console.log("Query sent to DB");
-         break;
-
-      case "createMessage":
-         console.log("Query sent to DB");
-         break;
-      case "createLog":
-         console.log("Query sent to DB");
-         break;
-      default:
-         console.log("What the f*** are you doing ?!");
-         break;
-   }
+   
+   console.log(response);
    return response;
 }
 
@@ -131,18 +115,18 @@ function formAnim(form, success, type, message="") {
    const answers = {
       login: {
          success: "Welcome back !",
-         idFail: "Your pseudo and/or password are incorrect :( !"
+         pseudoFail: "Your pseudo and/or password are incorrect :( !"
       },
       register: {
          success: "Welcome !",
-         idFail: "This pseudo did not fit the requirements !",
-         passFail: "The password did not fit the requirements !",
+         loginFail: "This pseudo did not fit the requirements !",
+         passwordFail: "The password did not fit the requirements !",
          mailFail: "The mail is not valid !",
       },
       update: {
          success: "Update successful !",
-         idFail: "This pseudo did not fit the requirements !",
-         passFail: "The new password did not fit the requirements !",
+         loginFail: "This pseudo did not fit the requirements !",
+         passwordFail: "The new password did not fit the requirements !",
          mailFail: "The new mail is not valid !",
       }
    };

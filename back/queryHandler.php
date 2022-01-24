@@ -1,8 +1,10 @@
 <?php
    include './queryModules.php';
+   include './connectionModule.php';
 
    //==========================>> CALL ZONE <<======================//
 
+   //== INFO: Fully functionnal branching
    $queryType = $_GET["type"];
    switch($queryType) {
       case "createUser":

@@ -9,7 +9,6 @@
       try {
          $success = $query->execute($queryArgs); 
       }  catch (Exception $e) { 
-         echo("<script>console.log(".json_encode($e).");</script>");            
          die("La requête a échoué !");
       }
 

@@ -1,33 +1,31 @@
 <?php
-   include './connectionModule.php';
-
    //========================>> USER QUERIES <<========================//
-
-   function createUser() {
+   //== TODO: Duplicates check, insertion working
+   function createUser() { 
       $condition = (
-         !empty($_POST['user_name']) && 
-         !empty($_POST['user_firstname']) &&
-         !empty($_POST['user_firstname']) &&
-         !empty($_POST['user_mdp'])
+         !empty($_POST['login']) && 
+         !empty($_POST['password']) &&
+         !empty($_POST['email'])
       );   
-
       if ($condition) {
          $userInsert = "INSERT INTO users SET 
-         user_name = :user_name, 
-         user_firstname = :user_firstname, 
-         user_login = :user_login, 
-         user_mdp = :user_mdp
+         login_user = :login_user, 
+         pw_user = :pw_user,
+         email_user = :email_user 
          ";
+
          $response = queryDatabase($userInsert, array(
-         ':user_name' => $_POST['user_name'],
-         ':user_firstname' => $_POST['user_firstname'],
-         ':user_login' => $_POST['user_login'],
-         ':user_mdp' => $_POST['user_mdp'],
+         ':login_user' => $_POST['login'],
+         ':pw_user' => $_POST['password'],
+         ':email_user' => $_POST['email'],
          ));
          return $response[0];
       }  
    }  
-   function checkUser() {}
+   function checkUser() {
+      
+   }
+
    function updateUser() {}
 
    //=======================>> MESSAGE QUERIES <<=====================//

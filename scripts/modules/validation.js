@@ -3,7 +3,6 @@ function passwordValidation(str) {
    const validationRegex = /^(?!.* )(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$&|~°+*/%=])(?=.*[0-9]).{8}/
    return (validationRegex.test(str));
 }
-
 //== Note: Pseudo constraints: starts with 4 letters / Any digits then / No specials
 function pseudoValidation(str) {
    const validationRegex = /^[a-zA-Z]{4,10}[0-9]{0,3}$/; 
@@ -12,14 +11,14 @@ function pseudoValidation(str) {
 
 function registerValidation(data) {
    for (let i=0 ; i<data.length ; i++) {
-      if (data[i].name === "id") {
+      if (data[i].name === "login") {
          if(!pseudoValidation(data[i].value)) {
-            return "id";
+            return "login";
          }
       } 
       else if (data[i].name === "password") {
          if(!passwordValidation(data[i].value)) {
-            return "pass";
+            return "password";
          } 
       }
    }

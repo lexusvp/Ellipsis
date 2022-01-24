@@ -128,18 +128,20 @@
                 
                 <button class="modal_buttons buttons" id="signup_button"> Sign up !</button>
                 <div class="modal">
-                    <form action="signup_account_form" method="post" name="register">
+                    <form name="register">
                         <img src="./assets/images/icons/register_success.png" alt="">
-                        <label for="id"> Choose a pseudo :</label>
-                        <input type="text" name="id" required>
+
+                        <label for="login"> Choose a pseudo :</label>
+                        <input name="login" type="text"  required>
+
                         <label for="password"> Choose a secure password :</label>
                         <input type="password" name="password" required>  
+
                         <span id="password_requirements"> 1 chiffre, 1 majuscule, 1 minuscule, 1 caractères spécial et 8 caractères minimum </span>  
                         <label for="email"> Enter your email adress :</label>
                         <input type="email" name="email" required>       
                         
                         <button type="submit" value = "" name="submit"class="buttons forms_buttons"> 
-
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </form>
@@ -149,8 +151,8 @@
                 <div class="modal">
                     <form action="login_account_form" method="post" name="login">
                         <img src="./assets/images/icons/login_success.png" alt="">
-                        <label for="id"> Enter your pseudo :</label>
-                        <input type="text" name="id" required>
+                        <label for="pseudo"> Enter your pseudo :</label>
+                        <input type="text" name="pseudo" required>
                         <label for="password"> Enter your password :</label>
                         <input type="password" name="password" required>         
                         
