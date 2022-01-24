@@ -227,14 +227,18 @@ form[name=chat] {
     padding: 5px;
     height: 250px;
     width: 100%;
-    border: none;
+    border: solid 1px var(--very-light-grey);
+    border-bottom: none;
+
     outline: none;
 }
 
 form[name=chat] > header {
+    border: solid 1px var(--very-light-grey);
+    border-bottom: none;
+
     display: flex;
     align-content: flex-start;
-    border: none;
     background-color: var(--main-white);
     padding: 10px;
 }

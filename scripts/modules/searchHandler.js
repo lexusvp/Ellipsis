@@ -9,6 +9,25 @@ const testList = [
    "Haskell",
    "WASM",
    "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
+   "ASM",
    "MOBO",
    "Fonctions",
    "Virtualbox",
@@ -27,19 +46,23 @@ const icon = document.querySelector("input[name='search'] + button");
    const suggBox = document.querySelector(".autocomplete_box");
    const inputBox = document.querySelector("input[name='search']");
 
-   inputBox.addEventListener("input", (key) => {      
-      const suggestions = filterList(inputBox.value, testList);
-      for (let li of suggestions) {
-         li.addEventListener("click", () => {
-            inputBox.value = li.textContent;
-         });
-         suggBox.appendChild(li);
+   inputBox.addEventListener("input", (key) => {     
+      suggBox.innerHTML = "";  
+
+      if(inputBox.value !== "") {
+         const suggestions = filterList(inputBox.value, testList);
+         console.log("suggestions : ", suggestions)
+
+         for (let li of suggestions) {
+            li.addEventListener("click", () => {
+               inputBox.value = li.textContent;
+            });
+            suggBox.appendChild(li);
+         }
       }
-      if(inputBox.value === "") suggBox.innerHTML = "";
    });
 })();
 
-//== BUG: With input AC -> ASM still suggested ?
 function filterList(input, list) {
    let arr = [];
    arr = list.filter((data) => {

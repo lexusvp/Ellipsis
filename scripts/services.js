@@ -24,9 +24,8 @@
 })();
 
 (function burgerHandler() {
-   var burgerButton = document.querySelector("#drop_button");
-   var buttons = document.getElementsByClassName("tab_buttons");
-   
+   let burgerButton = document.querySelector("#drop_button");
+   let buttons = document.getElementsByClassName("tab_buttons");
    burgerButton.addEventListener("click", () => {
       for (let button of buttons) {
          if (button.style.display === "block") {
