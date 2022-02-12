@@ -1,4 +1,4 @@
 (function main() {
    responsiveHandler();
-   formsHandler();
+   formHandler();
 })();

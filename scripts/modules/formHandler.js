@@ -1,9 +1,9 @@
-//== TODO: IMPORTANT, Check that data is correctly sent to queryHandler.php
+//== TODO: IMPORTANT, Check that data is correctly sent to controleur.php
 //== TODO: Implement session handling, message author link handling
 
 //== NOTE: User feedback on failures / could be great too.
 
-function formsHandler() {
+async function formHandler() {
    const forms = document.forms;
 
    for (let i=0 ; i<forms.length ; i++) {
@@ -18,10 +18,7 @@ function formsHandler() {
             if(formData[0].value !== "") {
                const message = document.querySelector("input[type=textarea]");
                const formattedMessage = ["PSEUDO-OF-USER", message];
-               queryDatabase("createMessage", formattedMessage);
-
-               const messageLog = new Log("message", formData[0].value);
-               queryDatabase("createLog", messageLog);
+               queryControler("createMessage", formattedMessage);
    
                displayChatMessages(messageHistory);
             }
@@ -30,53 +27,21 @@ function formsHandler() {
          else if (currentForm.name === "register") {
             const failedConstraint = registerValidation(formData);
             if (failedConstraint === "") {
-               const data = {
-                  login: formData[0].value,
-                  password: formData[1].value,
-                  email: formData[2].value
-               };
-
-               const formattedFormData = new FormData(currentForm);
-               queryDatabase("createUser", formattedFormData);
-
-               // const registerLog = new Log("registerAttempt", data);
-               // queryDatabase("createLog", registerLog);
-
-               formAnim(currentForm, true, "register");
+               registerAttempt(currentForm);
             }
             else {
                formAnim(currentForm, false, "register", failedConstraint)
             }
          }
          else if (currentForm.name === "login") {
-            if (pseudoValidation(formData[0].value)) {
-               const data = {
-                  pseudo: formData[0].value
-               };
-               const formattedFormData = new FormData(currentForm);
-               queryDatabase("checkUser", formattedFormData);
-
-               // const loginLog = new Log("loginAttempt", data);
-               // queryDatabase("createLog", loginLog);
-
-               formAnim(currentForm, true, "login");
-            }
-            else {
-               formAnim(currentForm, false, "login", "pseudo");            
-            }
+            loginAttempt(currentForm);            
          }
          else if (currentForm.name === "update") {
             const failedConstraint = registerValidation(formData);
             if (failedConstraint === "") {
-               const data = {
-                  pseudo: formData[0].value,
-                  email: formData[2].value
-               };
-               const formattedFormData = new FormData(currentForm);
-               queryDatabase("updateUser", formattedFormData);
 
-               const updateLog = new Log("updateAttempt", data);
-               queryDatabase("createLog", updateLog);
+               const formattedFormData = new FormData(currentForm);
+               queryControler("update", formattedFormData);
 
                formAnim(currentForm, true, "update");
             }
@@ -88,19 +53,27 @@ function formsHandler() {
    }
 }
 
-//=====================>> QUERY HANDLING <<======================//
+async function registerAttempt(form) {
+   const formattedFormData = new FormData(form);
+   const answer = await queryControler("register", formattedFormData);
 
-async function queryDatabase(type, data) {
-   console.log(data);
-   const response = await fetch                    //== REMINDER: BOTH POST && GET
-   (
-      `./back/queryHandler.php?type=${type}`, {      
-      method: 'POST',
-      body: data
-   });
-   
-   console.log(response);
-   return response;
+   console.log("answer : ", answer)
+   if (answer.check_success) {
+      formAnim(form, true, "register");
+   } else {
+      //== TODO: User Feedback on failed constraints
+   }
+}
+async function loginAttempt(form) {
+   const formattedFormData = new FormData(form);
+   const answer = await queryControler("login", formattedFormData);
+   console.log("answer : ", answer)
+
+   if (answer.check_success) {
+      formAnim(form, true, "login");
+   } else {
+      formAnim(form, false, "login");
+   }
 }
 
 //=====================>> FORM ANIMS <<======================//

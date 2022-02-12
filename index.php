@@ -12,8 +12,9 @@
     
     <script src="https://kit.fontawesome.com/8ce9f97409.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./scripts/modules/validation.js"></script>
+    <script type="text/javascript" src="./scripts/modules/controlerModule.js"></script>
+
     <script type="text/javascript" src="./scripts/modules/formHandler.js" defer></script>
-    <script type="text/javascript" src="./scripts/modules/logsHandler.js" defer></script>
     <script type="text/javascript" src="./scripts/modules/responsiveHandler.js" defer></script>
     <script type="text/javascript" src="./scripts/modules/chatHandler.js" defer></script>
     
@@ -112,7 +113,9 @@
                         <p> 14h25 </p>
                     </div>
                 </header>
-                <div id = "messages_display"></div>
+                <div id = "messages_display">
+
+                </div>
                 <footer>
                     <input type="textarea" name="message" placeholder="Enter your message here !">
                 </footer>
@@ -132,14 +135,14 @@
                         <img src="./assets/images/icons/register_success.png" alt="">
 
                         <label for="login"> Choose a pseudo :</label>
-                        <input name="login" type="text"  required>
+                        <input name="login" type="text" required value="Azerty1">
 
                         <label for="password"> Choose a secure password :</label>
-                        <input type="password" name="password" required>  
+                        <input type="password" name="password" required value="Azerty11!">  
 
                         <span id="password_requirements"> 1 chiffre, 1 majuscule, 1 minuscule, 1 caractères spécial et 8 caractères minimum </span>  
                         <label for="email"> Enter your email adress :</label>
-                        <input type="email" name="email" required>       
+                        <input type="email" name="email" required value="cav@zap.com">       
                         
                         <button type="submit" value = "" name="submit"class="buttons forms_buttons"> 
                             <i class="fas fa-arrow-right"></i>
@@ -151,10 +154,10 @@
                 <div class="modal">
                     <form action="login_account_form" method="post" name="login">
                         <img src="./assets/images/icons/login_success.png" alt="">
-                        <label for="pseudo"> Enter your pseudo :</label>
-                        <input type="text" name="pseudo" required>
+                        <label for="pseudo"> Enter your email :</label>
+                        <input type="email" name="email" required value="cav@gmail.com">
                         <label for="password"> Enter your password :</label>
-                        <input type="password" name="password" required>         
+                        <input type="password" name="password" required value="Azerty1!">         
                         
                         <button type="submit" value = "" name="submit"class="buttons forms_buttons"> 
                             
