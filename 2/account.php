@@ -72,14 +72,8 @@
                 <img alt="account" src="../assets/images/icons/account_icon.svg">
                 
                 <ul>
-                    <li>Your actual pseudo is : <?php echo $_SESSION["pseudo"]; ?></li>
-                    <?php
-                        if ($_SESSION["admin"]) {
-                            echo "Heeeeyyyyyy";
-                        }
-                    ?>
+                    <li>Your actual pseudo is : <span id="user_pseudo"></span></li>
                 </ul>
-
                 <div>
                     <label for="pseudo"> New pseudo :</label>
                     <input type="text" name="pseudo" placeholder="Bob653">
@@ -102,8 +96,7 @@
             <header>
                 <img alt="header" src="../assets/images/header_img/stats.png">
             </header>
-            <section>
-                <canvas id="testChart" width="400px" height="350px"></canvas>
+            <section id="admin_section">
             </section>
         </main>
 

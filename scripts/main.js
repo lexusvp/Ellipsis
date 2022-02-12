@@ -10,6 +10,7 @@ function dynamicSessions() {
 
    const userData = JSON.parse(localStorage.getItem("userData"));
    const nav = document.querySelector("#main_menu");
+   
    if (userData !== null) {  
       if (userData.logged) {  
          nav.style.display = "block";
