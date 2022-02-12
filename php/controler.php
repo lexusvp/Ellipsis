@@ -2,11 +2,13 @@
    require './model/connect.php';
    require './model/userModel.php';
    require './model/messageModel.php';
+   require './model/logModel.php';
 
    require './helpers.php';
-   
+   session_start();
+
    $regCondition = (
-      isset($_POST['login']) && 
+      isset($_POST['pseudo']) && 
       isset($_POST['password']) &&
       isset($_POST['email'])
    );   
@@ -15,57 +17,66 @@
       isset($_POST['password'])
    );   
    
-   if ($_GET["type"] === "register" && $regCondition) {
-      $failedConstraints = registerUser();
-      echo json_encode($failedConstraints);
-   }
+   if ($_GET["type"] === "registerUser" && $regCondition) {
+      
+      $_POST['password'] = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
-   else if ($_GET["type"] === "login" && $logCondition) {
-      $userData = connectUser();                            //== NOTE: Non-sensitive
+      $test = availableCheck();
+      if ($test["check_success"]) {
+         createUser();
+         createLog("Registration", $_POST["pseudo"]);
+      }
+
+      echo json_encode($test);
+   }
+   else if ($_GET["type"] === "loginUser" && $logCondition) {
+      $userData = connectUser();                            //== NOTE: Non-sensitive data
+
       echo json_encode($userData);
    }
+   else if ($_GET["type"] === "updateUser" && $updateCondition) {
 
-   // else if ($_GET["type"] === "updateUser" && $updateCondition) {    
-   //    updateUser();
-   // }   
+   }   
+
    // else if ($_GET["type"] === "createMessage" && $messageCondition) {   
    //    createMessage();
    // } 
    // else if ($_GET["type"] === "readMessage" && $readCondition) {
    //    readMessage();
    // }
-   // else if ($_GET["type"] === "log" && $logCondition) {
-   //    createLog();
-   // }
-
+  
    function connectUser() {
       $query = readUser();
       $result = $query->fetch();    // Retourn tableau si ok      
  
       $data = [];
       if (is_array($result)) {
-         if (password_verify($_POST["password"], $result[1])) {
-            $data["check_success"] = True;
-            $data["pseudo_user"] = $result[0];
+         if (password_verify($_POST["password"], $result[0])) {
+
+            $data["logged"] = True;
+            $data["pseudo_user"] = $result[1];
+
+            $_SESSION["pseudo"] = $result[1];
+            $_SESSION["admin"] = $result[2];
+
+            createLog("Login", $_SESSION["pseudo"]);
          }
       } else {
-         $data["check_success"] = False;
+         $data["logged"] = False;
       }
 
       return $data;
    }
-   function registerUser() {
+   function availableCheck() {
       $arr = [];
-      $arr["login_check"] = checkPseudo();
-      $arr["email_check"] = checkMail();
+      $arr["pseudo"] = checkPseudo();
+      $arr["email"] = checkMail();
 
-      $_POST['password'] = password_hash($_POST['password'], PASSWORD_ARGON2I);
-      if ($arr["login_check"] && $arr["email_check"]) {
-         $arr["check_success"] = True;
-         createUser();
-      } else $arr["check_success"] = False;
+      if ($arr["pseudo"] && $arr["email"]) $arr["check_success"] = True;
+      else $arr["check_success"] = False;
 
       return $arr;
    }
+
 
 ?>

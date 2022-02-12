@@ -37,17 +37,20 @@ async function formHandler() {
             loginAttempt(currentForm);            
          }
          else if (currentForm.name === "update") {
-            const failedConstraint = registerValidation(formData);
-            if (failedConstraint === "") {
+            //== NOTE : Valider seulement les champs remplis
+            console.log(formData[0].name, formData[0].value);
+            // if (formData[0].name === "login" && ) {
+               
+            // }
 
-               const formattedFormData = new FormData(currentForm);
-               queryControler("update", formattedFormData);
 
-               formAnim(currentForm, true, "update");
-            }
-            else {
-               formAnim(currentForm, false, "update", failedConstraint)
-            }
+            // const failedConstraint = registerValidation(formData);
+            // if (failedConstraint === "") {
+            //    updateAttempt(form);
+            // }
+            // else {
+            //    formAnim(currentForm, false, "update", failedConstraint)
+            // }
          }
       })
    }
@@ -55,9 +58,8 @@ async function formHandler() {
 
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("register", formattedFormData);
+   const answer = await queryControler("registerUser", formattedFormData);
 
-   console.log("answer : ", answer)
    if (answer.check_success) {
       formAnim(form, true, "register");
    } else {
@@ -66,13 +68,23 @@ async function registerAttempt(form) {
 }
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("login", formattedFormData);
-   console.log("answer : ", answer)
+   const answer = await queryControler("loginUser", formattedFormData);
 
-   if (answer.check_success) {
+   if (answer.logged) {
+      
       formAnim(form, true, "login");
    } else {
       formAnim(form, false, "login");
+   }
+}
+async function updateAttempt(form) {
+   const formattedFormData = new FormData(form);
+   const answer = await queryControler("update", formattedFormData);
+
+   if (answer.check_success) {
+      formAnim(currentForm, true, "update");
+   } else {
+      //== TODO: User Feedback on failed constraints
    }
 }
 

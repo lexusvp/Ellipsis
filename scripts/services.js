@@ -1,5 +1,5 @@
 (function tabHandler() {  
-   console.log(window.location)
+
    let buttons = document.getElementsByClassName("tab_buttons");
    let articles = document.querySelectorAll("article");
    let section = document.querySelector("main section");

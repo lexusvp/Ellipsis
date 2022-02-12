@@ -18,7 +18,6 @@
 
         <script type="text/javascript" src="../scripts/modules/chatHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
-        <script type="text/javascript" src="../scripts/modules/logsHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/responsiveHandler.js" defer></script>
 
         <script type="module" src="../scripts/account.js" defer></script>
@@ -27,6 +26,7 @@
     </head>
 
     <body>
+        <?php session_start(); ?>
         <header>
             <img alt="header" src="../assets/images/header_img/account_head.png">
         </header>
@@ -72,13 +72,17 @@
                 <img alt="account" src="../assets/images/icons/account_icon.svg">
                 
                 <ul>
-                    <li>Your actual pseudo is :</li>
-                    <li>Your actual email adress is :</li>
+                    <li>Your actual pseudo is : <?php echo $_SESSION["pseudo"]; ?></li>
+                    <?php
+                        if ($_SESSION["admin"]) {
+                            echo "Heeeeyyyyyy";
+                        }
+                    ?>
                 </ul>
 
                 <div>
-                    <label for="id" id="test"> New pseudo :</label>
-                    <input type="text" name="id" placeholder="Bob_653">
+                    <label for="pseudo"> New pseudo :</label>
+                    <input type="text" name="pseudo" placeholder="Bob653">
                 </div>
                 <div>
                     <label for="password"> New password :</label>
@@ -86,10 +90,10 @@
                 </div>
                 <div>
                     <label for="email"> New email adress :</label>
-                    <input type="email" name="email" placeholder="myemail@something.com">       
+                    <input type="text" name="email" placeholder="myemail@something.com">       
                 </div>
                 <div>
-                    <label for="password"> Current password :<span class="required_field_star">*</span></label>
+                    <label for="password"> Current password :</label>
                     <input type="password" name="current_password" placeholder="Z2Cn$%*e1256DF" required>    
                 </div>
                 <input type="submit" name="submit" class="buttons forms_buttons">
@@ -106,13 +110,13 @@
         <nav id="main_menu">
             <ul>
                 <li> 
-                    <a href="../index.html">Acceuil</a>
+                    <a href="../index.php">Acceuil</a>
                 </li>                          
                 <li> 
-                    <a href="services.html">Services</a>
+                    <a href="services.php">Services</a>
                 </li>
                 <li> 
-                    <a href="account.html"> Account </a>
+                    <a href="account.php"> Account </a>
                 </li>                    
                 <li> 
                     <button id="chat_button"> Chat </button>

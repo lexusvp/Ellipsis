@@ -17,7 +17,6 @@
 
         <script type="text/javascript" src="../scripts/modules/chatHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
-        <script type="text/javascript" src="../scripts/modules/logsHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/searchHandler.js" defer></script>
         <script type="text/javascript" src="../scripts/modules/responsiveHandler.js" defer></script>
 
@@ -115,13 +114,13 @@
         <nav id="main_menu">
             <ul>
                 <li> 
-                    <a href="../index.html">Acceuil</a>
+                    <a href="../index.php">Acceuil</a>
                 </li>                          
                 <li> 
-                    <a href="services.html">Services</a>
+                    <a href="services.php">Services</a>
                 </li>
                 <li> 
-                    <a href="account.html"> Account </a>
+                    <a href="account.php"> Account </a>
                 </li>                        
                 <li> 
                     <button id="chat_button"> Chat </button>

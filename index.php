@@ -28,15 +28,15 @@
         <nav id="main_menu">
             <ul>
                 <li> 
-                    <a href="index.html">
+                    <a href="index.php">
                         Acceuil
                     </a>
                 </li>                          
                 <li> 
-                    <a href="2/services.html">Services</a>
+                    <a href="2/services.php">Services</a>
                 </li>
                 <li> 
-                    <a href="2/account.html"> Account </a>
+                    <a href="2/account.php"> Account </a>
                 </li>                     
                 <li> 
                     <button id="chat_button"> Chat </button>
@@ -134,8 +134,8 @@
                     <form name="register">
                         <img src="./assets/images/icons/register_success.png" alt="">
 
-                        <label for="login"> Choose a pseudo :</label>
-                        <input name="login" type="text" required value="Azerty1">
+                        <label for="pseudo"> Choose a pseudo :</label>
+                        <input name="pseudo" type="text" required value="Azerty1">
 
                         <label for="password"> Choose a secure password :</label>
                         <input type="password" name="password" required value="Azerty11!">  
@@ -154,10 +154,10 @@
                 <div class="modal">
                     <form action="login_account_form" method="post" name="login">
                         <img src="./assets/images/icons/login_success.png" alt="">
-                        <label for="pseudo"> Enter your email :</label>
-                        <input type="email" name="email" required value="cav@gmail.com">
+                        <label for="email"> Enter your email :</label>
+                        <input type="email" name="email" required>
                         <label for="password"> Enter your password :</label>
-                        <input type="password" name="password" required value="Azerty1!">         
+                        <input type="password" name="password" required>         
                         
                         <button type="submit" value = "" name="submit"class="buttons forms_buttons"> 
                             

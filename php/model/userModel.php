@@ -3,13 +3,13 @@
    function createUser() { 
       $database = connect(); 
 
-      $userInsert = "INSERT INTO users (login_user, pw_user, email_user)
-      VALUES (:login, :pw, :email); 
+      $userInsert = "INSERT INTO users (pseudo_user, pw_user, email_user)
+      VALUES (:pseudo, :pw, :email); 
       ";
       $query = $database->prepare($userInsert);
 
       $success = $query->execute(array(
-         ":login" => $_POST['login'],
+         ":pseudo" => $_POST['pseudo'],
          ":pw" => $_POST['password'],
          ":email" => $_POST['email'],
       ));
@@ -19,9 +19,7 @@
    function readUser() {
       $database = connect(); 
 
-      $connectionCheck = "SELECT login_user, pw_user FROM users 
-      WHERE email_user = :email
-      ";
+      $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
 
       $query = $database->prepare($connectionCheck);
 
@@ -31,7 +29,23 @@
 
       return $query;
    }
-   function updateUser() {}
+   function updateUser($currentPseudo) {
+      $database = connect(); 
+
+      $userUpdate = "UPDATE users (pseudo_user, pw_user, email_user)
+      VALUES (:pseudo, :pw, :email)
+      WHERE pseudo_user = $currentPseudo; 
+      ";
+      $query = $database->prepare($userUpdate);
+      
+      $success = $query->execute(array(
+         ":pseudo" => $_POST["pseudo"],
+         ":pw" => $_POST["password"],
+         ":email" => $_POST["email"]
+      ));
+
+      return $success;
+   }
    function deleteUser() {}
 
 
@@ -39,11 +53,11 @@
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
 
-      $checkPseudo = 'SELECT * FROM users WHERE login_user = :login';
+      $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';
       $query = $database->prepare($checkPseudo);
   
       $query->execute(array(
-         ":login" => $_POST['login']
+         ":pseudo" => $_POST['pseudo']
       ));
       $result = $query->fetch();
 

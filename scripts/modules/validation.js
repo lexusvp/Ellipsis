@@ -11,9 +11,9 @@ function pseudoValidation(str) {
 
 function registerValidation(data) {
    for (let i=0 ; i<data.length ; i++) {
-      if (data[i].name === "login") {
+      if (data[i].name === "pseudo") {
          if(!pseudoValidation(data[i].value)) {
-            return "login";
+            return "pseudo";
          }
       } 
       else if (data[i].name === "password") {
