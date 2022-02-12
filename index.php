@@ -37,10 +37,14 @@
                 </li>
                 <li> 
                     <a href="2/account.php"> Account </a>
-                </li>                     
+                </li>                                       
                 <li> 
                     <button id="chat_button"> Chat </button>
                 </li> 
+                <li>
+                    <button id="logout_button"> Log Out </button>
+                </li>
+
             </ul>         
         </nav>
         <img src="./assets/images/logo/full_black.png" alt="logo">

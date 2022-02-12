@@ -119,6 +119,7 @@ article {
 /*==================================>>  NAV  <<=================================*/
 
 #main_menu {
+    display: none;
     position: fixed;
     bottom: 0px;
     width: 100vw;   
@@ -137,6 +138,7 @@ article {
 
 a, #main_menu ul li button {
     font-size: 1rem;
+    cursor: pointer;
 
     transition: 0.3s background-color, 0.3s color;
     
@@ -157,7 +159,6 @@ li:nth-child(1) a:hover {
 #main_menu li:nth-child(4) button {
     position: absolute;
     right: 0px;
-    cursor: pointer;
     color: var(--main-black);
     background-color: var(--secondary-hard);
 }

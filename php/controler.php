@@ -5,7 +5,6 @@
    require './model/logModel.php';
 
    require './helpers.php';
-   session_start();
 
    $regCondition = (
       isset($_POST['pseudo']) && 
@@ -33,6 +32,8 @@
       $userData = connectUser();                            //== NOTE: Non-sensitive data
 
       echo json_encode($userData);
+   } else if ($_GET["type"] === "logoutUser") {
+      session_destroy();
    }
    else if ($_GET["type"] === "updateUser" && $updateCondition) {
 
@@ -48,13 +49,18 @@
    function connectUser() {
       $query = readUser();
       $result = $query->fetch();    // Retourn tableau si ok      
- 
+
+      if ($result[2] === "0") $result[2] = False;
+      else $result[2] = True;
+
       $data = [];
       if (is_array($result)) {
          if (password_verify($_POST["password"], $result[0])) {
+            session_start();
 
+            $data["pseudo"] = $result[1];
+            $data["admin"] = $result[2];
             $data["logged"] = True;
-            $data["pseudo_user"] = $result[1];
 
             $_SESSION["pseudo"] = $result[1];
             $_SESSION["admin"] = $result[2];

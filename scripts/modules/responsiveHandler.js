@@ -21,6 +21,8 @@ function dynamicState() {
       }
    });
 }
+
+//== TODO: SVG icons insted of this BS
 function navIcons(size) {
    const links = document.querySelectorAll("#main_menu li > a, #main_menu li > button");
    const lefSideButton = document.querySelector("#main_menu li:nth-child(3)");
@@ -28,7 +30,8 @@ function navIcons(size) {
       ["fas", "fa-home"], 
       ["fas", "fa-code"], 
       ["far", "fa-user-circle"], 
-      ["far" , "fa-comment-dots"]
+      ["far" , "fa-comment-dots"],
+      ["far", "fa-right-from-bracket"]
    ];
    
    if (size === "small") {
@@ -44,7 +47,7 @@ function navIcons(size) {
    }
    if (size === "big") {
       lefSideButton.style.right = "";
-      const names = ["Acceuil", "Services", "Account", "Chat"];
+      const names = ["Acceuil", "Services", "Account", "Chat", "Log Out"];
       for (let i=0 ; i<links.length ; i++) {
          links[i].textContent = names[i];
       }

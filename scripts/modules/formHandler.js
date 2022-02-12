@@ -70,9 +70,11 @@ async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
    const answer = await queryControler("loginUser", formattedFormData);
 
-   if (answer.logged) {
-      
+   if (answer.logged) { 
+      localStorage.setItem("userData", JSON.stringify(answer));
       formAnim(form, true, "login");
+
+      setTimeout(() => location.reload(), 1000);
    } else {
       formAnim(form, false, "login");
    }
