@@ -16,11 +16,9 @@ async function formHandler() {
          if (currentForm.name === "chat") {
 
             if(formData[0].value !== "") {
-               const message = document.querySelector("input[type=textarea]");
-               const formattedMessage = ["PSEUDO-OF-USER", message];
+               const formattedMessage = new FormData(currentForm);
+               
                queryControler("createMessage", formattedMessage);
-   
-               displayChatMessages(messageHistory);
             }
          }
 
@@ -59,11 +57,12 @@ async function formHandler() {
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
    const answer = await queryControler("registerUser", formattedFormData);
+   console.log("answer : ", answer)
 
    if (answer.check_success) {
       formAnim(form, true, "register");
    } else {
-      //== TODO: User Feedback on failed constraints
+      formAnim(form, false, "register");
    }
 }
 async function loginAttempt(form) {

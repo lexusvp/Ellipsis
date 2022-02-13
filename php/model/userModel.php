@@ -2,17 +2,25 @@
 
    function createUser() { 
       $database = connect(); 
-
       $userInsert = "INSERT INTO users (pseudo_user, pw_user, email_user)
-      VALUES (:pseudo, :pw, :email); 
+      VALUES (
+         :pseudo, 
+         :pw, 
+         :email); 
       ";
-      $query = $database->prepare($userInsert);
+      $_POST['password'] = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
-      $success = $query->execute(array(
-         ":pseudo" => $_POST['pseudo'],
-         ":pw" => $_POST['password'],
-         ":email" => $_POST['email'],
-      ));
+      try {
+
+         $query = $database->prepare($userInsert);
+         $success = $query->execute(array(
+            ":pseudo" => $_POST['pseudo'],
+            ":pw" => $_POST['password'],
+            ":email" => $_POST['email'],
+         )); 
+      } catch (PDOException $e) {
+         fileLog("\n USER CREATION : " . json_encode($e));
+      }
 
       return $success;
    }  
@@ -21,11 +29,14 @@
 
       $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
 
-      $query = $database->prepare($connectionCheck);
-
-      $query->execute(array(
-         ":email" => $_POST['email']      
-      ));
+      try {
+         $query = $database->prepare($connectionCheck);
+         $query->execute(array(
+            ":email" => $_POST['email']      
+         ));     
+      } catch (PDOException $e) {
+         fileLog("\n USER READ : " . json_encode($e));
+      }
 
       return $query;
    }
@@ -49,16 +60,14 @@
    function deleteUser() {}
 
 
-
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
-
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';
+      
       $query = $database->prepare($checkPseudo);
-  
       $query->execute(array(
          ":pseudo" => $_POST['pseudo']
-      ));
+      ));     
       $result = $query->fetch();
 
       return !is_array($result);

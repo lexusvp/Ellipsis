@@ -5,16 +5,20 @@ function createLog($type, $pseudo) {
       $database = connect(); 
       $timestamp = getTimestamp();
 
-      $userInsert = "INSERT INTO logs (type_log, datetime_log, id_user)
+      $userInsert = "INSERT INTO logs (type_log, timestamp_log, id_user)
       VALUES (:type, :timestamp, (SELECT id_user FROM users WHERE pseudo_user = :pseudo)); 
       ";
-      $query = $database->prepare($userInsert);
-
-      $success = $query->execute(array(
-         ":type" => $type,
-         ":timestamp" => $timestamp,
-         ":pseudo" => $pseudo,
-      ));
+      
+      try {
+         $query = $database->prepare($userInsert);
+         $success = $query->execute(array(
+            ":type" => $type,
+            ":timestamp" => $timestamp,
+            ":pseudo" => $pseudo
+         ));    
+      } catch (PDOException $e) {
+         fileLog("\n LOG CREATION : " . json_encode($e));
+      }
 
       return $success;   
    }

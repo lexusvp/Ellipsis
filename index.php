@@ -117,9 +117,7 @@
                         <p> 14h25 </p>
                     </div>
                 </header>
-                <div id = "messages_display">
-
-                </div>
+                <div id = "messages_display"></div>
                 <footer>
                     <input type="textarea" name="message" placeholder="Enter your message here !">
                 </footer>
