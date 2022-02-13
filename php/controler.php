@@ -16,12 +16,17 @@
       isset($_POST['email']) && 
       isset($_POST['password'])
    );   
-
    $createMessageCondition = (
       isset($_POST['message']) 
    );
    
-   if ($_GET["type"] === "registerUser" && $regCondition) {
+   if ($_GET["type"] === "authorize" && isset($_SESSION["admin"])) {
+      echo json_encode($_SESSION["admin"]);
+   }
+
+   //======================>> USER BRANCHES <<============================//
+
+   else if ($_GET["type"] === "registerUser" && $regCondition) {
       $test = availableCheck();
 
       if ($test["check_success"]) {
@@ -30,29 +35,32 @@
       }
       echo json_encode($test);
    }
-
    else if ($_GET["type"] === "loginUser" && $logCondition) {
       $userData = connectUser();             //== NOTE: Non-sensitive data
 
       echo json_encode($userData);
    } 
-   
    else if ($_GET["type"] === "logoutUser") {
+      createLog("Logout", $_SESSION["pseudo"]);
+
       session_destroy();
    }
-   else if ($_GET["type"] === "updateUser" && $updateCondition) {
+   else if ($_GET["type"] === "updateUser" && $updateCondition) {}  //== TODO 
 
-   }   
+   //=====================>> MESSAGES BRANCHES <<=======================//
 
    else if ($_GET["type"] === "createMessage" && $createMessageCondition) {   
       createMessage($_SESSION["pseudo"]);
 
       //== TODO: If admin, send receiver pseudo to server somehow (chat tabs clicks store pseudo ?)
+
+      echo 0;
    } 
    else if ($_GET["type"] === "readMessage") {
       $messageHistory = readMessage($_SESSION["pseudo"]);
+      $arr = $messageHistory->fetchAll(PDO::FETCH_ASSOC);
 
-      // echo json_encode($messageHistory);
+      echo json_encode($arr);
    }
   
    function connectUser() {

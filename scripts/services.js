@@ -1,4 +1,12 @@
-(function tabHandler() {  
+(function main() {
+
+   tabHandler();
+   suggestionHandler();
+   burgerHandler();
+})();
+
+
+function tabHandler() {  
 
    let buttons = document.getElementsByClassName("tab_buttons");
    let articles = document.querySelectorAll("article");
@@ -21,9 +29,8 @@
          }
       });
    }
-})();
-
-(function burgerHandler() {
+}
+function burgerHandler() {
    let burgerButton = document.querySelector("#drop_button");
    let buttons = document.getElementsByClassName("tab_buttons");
    burgerButton.addEventListener("click", () => {
@@ -35,5 +42,4 @@
          }
       }
    })
-})();
-
+}

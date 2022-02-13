@@ -11,7 +11,6 @@
       $_POST['password'] = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
       try {
-
          $query = $database->prepare($userInsert);
          $success = $query->execute(array(
             ":pseudo" => $_POST['pseudo'],
@@ -19,14 +18,13 @@
             ":email" => $_POST['email'],
          )); 
       } catch (PDOException $e) {
-         fileLog("\n USER CREATION : " . json_encode($e));
+         fileLog("USER CREATION : " . json_encode($e) . "\n");
       }
 
       return $success;
    }  
    function readUser() {
       $database = connect(); 
-
       $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
 
       try {
@@ -35,11 +33,13 @@
             ":email" => $_POST['email']      
          ));     
       } catch (PDOException $e) {
-         fileLog("\n USER READ : " . json_encode($e));
+         fileLog("USER READ : " . json_encode($e) . "\n");
       }
 
       return $query;
    }
+
+
    function updateUser($currentPseudo) {
       $database = connect(); 
 
@@ -59,7 +59,7 @@
    }
    function deleteUser() {}
 
-
+   
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';
@@ -74,10 +74,9 @@
    }
    function checkMail() {    // Retourne true si mail dispo
       $database = connect(); 
-
       $checkMail = 'SELECT * FROM users WHERE email_user = :mail';
-      $query = $database->prepare($checkMail);
 
+      $query = $database->prepare($checkMail);
       $query->execute(array(
          ":mail" => $_POST['email']
       ));

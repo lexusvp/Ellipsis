@@ -42,7 +42,7 @@ const testList = [
 const icon = document.querySelector("input[name='search'] + button");
 
 //== TODO: Send resulting input to server -> DB
-(function suggestionHandler() {
+function suggestionHandler() {
    const suggBox = document.querySelector(".autocomplete_box");
    const inputBox = document.querySelector("input[name='search']");
 
@@ -51,7 +51,6 @@ const icon = document.querySelector("input[name='search'] + button");
 
       if(inputBox.value !== "") {
          const suggestions = filterList(inputBox.value, testList);
-         console.log("suggestions : ", suggestions)
 
          for (let li of suggestions) {
             li.addEventListener("click", () => {
@@ -61,7 +60,7 @@ const icon = document.querySelector("input[name='search'] + button");
          }
       }
    });
-})();
+}
 
 function filterList(input, list) {
    let arr = [];

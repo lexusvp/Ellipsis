@@ -1,22 +1,12 @@
 (function main() {
-   responsiveHandler();
-   formHandler();
-   dynamicSessions();
-   
+
+   displayModule();                // Pure front
+   formModule();                   // Main user input handling
+   chatModule();                   // Admin only
+   //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
+
    logOutEvent();
 })();
-
-function dynamicSessions() {
-
-   const userData = JSON.parse(localStorage.getItem("userData"));
-   const nav = document.querySelector("#main_menu");
-   
-   if (userData !== null) {  
-      if (userData.logged) {  
-         nav.style.display = "block";
-      } 
-   }   
-}
 
 function logOutEvent() {
    const logoutButton = document.querySelector("#logout_button");
@@ -27,8 +17,8 @@ function logOutEvent() {
 
       queryControler("logoutUser");
       localStorage.removeItem("userData");
-      nav.style.display = "none";
 
-      location.reload();
+      nav.style.animation = "fadeOut 0.3s forwards";
+      location.replace("/1%20-%20Ellipsis/index.php");
    })
 }

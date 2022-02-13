@@ -13,14 +13,14 @@
         <script src="../scripts/ext/node_modules/chart.js/dist/chart.js"></script>
         <script src="https://kit.fontawesome.com/8ce9f97409.js" crossorigin="anonymous"></script>
 
-        <script type="text/javascript" src="../scripts/modules/validation.js"></script>
         <script type="text/javascript" src="../scripts/modules/controlerModule.js"></script>
+        <script type="text/javascript" src="../scripts/modules/validationModule.js"></script>
+        
+        <script type="text/javascript" src="../scripts/modules/chatModule.js"></script>
+        <script type="text/javascript" src="../scripts/modules/formModule.js"></script>
+        <script type="text/javascript" src="../scripts/modules/displayModule.js"></script>
 
-        <script type="text/javascript" src="../scripts/modules/chatHandler.js" defer></script>
-        <script type="text/javascript" src="../scripts/modules/formHandler.js" defer></script>
-        <script type="text/javascript" src="../scripts/modules/responsiveHandler.js" defer></script>
-
-        <script type="module" src="../scripts/account.js" defer></script>
+        <script type="text/javascript" src="../scripts/account.js" defer></script>
         <script type="text/javascript" src="../scripts/main.js" defer></script>    
         <title>My account</title>
     </head>
@@ -32,7 +32,7 @@
         </header>
         
         <section id="chat_container">
-            <aside> <!-- ADMIN ONLY -->        
+            <aside>     
                 <ul>
                     <li>
                         <img src="../assets/images/icons/chat_placeholder.png">
@@ -56,8 +56,7 @@
                 <header>
                     <img src="../assets/images/icons/chat_placeholder.png">
                     <div>
-                        <h4> Mr. Dupont </h4>
-                        <p> 14h25 </p>
+                        <h4> ADMIN - Vazn </h4>
                     </div>
                 </header>
                 <div id = "messages_display"></div>
@@ -103,17 +102,20 @@
         <nav id="main_menu">
             <ul>
                 <li> 
-                    <a href="../index.php">Acceuil</a>
+                    <a id="home_button" href="../index.php"> Home </a>
                 </li>                          
                 <li> 
-                    <a href="services.php">Services</a>
+                    <a id="services_button" href="services.php"> Services </a>
                 </li>
                 <li> 
-                    <a href="account.php"> Account </a>
+                    <a id="account_button" href="account.php"> Account </a>
                 </li>                    
                 <li> 
                     <button id="chat_button"> Chat </button>
-                </li>     
+                </li> 
+                <li>
+                    <button id="logout_button"> Log Out </button>
+                </li>    
             </ul>         
         </nav>
 

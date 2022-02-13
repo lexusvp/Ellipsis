@@ -20,13 +20,12 @@ CREATE TABLE logs (
 );
 CREATE TABLE messages (
    id_message INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-   id_sender INT NOT NULL,
-   id_receiver INT NOT NULL,
+   id_user INT NOT NULL,
+   direction_message INT NOT NULL,
    content_message TEXT, 
    timestamp_message INT,
 
-   CONSTRAINT fk_users_messages_sender FOREIGN KEY(id_sender) REFERENCES users(id_user),
-   CONSTRAINT fk_users_messages_receiver FOREIGN KEY(id_receiver) REFERENCES users(id_user)
+   CONSTRAINT fk_users_messages_user FOREIGN KEY(id_user) REFERENCES users(id_user)
 );
 CREATE TABLE services (
    id_service INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

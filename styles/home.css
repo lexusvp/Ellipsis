@@ -188,6 +188,14 @@ form[name=login] label, form[name=register] label {
     color:var(--primary-soft);
 }
 
+
+
+/*================================>>  NAV  <<================================*/
+
+#main_menu {
+    opacity: 0;
+    visibility: hidden;
+}
 /*================================>>  RESPONSIVENESS  <<================================*/
 
 @media only screen and (max-width: 800px)

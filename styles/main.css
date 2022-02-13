@@ -119,7 +119,7 @@ article {
 /*==================================>>  NAV  <<=================================*/
 
 #main_menu {
-    display: none;
+    visibility: visible;
     position: fixed;
     bottom: 0px;
     width: 100vw;   
@@ -143,39 +143,45 @@ a, #main_menu ul li button {
     transition: 0.3s background-color, 0.3s color;
     
     border: var(--main-black) solid 1px;
-    background-color: var(--main-grey);
-    color: var(--main-white);
     padding:15px;
 }
 
-li:nth-child(1) a {
+#home_button {
     color: var(--main-black);
     background-color: var(--primary-soft);
 }
-li:nth-child(1) a:hover {
+#home_button:hover {
     background-color: var(--main-grey);
     color: var(--main-white);
 }
-#main_menu li:nth-child(4) button {
+#chat_button {
     position: absolute;
     right: 0px;
     color: var(--main-black);
     background-color: var(--secondary-hard);
 }
-#main_menu li:nth-child(4) button:hover {
+#chat_button:hover {
+    background-color: var(--main-grey);
+    color: var(--main-white);
+}
+#services_button, #account_button, #logout_button {
     background-color: var(--main-grey);
     color: var(--main-white);
 }
 
-#main_menu li:nth-child(2) a:hover {
+#services_button:hover {
     background-color: var(--primary-soft);
     color: var(--main-black);
 }
-#main_menu li:nth-child(3) {
+#account_button {
     position: absolute;
     right: 69px;
 }
-#main_menu li:nth-child(3) a:hover {
+#logout_button {
+    position: absolute;
+    right: 166px;
+}
+#account_button:hover, #logout_button:hover  {
     background-color: var(--secondary-hard);
     color: var(--main-black);
 }
@@ -364,6 +370,14 @@ form[name=chat] input[type=textarea]  {
     }
     100% {
         opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 @keyframes bounce {

@@ -1,9 +1,11 @@
 /*=================================>> CHARTS  <<=================================*/
-const userData = JSON.parse(localStorage.getItem("userData"));
+const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
 (function main() {
 
-   chartDisplay();
+   if (userData !== null) {
+      chartDisplay();
+   }
 
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
@@ -12,7 +14,6 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 function chartDisplay() {
-
    if (userData.admin) {
 
       const adminSection = document.querySelector("#admin_section");
@@ -27,7 +28,6 @@ function chartDisplay() {
       return;
    }
 }
-
 function drawChart(canva) {
    Chart.defaults.font  = {
       size: 12,

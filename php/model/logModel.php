@@ -17,7 +17,7 @@ function createLog($type, $pseudo) {
             ":pseudo" => $pseudo
          ));    
       } catch (PDOException $e) {
-         fileLog("\n LOG CREATION : " . json_encode($e));
+         fileLog("LOG CREATION : " . json_encode($e) . "\n");
       }
 
       return $success;   
