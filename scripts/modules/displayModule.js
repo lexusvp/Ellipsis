@@ -7,13 +7,19 @@ function displayModule() {
 
 function sessionsSpecificDisplay() {
    const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
-   const nav = document.querySelector("#main_menu");
    
    if (userData !== null) {            
       displayChatMessages();
-
+      
+      const nav = document.querySelector("#main_menu");
       nav.style.opacity = "1";
       nav.style.visibility = "visible";
+
+      const loginButton = document.querySelector("#login_button") ?? null;
+      if (loginButton !== null) {
+         loginButton.style.animation = "fadeOut 1s forwards";
+         loginButton.style.visibility = "hidden";      
+      }
    }   
 }
 

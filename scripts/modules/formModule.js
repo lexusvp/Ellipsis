@@ -49,15 +49,12 @@ async function registerAttempt(form) {
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
    const answer = await queryControler("loginUser", formattedFormData);
-   const nav = document.querySelector("nav");
 
    if (answer.logged) { 
       localStorage.setItem("userData", JSON.stringify(answer));
       formAnim(form, true, "login");
 
-      nav.style.animation = "fadeIn 1s forwards";
-      nav.style.visibility = "visible";
-
+      sessionsSpecificDisplay();
       displayChatMessages();
       displayChatContacts();
    } else {

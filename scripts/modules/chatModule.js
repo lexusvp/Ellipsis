@@ -46,7 +46,6 @@ async function displayChatContacts() {
       adminZone.remove();
    }
 }
-
 async function displayChatMessages() {
    const chatDisplay = document.querySelector("form[name=chat] > div");
    const admin = await queryControler("authorize");
@@ -57,36 +56,31 @@ async function displayChatMessages() {
       const currentP = document.createElement("p");
 
       // if admin ==>> Change la direction des message ==>> Envoyé devient reçu et inversement }
-      const messageSent = elements.direction_message === "1";
-      const messageReceived = elements.direction_message === "0";
+      
+      let messageSent = elements.direction_message === "1";
+      let messageReceived = elements.direction_message === "0";
+      
+      if (admin) {
+         messageSent = elements.direction_message === "0";
+         messageReceived = elements.direction_message === "1";
+      }
 
       if (messageSent) {                      // Style du message envoyé
-         currentP.style.padding = "8px";
-         currentP.style.marginBottom = "6px";
-         currentP.style.inlineSize = "70%";
-         currentP.style.overflowWrap = "break-word";
-         currentP.style.borderRadius = "0 1.125rem 0 1.125rem"; // User messages
-         // currentP.style.borderRadius = "1.125rem 1.125rem 1.125rem 0"; // Admin messages
-         currentP.style.alignSelf = "flex-end"; // Right messages
-         currentP.style.boxShadow = "0rem 1rem 1rem rgba(0, 0, 0, 0.1)"; // Right messages
-   
+         currentP.style.alignSelf = "flex-end";
          currentP.style.backgroundColor = "var(--main-black)";
-         currentP.style.color = "var(--main-white)";
-         currentP.style.fontSize = "0.8rem";
       } else if (messageReceived) {           // Style du message reçu
-         currentP.style.padding = "8px";
-         currentP.style.marginBottom = "6px";
-         currentP.style.inlineSize = "70%";
-         currentP.style.overflowWrap = "break-word";
-         currentP.style.borderRadius = "0 1.125rem 0 1.125rem"; // User messages
-         // currentP.style.borderRadius = "1.125rem 1.125rem 1.125rem 0"; // Admin messages
-         currentP.style.alignSelf = "flex-start"; // Left messages ??
-         currentP.style.boxShadow = "0rem 1rem 1rem rgba(0, 0, 0, 0.1)"; // Right messages
-   
+         currentP.style.alignSelf = "flex-start";
          currentP.style.backgroundColor = "var(--light-grey)";
-         currentP.style.color = "var(--main-white)";
-         currentP.style.fontSize = "0.8rem";
       }
+
+      currentP.style.padding = "8px";
+      currentP.style.marginBottom = "6px";
+      currentP.style.inlineSize = "70%";
+      currentP.style.overflowWrap = "break-word";
+      currentP.style.borderRadius = "0 1.125rem 0 1.125rem";
+      currentP.style.boxShadow = "0rem 1rem 1rem rgba(0, 0, 0, 0.1)";
+      currentP.style.color = "var(--main-white)";
+      currentP.style.fontSize = "0.8rem";
 
       currentP.textContent = elements.content_message;
       chatDisplay.appendChild(currentP);

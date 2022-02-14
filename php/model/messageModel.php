@@ -1,11 +1,10 @@
 <?php
 
-   function createMessage($user, $admin = false) {
+   function createMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
       $timestamp = getTimestamp();
       $direction = null;
 
-      // Permet de différencier message envoyé / reçus // INVERSER POUR L'ADMIN
       if (!$admin) {
          $direction = 1;                  // Si crée par utilisateur => message considéré comme "envoyé"
       } else {
@@ -27,27 +26,44 @@
             ":message" => $_POST["message"],
             ":timestamp" => $timestamp,
             ":direction" => $direction,
-            ":pseudo" => $user
+            ":pseudo" => $pseudo
          ));
       } catch (PDOException $e) {
          fileLog("MESSAGE CREATE : " . json_encode($e) . "\n");
       }
    }
-   function readMessage($pseudo) {
+   function readMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
+      $readMessage = "";
 
-      $createMessage = 
-      "  SELECT direction_message, content_message, timestamp_message FROM messages
-         WHERE id_user = (SELECT id_user FROM users WHERE pseudo_user = :pseudo)
+      if ($admin) {        // Affiche toutes les conversations "ouvertes"
+         $readMessage = 
+         "  SELECT direction_message, content_message, timestamp_message, pseudo_user FROM messages
+            JOIN users
+            WHERE messages.id_user = users.id_user
+            AND users.conversation_user = 1
 
-         ORDER BY timestamp_message ASC;
-      ";
+            ORDER BY pseudo_user ASC, timestamp_message ASC;         
+         ";
+      } else {
+         $readMessage = 
+         "  SELECT direction_message, content_message, timestamp_message FROM messages
+            WHERE id_user = (SELECT id_user FROM users WHERE pseudo_user = :pseudo)
+
+            ORDER BY timestamp_message ASC;
+         ";
+      }
 
       try {
-         $query = $database->prepare($createMessage);
-         $query->execute(array(
-            ":pseudo" => $pseudo
-         ));
+         $query = $database->prepare($readMessage);
+
+         if ($admin) {
+            $query->execute();
+         } else {
+            $query->execute(array(
+               ":pseudo" => $pseudo
+            ));           
+         }
       } catch (PDOException $e) {
          fileLog("MESSAGE READ : " . json_encode($e) . "\n");
       }

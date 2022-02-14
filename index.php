@@ -22,7 +22,7 @@
     <script type="text/javascript" src="./scripts/main.js" defer></script>
     <title>Home</title>
 </head>
-    
+   
 <body>
     <header>
         <nav id="main_menu">

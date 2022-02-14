@@ -47,6 +47,9 @@
     list-style: none;
     text-decoration: none;
     font-family:'Quicksand', sans-serif;
+
+    scrollbar-color: var(--primary-hard) var(--main-black);
+    scrollbar-width: thin;
 }
 body {
     display: grid;
@@ -175,11 +178,11 @@ a, #main_menu ul li button {
 }
 #account_button {
     position: absolute;
-    right: 69px;
+    right: 67px;
 }
 #logout_button {
     position: absolute;
-    right: 166px;
+    right: 160px;
 }
 #account_button:hover, #logout_button:hover  {
     background-color: var(--secondary-hard);
@@ -210,7 +213,7 @@ a, #main_menu ul li button {
     visibility: hidden;
     z-index: 101;
     
-    bottom: 53px;
+    bottom: 52px;
     right: 0px;
     border: none;
     outline: none;
@@ -307,7 +310,7 @@ form[name=chat] input[type=textarea]  {
     cursor: pointer;
     margin: 5px;
     left: -58px;
-    top: 393px;
+    top: 394px;
     border: none;
     outline: none;
 }

@@ -7,7 +7,8 @@ async function queryControler(type, data = null) {
          body: data
       });
 
-   const answer = await response.json();                       // Récupére le JSON retourné   
+   const answer = await response.json() ?? null;                       // Récupére le JSON retourné   
+   console.log("answer : ", answer);
 
    return answer;
 } 

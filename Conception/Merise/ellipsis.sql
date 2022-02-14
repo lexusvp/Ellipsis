@@ -2,6 +2,7 @@ CREATE TABLE users (
    id_user INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 
    admin_user BOOLEAN,
+   conversation_user BOOLEAN,
    email_user VARCHAR(75),
    pseudo_user VARCHAR(25),
    pw_user VARCHAR(100)
