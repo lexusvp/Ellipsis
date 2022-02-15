@@ -31,7 +31,7 @@
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--main-black);
+    background: var(--main-grey);
 }
 ::-webkit-scrollbar-thumb {
     background: var(--light-grey);
@@ -159,7 +159,8 @@ a, #main_menu ul li button {
 }
 #chat_button {
     position: absolute;
-    right: 0px;
+    right: 8px;
+    width: 68px;
     color: var(--main-black);
     background-color: var(--secondary-hard);
 }
@@ -178,11 +179,13 @@ a, #main_menu ul li button {
 }
 #account_button {
     position: absolute;
-    right: 67px;
+    right: 76px;
+    width: 91px;
 }
 #logout_button {
     position: absolute;
-    right: 160px;
+    right: 167px;
+    width: 93px;
 }
 #account_button:hover, #logout_button:hover  {
     background-color: var(--secondary-hard);
@@ -208,6 +211,7 @@ a, #main_menu ul li button {
 }
 
 /*==================================>>  CHAT  <<=================================*/
+
 #chat_container {
     position: fixed;
     visibility: hidden;
@@ -243,6 +247,16 @@ form[name=chat] {
     outline: none;
 }
 
+#chat_back {
+    fill: var(--main-black);
+    left: 140px;
+}
+
+.chat_icons  {
+    position: relative;
+    width: 25px;
+    cursor: pointer;
+}
 form[name=chat] > header {
     border: solid 1px var(--very-light-grey);
     border-bottom: none;
@@ -259,9 +273,9 @@ form[name=chat] > header > div {
     justify-content: space-evenly;
     margin-left: 15px;
 }
-form[name=chat] h4{
-    /* color: white; */
-    font-size: 0.9rem;
+#chat_header {
+    font-size: 1rem;
+    font-weight: 600;
 }
 form[name=chat] p{
     /* color: white; */
@@ -296,42 +310,21 @@ form[name=chat] input[type=textarea]  {
 }
 #chat_container > aside {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 50px;
-}
-
-#chat_container > aside > button {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: fit-content;
     background-color: var(--main-black);
-    color: white;
-    height: 60px;
-    width: 53px;
     position: relative;
     cursor: pointer;
-    margin: 5px;
-    left: -58px;
-    top: 394px;
     border: none;
-    outline: none;
 }
-#chat_container > aside > button:hover {
-    background-color: var(--main-white);
-    color: var(--main-black);
-}
-#chat_container aside > ul{
-    background-color: var(--main-black);
+#chat_container > aside span {
 
-    position: absolute;
-    left: -53px;
-    top: 133px;
-    display: none;
-    border: none;
+    text-align: center;
+    width: 159px;
+    padding: 10px;
 }
-#chat_container aside > ul img, #chat_container aside > ul li {
-    height: 53px;
-    width: 53px;
-}
-#chat_container aside > ul img:hover {
+#chat_container > aside span:hover {
     background-color: #7083bb;
 }
 

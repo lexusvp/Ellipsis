@@ -42,10 +42,8 @@
       }
       echo json_encode($test);
    }
-   else if ($_GET["type"] === "loginUser" && $logCondition) {
-      $userData = connectUser();             //== NOTE: Non-sensitive data
-      
-      echo json_encode($userData);
+   else if ($_GET["type"] === "loginUser" && $logCondition) {      
+      echo json_encode(connectUser());          //== NOTE: Non-sensitive data
    } 
    else if ($_GET["type"] === "logoutUser") {
       $_SESSION["logged"] = false;
@@ -71,22 +69,16 @@
    } 
    else if ($_GET["type"] === "readMessage") {
 
-      $messageHistory = null;
-
       if ($_SESSION["admin"]) {
-         $response = readMessage($_SESSION["pseudo"], $_SESSION["admin"]);
-         $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
-         $messageHistory = formatConversations($messageHistory);
+         $response = readMessage($_SESSION["pseudo"], true);    
       } else {
          $response = readMessage($_SESSION["pseudo"]);
-         $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
-         $messageHistory = formatConversations($messageHistory);
-         fileLog(json_encode($messageHistory));
-      }
-
+      } 
+      $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
+      $messageHistory = formatConversations($messageHistory);
+      
       echo json_encode($messageHistory);
    }
-  
 
    function formatConversations($messageHistory) {
       $arr = array();

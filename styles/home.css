@@ -71,22 +71,19 @@ section:nth-child(2) {
 
 article {
     flex-direction: column;
-    box-sizing: border-box;
     width: 500px;
     height: 430px;
     margin: 25px 15px 25px 15px;
     padding: 15px 20px 30px 20px ;
-    box-shadow: 10px 10px 35px var(--main-black);
+    box-shadow: 8px 8px 15px var(--light-grey);
 
     border: var(--main-black) solid 3px;
     border-radius: 5px;
 }
 article:hover {
     
-    transition: 0.5s border, 0.5s shadow, 0.5s height;
-    height: 475px;
-    box-shadow: 15px 15px 35px var(--main-black);
-    border: var(--primary-hard) solid 25px;
+    transition: 1s box-shadow;
+    box-shadow: 15px 15px 70px var(--main-black);
     border-radius: 5px;
 }
 
@@ -186,13 +183,6 @@ form[name=login] label, form[name=register] label {
 #login_button:hover{
     background-color: var(--main-grey);
     color:var(--primary-soft);
-}
-
-/*================================>>  NAV  <<================================*/
-
-#main_menu {
-    /* opacity: 0;
-    visibility: hidden; */
 }
 
 /*================================>>  RESPONSIVENESS  <<================================*/
