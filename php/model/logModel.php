@@ -10,15 +10,12 @@
       ";
       
       try {
-         fileLog("test1");
-
          $query = $database->prepare($userInsert);
          $success = $query->execute(array(
             ":type" => $type,
             ":timestamp" => $timestamp,
             ":pseudo" => $pseudo
          ));   
-         fileLog("test2"); 
       } catch (PDOException $e) {
          fileLog("LOG CREATION : " . json_encode($e) . "\n");
       }

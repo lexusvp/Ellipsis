@@ -24,27 +24,35 @@
 </head>
    
 <body>
+    <?php session_start(); ?>
     <header>
-        <nav id="main_menu">
-            <ul>
-                <li> 
-                    <a id="home_button" href="index.php"> Home </a>
-                </li>                          
-                <li> 
-                    <a id="services_button" href="2/services.php">Services</a>
-                </li>
-                <li> 
-                    <a id="account_button" href="2/account.php"> Account </a>
-                </li>                                       
-                <li> 
-                    <button id="chat_button"> Chat </button>
-                </li> 
-                <li>
-                    <button id="logout_button"> Log Out </button>
-                </li>
-
-            </ul>         
-        </nav>
+        <?php
+            if (isset($_SESSION["logged"]) && $_SESSION["logged"] === true) {
+                echo 
+                '
+                    <nav id="main_menu">
+                        <ul>
+                            <li> 
+                                <a id="home_button" href="index.php"> Home </a>
+                            </li>                          
+                            <li> 
+                                <a id="services_button" href="2/services.php">Services</a>
+                            </li>
+                            <li> 
+                                <a id="account_button" href="2/account.php"> Account </a>
+                            </li>                                       
+                            <li> 
+                                <button id="chat_button"> Chat </button>
+                            </li> 
+                            <li>
+                                <button id="logout_button"> Log Out </button>
+                            </li>
+            
+                        </ul>         
+                    </nav>
+                ';
+            }
+        ?>
         <img src="./assets/images/logo/full_black.png" alt="logo">
         <img src="./assets/images/icons/down_arrows.png" alt="logo" id="arrow">
         <div>                                        
@@ -87,26 +95,32 @@
         </section>
 
         <section id="chat_container">
-            <aside>        
-                <ul>
-                    <li>
-                        <img src="./assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="./assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="./assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="./assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="./assets/images/icons/chat_placeholder.png">
-                    </li>  
-                </ul>
-                <button href="#"><i class="fa fa-bars"></i></button>
-            </aside>
+            <?php
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] === true) {
+                    echo 
+                    '<aside id="chat_tabs">        
+                        <ul>
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                        </ul>
+                    <button href="#"><i class="fa fa-bars"></i></button>
+                    </aside>
+                    ';
+                }
+            ?>     
             <form name = "chat">
                 <header>
                     <img src="./assets/images/icons/chat_placeholder.png">
@@ -130,7 +144,7 @@
                 
                 <button class="modal_buttons buttons" id="signup_button"> Sign up !</button>
                 <div class="modal">
-                    <form name="register">
+                    <form method="post" name="register">
                         <img src="./assets/images/icons/register_success.png" alt="">
 
                         <label for="pseudo"> Choose a pseudo :</label>
@@ -149,9 +163,13 @@
                     </form>
                 </div>
                 
-                <button class="modal_buttons buttons" id="login_button"> Log in !</button>
+                <?php
+                    if (empty($_SESSION["logged"])) {    
+                        echo '<button class="modal_buttons buttons" id="login_button"> Log in !</button>'; 
+                    }
+                ?>
                 <div class="modal">
-                    <form action="login_account_form" method="post" name="login">
+                    <form method="post" name="login">
                         <img src="./assets/images/icons/login_success.png" alt="">
                         <label for="email"> Enter your email :</label>
                         <input type="email" name="email" required>

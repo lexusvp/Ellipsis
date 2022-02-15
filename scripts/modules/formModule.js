@@ -38,7 +38,6 @@ async function formModule() {
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
    const answer = await queryControler("registerUser", formattedFormData);
-   console.log("answer : ", answer)
 
    if (answer.check_success) {
       formAnim(form, true, "register");
@@ -54,9 +53,7 @@ async function loginAttempt(form) {
       localStorage.setItem("userData", JSON.stringify(answer));
       formAnim(form, true, "login");
 
-      sessionsSpecificDisplay();
-      displayChatMessages();
-      displayChatContacts();
+      setTimeout(() => location.reload(), 1150);
    } else {
       formAnim(form, false, "login");
    }
@@ -73,7 +70,13 @@ async function updateAttempt(form) {
 }
 async function sendMessageAttempt(form) {
    const formattedMessage = new FormData(form);
-   await queryControler("createMessage", formattedMessage);
+   const admin = await queryControler("authorize");
+
+   if (admin) {
+      await queryControler("createMessage", formattedMessage, pseudoCibléParClicOnglet);
+   } else {
+      await queryControler("createMessage", formattedMessage);
+   }
 
    displayChatMessages();
 }

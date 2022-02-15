@@ -1,24 +1,29 @@
-(function main() {
+(async function main() {
 
+   await logOut();
    displayModule();                // Pure front
+
    formModule();                   // Main user input handling
    chatModule();                   // Admin only
    //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
 
-   logOutEvent();
 })();
 
-function logOutEvent() {
-   const logoutButton = document.querySelector("#logout_button");
-   const nav = document.querySelector("#main_menu");
+function logOut() {
+   const nav = document.querySelector("#main_menu") ?? null;
 
-   logoutButton.addEventListener("click", (e) => {
-      e.preventDefault();
+   if (nav !== null) {
+      const logoutButton = document.querySelector("#logout_button");
+      logoutButton.addEventListener("click", (e) => {
+         e.preventDefault();
+         nav.style.animation = "fadeOut 0.3s forwards";
+         logOutDisplay();
+      })
+   }
+}
+async function logOutDisplay() {
+   await queryControler("logoutUser");
+   localStorage.removeItem("userData");
 
-      queryControler("logoutUser");
-      localStorage.removeItem("userData");
-
-      nav.style.animation = "fadeOut 0.3s forwards";
-      location.replace("/1%20-%20Ellipsis/index.php");
-   })
+   location.replace("/1%20-%20Ellipsis/index.php");
 }

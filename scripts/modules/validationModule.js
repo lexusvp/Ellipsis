@@ -1,4 +1,7 @@
 //== Note: PW constraints: 8 chars / 1 letter min / 1 letter maj / 1 special
+
+//== BUG : STUPID AF TO DO THIS HERE, PUT THIS ON THE SERVER !!!!!
+
 function passwordValidation(str) {
    const validationRegex = /^(?!.* )(?=.*[a-z])(?=.*[A-Z])(?=.*[?!@#$&|~°+*/%=])(?=.*[0-9]).{8}/
    return (validationRegex.test(str));

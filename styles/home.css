@@ -191,8 +191,8 @@ form[name=login] label, form[name=register] label {
 /*================================>>  NAV  <<================================*/
 
 #main_menu {
-    opacity: 0;
-    visibility: hidden;
+    /* opacity: 0;
+    visibility: hidden; */
 }
 
 /*================================>>  RESPONSIVENESS  <<================================*/

@@ -3,31 +3,13 @@ const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
 (function main() {
 
-   if (userData !== null) {
-      chartDisplay();
-   }
-
+   const canva = document.querySelector("canvas");
+   drawChart(canva);
+   
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
-
 })();
 
-
-function chartDisplay() {
-   if (userData.admin) {
-
-      const adminSection = document.querySelector("#admin_section");
-      const chartCanva = document.createElement("canvas");
-      chartCanva.setAttribute("width", "400px");
-      chartCanva.setAttribute("height", "350px");
-
-      drawChart(chartCanva);
-
-      adminSection.appendChild(chartCanva);
-   } else {
-      return;
-   }
-}
 function drawChart(canva) {
    Chart.defaults.font  = {
       size: 12,

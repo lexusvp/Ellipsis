@@ -32,26 +32,32 @@
         </header>
         
         <section id="chat_container">
-            <aside>     
-                <ul>
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                </ul>
-                <button href="#"><i class="fa fa-bars"></i></button>
-            </aside>
+            <?php
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] === true) {
+                    echo 
+                    '<aside id="chat_tabs">        
+                        <ul>
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                        </ul>
+                    <button href="#"><i class="fa fa-bars"></i></button>
+                    </aside>
+                    ';
+                }
+            ?> 
             <form name = "chat">
                 <header>
                     <img src="../assets/images/icons/chat_placeholder.png">
@@ -91,12 +97,19 @@
                 </div>
                 <input type="submit" name="submit" class="buttons forms_buttons">
             </form>
-
-            <header>
-                <img alt="header" src="../assets/images/header_img/stats.png">
-            </header>
-            <section id="admin_section">
-            </section>
+            <?php
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] === true) {             
+                    echo 
+                    '
+                        <header>
+                            <img alt="header" src="../assets/images/header_img/stats.png">
+                        </header>
+                        <section id="admin_section">
+                            <canvas width="400px" height="350px"></canvas>
+                        </section>
+                    ';
+                }
+            ?>
         </main>
 
         <nav id="main_menu">
@@ -118,8 +131,5 @@
                 </li>    
             </ul>         
         </nav>
-
-
-
     </body>
 </html>

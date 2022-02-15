@@ -27,31 +27,38 @@
     </head>
 
     <body>
+        <?php session_start(); ?>
         <header>
             <img alt="header" src="../assets/images/header_img/services_head.png">
         </header>
         
         <section id="chat_container">
-            <aside>       
-                <ul>
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                    <li>
-                        <img src="../assets/images/icons/chat_placeholder.png">
-                    </li>  
-                </ul>
-                <button href="#"><i class="fa fa-bars"></i></button>
-            </aside>
+            <?php
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] === true) {
+                    echo 
+                    '<aside id="chat_tabs">        
+                        <ul>
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                            <li>
+                                <img src="./assets/images/icons/chat_placeholder.png">
+                            </li>  
+                        </ul>
+                    <button href="#"><i class="fa fa-bars"></i></button>
+                    </aside>
+                    ';
+                }
+            ?> 
             <form name="chat">
                 <header>
                     <img src="../assets/images/icons/chat_placeholder.png">

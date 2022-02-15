@@ -1,6 +1,7 @@
 <?php
 
    //== TODO : Sanitize inputs
+   //== TODO : WHitelist inputs HERE
    
    require './model/connect.php';
    require './model/userModel.php';
@@ -23,6 +24,9 @@
       isset($_POST['message']) 
    );
 
+   // Toute opération sur les données nécessitant autorisation doit passer par if ($_SESSION["admin"]) !!!
+   // INUTILE ! => Toute opération nécessitant des droits, doit être vérifiée server-side et pas client-side
+
    if ($_GET["type"] === "authorize" && isset($_SESSION["admin"])) {
       echo json_encode($_SESSION["admin"]);
    }
@@ -40,14 +44,14 @@
    }
    else if ($_GET["type"] === "loginUser" && $logCondition) {
       $userData = connectUser();             //== NOTE: Non-sensitive data
-      fileLog(json_encode($userData));
+      
       echo json_encode($userData);
    } 
    else if ($_GET["type"] === "logoutUser") {
       $_SESSION["logged"] = false;
       createLog("Logout", $_SESSION["pseudo"]);
 
-      session_destroy();
+      echo 0;
    }
    else if ($_GET["type"] === "updateUser" && $updateCondition) {}  //== TODO 
 
@@ -55,10 +59,8 @@
 
    else if ($_GET["type"] === "createMessage" && $createMessageCondition) {   
 
-      $pseudoCible = "?!!";
-
-      if ($_SESSION["admin"]) {
-         createMessage($pseudoCible, $_SESSION["admin"]);
+      if ($_SESSION["admin"] && isset($_GET["target"])) {
+         createMessage($_GET["target"], $_SESSION["admin"]);
       } else {
          createMessage($_SESSION["pseudo"]);
       }
@@ -74,23 +76,27 @@
       if ($_SESSION["admin"]) {
          $response = readMessage($_SESSION["pseudo"], $_SESSION["admin"]);
          $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
-
-         $messageHistory = formatAdminConversations($messageHistory);
+         $messageHistory = formatConversations($messageHistory);
       } else {
          $response = readMessage($_SESSION["pseudo"]);
-         $arr = $response->fetchAll(PDO::FETCH_ASSOC);
+         $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
+         $messageHistory = formatConversations($messageHistory);
+         fileLog(json_encode($messageHistory));
       }
-
 
       echo json_encode($messageHistory);
    }
   
 
-   function formatAdminConversations($messageHistory) {
+   function formatConversations($messageHistory) {
       $arr = array();
 
       foreach ($messageHistory as $message){
-         $currentPseudo = $message["pseudo_user"];
+         if ($_SESSION["admin"] === false) {
+            $currentPseudo = "Admin";
+         } else {
+            $currentPseudo = $message["pseudo_user"];
+         }
 
          // Crée une clé par pseudo, et push tout les messages correspondant au pseudo correspondant.         
          $arr[$currentPseudo][] = $message;
@@ -98,7 +104,6 @@
 
       return $arr;
    }
-
 
    function connectUser() {
       $query = readUser();
@@ -146,7 +151,6 @@
       //== Enough ?
       foreach ($_POST as $key => $value){
          $_POST[$key] = htmlspecialchars(strip_tags($value));
-         fileLog($_POST[$key]);
       }
    }
 ?>

@@ -1,26 +1,6 @@
 function displayModule() {
    initialState();
    dynamicState();
-
-   sessionsSpecificDisplay();
-}
-
-function sessionsSpecificDisplay() {
-   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
-   
-   if (userData !== null) {            
-      displayChatMessages();
-      
-      const nav = document.querySelector("#main_menu");
-      nav.style.opacity = "1";
-      nav.style.visibility = "visible";
-
-      const loginButton = document.querySelector("#login_button") ?? null;
-      if (loginButton !== null) {
-         loginButton.style.animation = "fadeOut 1s forwards";
-         loginButton.style.visibility = "hidden";      
-      }
-   }   
 }
 
 //=====================>> RESPONSIVENESS <<======================//
@@ -47,6 +27,9 @@ function dynamicState() {
 
 //== TODO: SVG icons insted of this BS
 function navIcons(size) {
+   const nav = document.querySelector("#main_menu") ?? null;
+   if (nav === null) return;
+   
    const links = document.querySelectorAll("#main_menu li > a, #main_menu li > button");
    const accountButton = document.querySelector("#account_button");
    const iconsClasses = [
