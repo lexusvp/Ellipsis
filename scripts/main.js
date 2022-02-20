@@ -1,29 +1,26 @@
-(async function main() {
+(function main() {
+   if (logged) {
+      logOut();
+      chatModule();                     
+      //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
+   }
 
-   await logOut();
-   displayModule();                // Pure front
-
+   displayModule();                // Pure front && Sessions display filtering
    formModule();                   // Main user input handling
-   chatModule();                   // Admin only
-   //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
-
 })();
 
-function logOut() {
-   const nav = document.querySelector("#main_menu") ?? null;
+async function logOut() {
+   const logoutButton = document.querySelector("#logout_button");
+   const nav = document.querySelector("#main_menu");
 
-   if (nav !== null) {
-      const logoutButton = document.querySelector("#logout_button");
-      logoutButton.addEventListener("click", (e) => {
-         e.preventDefault();
-         nav.style.animation = "fadeOut 0.3s forwards";
-         logOutDisplay();
-      })
-   }
-}
-async function logOutDisplay() {
-   await queryControler("logoutUser");
-   localStorage.removeItem("userData");
+   logoutButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+      nav.style.animation = "fadeOut 0.3s forwards";
 
-   location.replace("/1%20-%20Ellipsis/index.php");
+      await queryControler("logoutUser");
+      localStorage.removeItem("userData");
+      localStorage.removeItem("target");
+      
+      location.replace("/1%20-%20Ellipsis/index.php");
+   })
 }

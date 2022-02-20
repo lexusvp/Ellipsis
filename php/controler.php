@@ -1,5 +1,4 @@
 <?php
-
    //== TODO : Sanitize inputs
    //== TODO : WHitelist inputs HERE
    
@@ -24,16 +23,9 @@
       isset($_POST['message']) 
    );
 
-   // Toute opération sur les données nécessitant autorisation doit passer par if ($_SESSION["admin"]) !!!
-   // INUTILE ! => Toute opération nécessitant des droits, doit être vérifiée server-side et pas client-side
-
-   if ($_GET["type"] === "authorize" && isset($_SESSION["admin"])) {
-      echo json_encode($_SESSION["admin"]);
-   }
-
    //======================>> USER BRANCHES <<============================//
 
-   else if ($_GET["type"] === "registerUser" && $regCondition) {
+   if ($_GET["type"] === "registerUser" && $regCondition) {
       $test = availableCheck();
 
       if ($test["check_success"]) {
@@ -56,19 +48,14 @@
    //=====================>> MESSAGES BRANCHES <<=======================//
 
    else if ($_GET["type"] === "createMessage" && $createMessageCondition) {   
-
       if ($_SESSION["admin"] && isset($_GET["target"])) {
          createMessage($_GET["target"], $_SESSION["admin"]);
       } else {
          createMessage($_SESSION["pseudo"]);
       }
-
-      //== TODO: If admin, send receiver pseudo to server somehow (chat tabs clicks store pseudo ?)
-
       echo 0;
    } 
    else if ($_GET["type"] === "readMessage") {
-
       if ($_SESSION["admin"]) {
          $response = readMessage($_SESSION["pseudo"], true);    
       } else {
@@ -78,6 +65,13 @@
       $messageHistory = formatConversations($messageHistory);
       
       echo json_encode($messageHistory);
+   } 
+   else if ($_GET["type"] === "closeConversation" && isset($_GET["target"])) {
+      if ($_SESSION["admin"]) {
+         $closed = closeConversation($_GET["target"]);
+
+         echo json_encode($closed === 1);
+      }
    }
 
    function formatConversations($messageHistory) {
@@ -85,7 +79,7 @@
 
       foreach ($messageHistory as $message){
          if ($_SESSION["admin"] === false) {
-            $currentPseudo = "Admin";
+            $currentPseudo = "Admin - Vazn";
          } else {
             $currentPseudo = $message["pseudo_user"];
          }
@@ -96,7 +90,6 @@
 
       return $arr;
    }
-
    function connectUser() {
       $query = readUser();
       $result = $query->fetch();    // Retourn tableau si ok      
@@ -109,6 +102,7 @@
          if (password_verify($_POST["password"], $result[0])) {
 
             $data["pseudo"] = $result[1];
+            $data["admin"] = $result[2];
             $data["logged"] = True;
 
             $_SESSION["pseudo"] = $result[1];
@@ -138,11 +132,12 @@
 
       return $arr;
    }
-
    function sanitizeData() {
       //== Enough ?
       foreach ($_POST as $key => $value){
          $_POST[$key] = htmlspecialchars(strip_tags($value));
       }
    }
+
+
 ?>

@@ -1,4 +1,10 @@
-(function modalsHandler() {
+(function home() {
+	logoAnim();
+	modalsHandler();
+})();
+
+
+function modalsHandler() {
 	const userEventsButtons = document.querySelectorAll(".modal_buttons"); 
 	const allModals = document.querySelectorAll(".modal");
 	
@@ -19,4 +25,19 @@
 			}
 		}
 	})
-})();
+}
+function logoAnim() {
+   const path = document.querySelectorAll(".path");
+   
+   for (let p of path) {
+      p.style.strokeDasharray = p.getTotalLength();
+      p.style.strokeDashoffset = p.getTotalLength();
+   }
+   
+   anime({
+      targets: path,
+      easing: "linear",
+      strokeDashoffset: 0,
+      duration: 1500,
+   });
+}

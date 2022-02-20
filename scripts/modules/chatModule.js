@@ -1,22 +1,18 @@
 function chatModule() {
    displayChatWindow();
-   displayChatMessages();
+   fetchMessages();     
 }
 
-async function displayChatWindow() {
-   const nav = document.querySelector("#main_menu") ?? null;
-   if (nav === null) return;
-   
+async function displayChatWindow() {   
    const chatButton = document.querySelector("#chat_button");
    const chatContext = document.querySelector("#chat_container");
    const chat = document.querySelector("form[name=chat]");
+   const adminTabs = document.querySelector("#chat_tabs");
    let clicked = false;
    
-   const adminTabs = document.querySelector("#chat_tabs") ?? null;
-
    chatButton.addEventListener("click", () => {
       if(!clicked) {
-         if (adminTabs !== null) {
+         if (adminRole) {
             chat.style.display = "none";
             adminTabs.style.display = "flex";
          }
@@ -24,7 +20,7 @@ async function displayChatWindow() {
          chatContext.style.visibility = "visible";
          clicked = true;
       } else {
-         if (adminTabs !== null) {
+         if (adminTabs) {
             adminTabs.style.display = "none";
          }
 
@@ -33,52 +29,95 @@ async function displayChatWindow() {
       }
    }) 
 
-   const backButton = document.querySelector("#chat_back");
-   backButton.addEventListener("click", () => {
-      adminTabs.style.display = "flex";
-      chat.style.display = "none";
-   });
-
-   const avatar = document.querySelector("#avatar");
-   avatar.addEventListener("mouseover", () => {
-      avatar.style.color = "black"
-      console.log("test");
-   });
+   const backButton = document.querySelector("#chat_back") ?? null;
+   if (backButton !== null) {
+      backButton.addEventListener("click", () => {
+         adminTabs.style.display = "flex";
+         chat.style.display = "none";
+      });  
+   }
 }
-
-//== TODO: To improve
-async function displayChatMessages() {
+async function fetchMessages(currentUser = null) {
    const adminTabs = document.querySelector("#chat_tabs") ?? null;
+   const headerName = document.querySelector("form[name=chat] #chat_name");
    const messageHistory = await queryControler("readMessage") ?? null;
-   
+   const size = Object.keys(messageHistory).length;
+
    if (messageHistory === null) return;
-   
-   if (adminTabs === null) {
-      const headerName = document.querySelector("form[name=chat] #chat_header");
+
+   if (!adminRole) {
       headerName.textContent = "Admin - Vazn";
-
       displayMessages(messageHistory["Admin"]);
+   }  else if (currentUser !== null){
+      displayMessages(messageHistory[currentUser]);
    }  else {
-      for (let user in messageHistory) {
-         let userElement = document.createElement("span");
-         userElement.textContent = user;
-         userElement.style.fontSize = "0.9rem";
-         userElement.style.color = "var(--main-white)";
-         adminTabs.appendChild(userElement);
-   
-         userElement.addEventListener("click", () => {
-            const chat = document.querySelector("form[name=chat]");
-            const headerName = document.querySelector("form[name=chat] #chat_header");
-            chat.style.display = "flex";
-            adminTabs.style.display = "none";
-            headerName.textContent = user;
+      if (size === 0) {
+         const element = await createTab(adminTabs, null, true);
+         element.textContent = "Pas de conversation en cours";
+      } else {
 
-            displayMessages(messageHistory[user]);
-         })
-      }
+         for (let i=0 ; i<size ; i++) {
+            const user = Object.keys(messageHistory)[i];
+            const userElement = createTab(adminTabs, user);
+      
+            userElement.addEventListener("click", () => {
+               const chat = document.querySelector("form[name=chat]");
+               chat.style.display = "flex";
+               adminTabs.style.display = "none";
+               headerName.textContent = user;
+      
+               displayMessages(messageHistory[user]);
+            });
+         }
+      }  
+   }
+   conversationEvent();
+}
+async function conversationEvent() {
+   const usersDiv = Array.from(document.querySelectorAll("#tab_div"))
+   for (let i=0 ; i<usersDiv.length ; i++) {
+      const closeButton = Array.from(document.querySelectorAll("#tab_div svg"));
+
+      closeButton[i].addEventListener("click", async () => {
+         const user = localStorage.getItem("target");
+         const closed = await queryControler("closeConversation", null, user);
+
+         if (closed) {
+            usersDiv[i].style.zIndex = "0";
+            usersDiv[i].style.animation = "slideRight 1.2s forwards";
+            setTimeout(() => {
+               usersDiv[i].remove();
+            }, 400);
+         } else {
+            console.error("Server couldn't close the conversation !");
+         }      
+      });
    }
 }
 
+function createTab(container, user, empty = false) {
+   let div = document.createElement("div");
+   let userElement = document.createElement("span");
+   const crossIcon = 
+   `
+      <svg viewBox="0 0 448 448" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+         <path d="M384,0C419.3,0 448,28.65 448,64L448,384C448,419.3 419.3,448 384,448L64,448C28.65,448 0,419.3 0,384L0,64C0,28.65 28.65,0 64,0L384,0ZM143,176.1L190.1,223.1L143,271C133.7,280.4 133.7,295.6 143,304.1C152.4,314.3 167.6,314.3 176.1,304.1L223.1,257.9L271,304.1C280.4,314.3 295.6,314.3 304.1,304.1C314.3,295.6 314.3,280.4 304.1,271L257.9,223.1L304.1,176.1C314.3,167.6 314.3,152.4 304.1,143C295.6,133.7 280.4,133.7 271,143L223.1,190.1L176.1,143C167.6,133.7 152.4,133.7 143,143C133.7,152.4 133.7,167.6 143,176.1Z" style="fill-rule:nonzero;"/>
+      </svg>
+   `;
+   
+   if (!empty) div.innerHTML += crossIcon;
+   if (user !== null) userElement.textContent = user;
+
+   div.appendChild(userElement);
+   div.setAttribute("id", "tab_div");
+   container.appendChild(div);         
+   
+   div.addEventListener("mouseenter", () => {
+      localStorage.setItem("target", user);
+   });
+
+   return userElement;
+}
 function displayMessages(data) {
    const chatDisplay = document.querySelector("form[name=chat] > div");
    chatDisplay.innerHTML = "";

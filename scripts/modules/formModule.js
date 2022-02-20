@@ -15,6 +15,7 @@ async function formModule() {
          if (currentForm.name === "chat") {
             if(formData[0].value !== "") {
                sendMessageAttempt(currentForm);
+               formData[0].value = "";
             }
          }
          else if (currentForm.name === "register") {
@@ -70,13 +71,14 @@ async function updateAttempt(form) {
 }
 async function sendMessageAttempt(form) {
    const formattedMessage = new FormData(form);
-   const admin = await queryControler("authorize");
 
-   if (admin) {
-      await queryControler("createMessage", formattedMessage, pseudoCibléParClicOnglet);
+   if (adminRole) {
+      const target = localStorage.getItem("currentTarget");
+      await queryControler("createMessage", formattedMessage, target);
+      fetchMessages(target);
    } else {
       await queryControler("createMessage", formattedMessage);
+      fetchMessages();
    }
 
-   displayChatMessages();
 }

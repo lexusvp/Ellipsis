@@ -1,5 +1,12 @@
+
 body {
+    height: 2000px;
+    width: 100vw;
     overflow-x: hidden;
+
+}
+main {
+    width: 100vw;
 }
 
 /*====================================>>  HEADER  <<====================================*/
@@ -8,29 +15,41 @@ body > header {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
+    align-items: center;
 
     height: 100vh;
 }
 
-body > header > img{   
+#logo{   
     z-index: 100;
     grid-column: 1;
     margin-top: 20vh;
+    margin-left: 20px;
     min-width: 200px;
-    max-width: 20%;
-    animation: fadeIn 3.5s ease-in-out, breath_2 10s infinite;
+    max-width: 30%;
+    animation: breath_2 10s infinite;
+}
+.fadein {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out 1.2s forwards;
+}
+.path {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-body > header > #arrow {
+#arrows {
+    margin-left: 20px;
     z-index: 100;
     grid-column: 1;
     position: relative;
+    opacity: 0;
 
     margin-top: 10vh;
     min-width: 50px;
     max-width: 1%;
 
-    animation: fadeIn 3.5s ease-in-out, bounce 0.5s infinite alternate;
+    animation: fadeIn 1.5s ease-in-out 1.8s forwards, bounce 0.5s infinite alternate;
 }
 
 /*====================================>>  MAIN  <<====================================*/
@@ -40,26 +59,6 @@ main {
     background-color: var(--main-white);
     width: 100%;
     padding-bottom: 20px;
-}
-
-main header {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: var(--main-black);
-    
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-}
-
-main > header img {
-    min-width: 400px;
-    max-width: 35%;
-}
-section > header > img {
-    min-width: 400px;
-    max-width: 35%;
 }
 
 section:nth-child(2) {
@@ -189,6 +188,9 @@ form[name=login] label, form[name=register] label {
 
 @media only screen and (max-width: 800px)
 {
+    .subtitles {
+        font-size: 2.75em;
+    }
     header img:nth-child(2) {
         min-width: 200px;
     }

@@ -1,6 +1,12 @@
+body, main {
+    background: var(--soft-blue);
+}
+
 /*==================================>>  MAIN  <<=================================*/
 body > main {
     margin: 0px 50px 15px 50px;
+    width: 100%;
+
 }
 main nav {
     display: flex;
@@ -98,13 +104,13 @@ nav + article {
     border: none;
 }
 
-svg {
+/* svg {
     text-align: center;
     bottom: -650px;
     width: 100%;
     z-index: -6;
     position: relative;
-}
+} */
 
 /*===========================>>  RESPONSIVENESS  <<============================*/
 

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "animejs": "^3.2.1",
     "chart.js": "^3.6.2"
   }
 }

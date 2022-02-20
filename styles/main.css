@@ -8,7 +8,8 @@
     --secondary-softer: var(--supersoft-yellow);
 
     
-    --main-red: #b65a5a;
+    --hard-red: #c33f3f;
+    --soft-red: #b65a5a;
     
     --hard-blue: #7083bb;
     --soft-blue: #CED7EF;
@@ -39,8 +40,17 @@
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-hard);
 }
+::-moz-selection {
+    color: var(--main-white);
+    background: var(--primary-hard);
+}
+::selection {
+    color: var(--main-white);
+background: var(--primary-hard);
+}
 
 * {
+    scroll-behavior: smooth;
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
@@ -53,7 +63,7 @@
 }
 body {
     display: grid;
-    width: 100vw;
+    width: 100%;
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
     overflow-x: hidden;
@@ -63,8 +73,19 @@ a {
     color: var(--main-black);
 }
 p {
-    font-size: 1.1rem;
     color: var(--main-black);
+}
+.subtitles {
+    background-color: var(--main-black);
+    width: 100vw;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 3.5em;
+    font-weight: 100;
+    filter: blur(0.5px);
+    color: var(--main-white);
+    font-family:'Viga', sans-serif;
 }
 
 /*================================>>  HEADER  <<================================*/
@@ -128,7 +149,9 @@ article {
     width: 100vw;   
     z-index: 1000;
 }
-
+#main_menu svg {
+    height: 28px;
+}
 #main_menu ul {   
     display: flex;
     background-color: var(--main-black);
@@ -137,9 +160,13 @@ article {
 #main_menu li {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 a, #main_menu ul li button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1rem;
     cursor: pointer;
 
@@ -151,31 +178,39 @@ a, #main_menu ul li button {
 
 #home_button {
     color: var(--main-black);
+    fill: var(--main-black);
     background-color: var(--primary-soft);
 }
 #home_button:hover {
     background-color: var(--main-grey);
     color: var(--main-white);
+    fill: var(--main-white);
 }
 #chat_button {
     position: absolute;
-    right: 8px;
-    width: 68px;
+    right: 1px;
+    width: 75px;
     color: var(--main-black);
+    fill: var(--main-black);
+    stroke: var(--main-black);
     background-color: var(--secondary-hard);
 }
 #chat_button:hover {
     background-color: var(--main-grey);
     color: var(--main-white);
+    stroke: var(--main-white);
+    fill: var(--main-white);
 }
 #services_button, #account_button, #logout_button {
     background-color: var(--main-grey);
     color: var(--main-white);
+    stroke: var(--main-white);
 }
 
 #services_button:hover {
     background-color: var(--primary-soft);
     color: var(--main-black);
+    stroke: var(--main-black);
 }
 #account_button {
     position: absolute;
@@ -190,6 +225,7 @@ a, #main_menu ul li button {
 #account_button:hover, #logout_button:hover  {
     background-color: var(--secondary-hard);
     color: var(--main-black);
+    stroke: var(--main-black);
 }
 
 /*================================>>  MODALS  <<=================================*/
@@ -233,33 +269,10 @@ form[name=chat] {
     width: 350px;
 }
 
-#messages_display {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    background-color: var(--main-white);
-    padding: 5px;
-    height: 250px;
-    width: 100%;
-    border: solid 1px var(--very-light-grey);
-    border-bottom: none;
-
-    outline: none;
-}
-
-#chat_back {
-    fill: var(--main-black);
-    left: 140px;
-}
-
-.chat_icons  {
-    position: relative;
-    width: 25px;
-    cursor: pointer;
-}
 form[name=chat] > header {
     border: solid 1px var(--very-light-grey);
     border-bottom: none;
+    width: 100%;
 
     display: flex;
     align-content: flex-start;
@@ -273,20 +286,40 @@ form[name=chat] > header > div {
     justify-content: space-evenly;
     margin-left: 15px;
 }
-#chat_header {
+form[name=chat] img {
+    box-shadow: 0rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1) ;
+    border-radius: 100%;
+    width: 17%;
+}
+#chat_name {
     font-size: 1rem;
     font-weight: 600;
 }
-form[name=chat] p{
-    /* color: white; */
-    font-size: 0.8rem;
+.chat_icons  {
+    fill: var(--main-black);
+    left: 140px;
+    position: relative;
+    width: 25px;
+    cursor: pointer;
 }
-form[name=chat] img {
-    background-color: var(--main-black);
-    box-shadow: 0rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1) ;
-    border-radius: 100%;
+
+#messages_display {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background-color: var(--main-white);
     padding: 5px;
+    height: 250px;
+    width: 100%;
+    border: solid 1px var(--very-light-grey);
+    border-bottom: none;
+
+    outline: none;
 }
+form[name=chat] p{
+    font-size: 0.95rem;
+}
+
 form[name=chat] footer {
     display: flex;
     align-content: center;
@@ -299,6 +332,7 @@ form[name=chat] footer {
     width: 100%;
 }
 form[name=chat] input[type=textarea]  {
+    font-size: 0.9rem;
     padding: 10px;
     margin: 5px;
     width: 250px;
@@ -308,24 +342,47 @@ form[name=chat] input[type=textarea]  {
     outline: none;
     box-shadow: 0 0 2rem rgba(0, 0, 0, 0.191);
 }
+
+/*==================================>>  ADMIN TABS  <<=================================*/
+
 #chat_container > aside {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
     width: fit-content;
-    background-color: var(--main-black);
     position: relative;
     cursor: pointer;
     border: none;
 }
-#chat_container > aside span {
-
-    text-align: center;
+#tab_div {
+    background-color: var(--main-black);
     width: 159px;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
-#chat_container > aside span:hover {
-    background-color: #7083bb;
+#tab_div:hover {
+    background-color: var(--hard-blue);
+}
+#tab_div > span{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 15px 5px 15px 10px;
+    font-size : 0.9rem;
+    color : var(--main-white);
+}
+#tab_div > svg{
+    position: absolute;
+    margin: 10px;
+    z-index: 10000;
+    height: 20px;
+    fill: var(--main-white);
+}
+#tab_div > svg:hover {
+    transform: scale(1.2);
+    transition: all 0.1s;
+    animation: rotate_z 0.8s forwards;
 }
 
 /*==================================>>  ANIMS  <<=================================*/
@@ -335,7 +392,7 @@ form[name=chat] input[type=textarea]  {
         transform: scale(0.8);
     }  
     50% {
-        transform: scale(1.2);
+        transform: scale(1.15);
     }  
     100% {
         transform: scale(0.8);
@@ -398,5 +455,13 @@ form[name=chat] input[type=textarea]  {
     } 
     100% {
         transform: rotateZ(-10deg) translateX(-20px);
+    }
+}
+@keyframes slideRight {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(360px);
     }
 }

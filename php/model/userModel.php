@@ -38,8 +38,6 @@
 
       return $query;
    }
-
-
    function updateUser($currentPseudo) {
       $database = connect(); 
 
@@ -59,7 +57,30 @@
    }
    function deleteUser() {}
 
+   function closeConversation($target) {
+      $database = connect(); 
+
+      $closeConv = 
+      "  UPDATE users 
+         SET conversation_user = 0
+         WHERE pseudo_user = :target; 
+      ";
+
+      try {
+         $query = $database->prepare($closeConv);
+         $query->execute(array(
+            ":target" => $target
+         ));   
+      } catch (PDOException $e) {
+         fileLog("CONVERSATION CLOSE : " . json_encode($e) . "\n");
+      }
+      
+      return $query->rowCount();
+   }
    
+
+
+
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';

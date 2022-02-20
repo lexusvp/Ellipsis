@@ -1,10 +1,11 @@
 /*=================================>> CHARTS  <<=================================*/
-const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
 (function main() {
 
-   const canva = document.querySelector("canvas");
-   drawChart(canva);
+   if (adminRole) {
+      const canva = document.querySelector("canvas");
+      drawChart(canva); 
+   }
    
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
