@@ -1,17 +1,24 @@
-## Ellipsis
+![GitHub last commit](https://img.shields.io/github/last-commit/Vazn/Ellipsis?style=for-the-badge)
+
+
+# ***Ellipsis***
+
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/SQL%20By-SQL-blue?style=for-the-badge">
+
+
 Final project for my training exam
-https://img.shields.io/github/last-commit/Vazn/Ellipsis?style=for-the-badge
 
-#Fonctionnalités:
+## ***Features***
 
-- ✅ Interface CRUD compte - 90% 
-- ✅ Interface de chat instantané avec l'admin - 90% 
-- ✅ Fonction de récupération logs d'inscriptions / connexions / déconnexions / suppressions de compte / messages et erreurs - 90% 
+✅ Account **CRUD** interface - 90% <br>
+✅ **Live chat** with admin - 90% <br>
+✅ Full logging - 90% <br><br>
 
-- 🔄 Analytics logs DB - In progress ... 
+🔄 **Analytics dashboard** - In progress ... <br><br>
 
-- 💤 Interface de récupération MDP / ID - TODO 
-- 💤 Interface CRUD services - TODO 
-- 💤 Fonction de vérification d'identité via un code envoyé par mail - TODO
+💤 Password recovery feature <br>
+💤 Services CRUD interface <br>
+💤 Strong mail authentication <br><br>
 
-To be continued 👀
+And **more** ... 👀
+
