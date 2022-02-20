@@ -1,6 +1,8 @@
-# Fil_rouge
+# Ellipsis
 
-Fonctionnalités:
+Final project for my training exam
+
+## Fonctionnalités:
 
 - ✅ Interface CRUD compte - 90% 
 - ✅ Interface de chat instantané avec l'admin - 90% 
