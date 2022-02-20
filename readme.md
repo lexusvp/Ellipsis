@@ -1,6 +1,7 @@
 # Fil_rouge
 
 Fonctionnalités:
+https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 
 - ✅ Interface CRUD compte - 90% 
 - ✅ Interface de chat instantané avec l'admin - 90% 
