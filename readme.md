@@ -3,7 +3,7 @@
 
 # ***Ellipsis***
 
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/SQL%20By-SQL-blue?style=for-the-badge">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Powered%20By-SQL-blue?style=for-the-badge">
 
 
 Final project for my training exam
