@@ -29,7 +29,7 @@
             ":pseudo" => $pseudo
          ));
       } catch (PDOException $e) {
-         fileLog("MESSAGE CREATE : " . json_encode($e) . "\n");
+         errorLog("MESSAGE CREATION", $e);
       }
    }
    function readMessage($pseudo = "Vazn", $admin = false) {
@@ -65,7 +65,7 @@
             ));           
          }
       } catch (PDOException $e) {
-         fileLog("MESSAGE READ : " . json_encode($e) . "\n");
+         errorLog("MESSAGE READ", $e);
       }
 
       return $query;

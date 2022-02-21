@@ -82,6 +82,7 @@
             <section id="admin_section" class="admin_specific">
                 <h2 class="subtitles" id="dashboard_title"> Dashboard </h2>
 
+                <button id="testButton"> getData() </button>
                 <article>
                     <canvas width="400px" height="350px"></canvas>
                 </article>

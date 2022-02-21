@@ -74,6 +74,15 @@
       }
    }
 
+   //=====================>> DASHBOARD BRANCHES <<=======================//
+
+   else if ($_GET["type"] === "getData" && isset($_GET["target"])) {
+      if ($_SESSION["admin"]) {
+         fileLog(json_encode(getData($_GET["target"])->fetchAll(PDO::FETCH_ASSOC)));
+      }
+   }
+
+   
    function formatConversations($messageHistory) {
       $arr = array();
 
@@ -124,7 +133,7 @@
          $arr["pseudo"] = checkPseudo();
          $arr["email"] = checkMail();  
       } catch (PDOException $e) {
-         fileLog("\n USER DUPLICATE CHECK : " . json_encode($e));
+         errorLog("USER DUPLICATE CHECK", $e);
       }
 
       if ($arr["pseudo"] && $arr["email"]) $arr["check_success"] = True;

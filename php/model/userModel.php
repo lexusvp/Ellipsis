@@ -18,7 +18,7 @@
             ":email" => $_POST['email'],
          )); 
       } catch (PDOException $e) {
-         fileLog("USER CREATION : " . json_encode($e) . "\n");
+         errorLog("USER CREATION", $e);
       }
 
       return $success;
@@ -33,7 +33,7 @@
             ":email" => $_POST['email']      
          ));     
       } catch (PDOException $e) {
-         fileLog("USER READ : " . json_encode($e) . "\n");
+         errorLog("USER CONNECTION", $e);
       }
 
       return $query;
@@ -72,7 +72,7 @@
             ":target" => $target
          ));   
       } catch (PDOException $e) {
-         fileLog("CONVERSATION CLOSE : " . json_encode($e) . "\n");
+         errorLog("CONVERSATION CLOSE", $e);
       }
       
       return $query->rowCount();

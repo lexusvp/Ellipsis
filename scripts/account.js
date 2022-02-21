@@ -4,9 +4,16 @@
 
    if (adminRole) {
       const canva = document.querySelector("canvas");
+      const btn = document.querySelector("#testButton");
       drawChart(canva); 
+      btn.addEventListener('click', (e) => {
+         e.preventDefault();
+         queryControler("getData", null, "allConnexions");    
+      })
    }
-   
+
+
+
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
 })();
