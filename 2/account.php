@@ -78,13 +78,15 @@
             </form>
 
 
-
             <section id="admin_section" class="admin_specific">
                 <h2 class="subtitles" id="dashboard_title"> Dashboard </h2>
-
-                <button id="testButton"> getData() </button>
-                <article>
-                    <canvas width="400px" height="350px"></canvas>
+                <article id="viz_container">
+                    <p id="userCount" class="counts"></p>
+                    <p id="regCount" class="counts"></p>
+                    <div class="charts_container">
+                        <canvas id="chart1" height="300px" width="600px"></canvas>
+                        <canvas id="chart2" height="300px" width="600px"></canvas>
+                    </div>
                 </article>
             </section>
         </main>

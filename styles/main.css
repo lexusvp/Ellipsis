@@ -87,7 +87,9 @@ p {
     color: var(--main-white);
     font-family:'Viga', sans-serif;
 }
-
+.closeModal:hover {
+    cursor: url('../assets/images/icons/x_mark.svg') 15 15 , auto;
+}
 /*================================>>  HEADER  <<================================*/
 
 body header {
@@ -134,16 +136,10 @@ input {
     font-size: 11px;
 }
 
-article {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 /*==================================>>  NAV  <<=================================*/
 
 #main_menu {
-    visibility: visible;
+    visibility: hidden;
     position: fixed;
     bottom: 0px;
     width: 100vw;   

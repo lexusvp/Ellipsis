@@ -40,14 +40,14 @@ async function displayChatWindow() {
 async function fetchMessages(currentUser = null) {
    const adminTabs = document.querySelector("#chat_tabs") ?? null;
    const headerName = document.querySelector("form[name=chat] #chat_name");
-   const messageHistory = await queryControler("readMessage") ?? null;
+   const messageHistory = await queryControler([`type=readMessage`]) ?? null;
    const size = Object.keys(messageHistory).length;
 
    if (messageHistory === null) return;
 
    if (!adminRole) {
       headerName.textContent = "Admin - Vazn";
-      displayMessages(messageHistory["Admin"]);
+      displayMessages(messageHistory["Admin - Vazn"]);
    }  else if (currentUser !== null){
       displayMessages(messageHistory[currentUser]);
    }  else {
@@ -80,7 +80,10 @@ async function conversationEvent() {
 
       closeButton[i].addEventListener("click", async () => {
          const user = localStorage.getItem("target");
-         const closed = await queryControler("closeConversation", null, user);
+         const closed = await queryControler([
+            `type=closeConversation`,
+            `target=${user}`
+         ]);
 
          if (closed) {
             usersDiv[i].style.zIndex = "0";

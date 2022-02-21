@@ -1,18 +1,33 @@
 /*=================================>> CHARTS  <<=================================*/
 
-(function main() {
+(async function main() {
 
    if (adminRole) {
-      const canva = document.querySelector("canvas");
-      const btn = document.querySelector("#testButton");
+      const canva = document.querySelector("#chart1");
+      const canva2 = document.querySelector("#chart2");
+      const userCountSlot = document.querySelector("#userCount");
+      const regCountSlot = document.querySelector("#regCount");
+      const userCount = await queryControler([
+         `type=getData`,
+         `query=countUsers`
+      ]);
+      const regCount = await queryControler([
+         `type=getData`,
+         `query=countRegistrations`
+      ]);
+      const loginCount = await queryControler([
+         `type=getData`,
+         `query=countLogins`,
+         `interval=daily`
+      ]);
+      console.log("loginCount : ", loginCount);
+
+      userCountSlot.textContent = `Il y a ${userCount[0]} utilisateurs inscrits !`;
+      regCountSlot.textContent = `Il y a eu ${regCount[0]} inscriptions !`;
+
       drawChart(canva); 
-      btn.addEventListener('click', (e) => {
-         e.preventDefault();
-         queryControler("getData", null, "allConnexions");    
-      })
+      drawChart(canva2);
    }
-
-
 
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
@@ -44,24 +59,12 @@ function drawChart(canva) {
             backgroundColor: ['#a9b976', "#ffffff", '#b65a5a'],
             borderColor: '#a9b976',
             pointBackgroundColor: 'rgba(100, 150, 100, 0.0)',
-            // cubicInterpolationMode: "monotone",
-         },
-         {
-            label: "Prévision du nombre d'utilisateurs des autres sites :/",
-            data: [375000, 75000, 12500, 2500, 500, 1],
-   
-            backgroundColor: '#b65a5a',
-            borderColor: '#b65a5a',
-            fill: '#b65a5a20',
-   
-            pointBackgroundColor: "#ffffff",
-            // cubicInterpolationMode: "monotone",
+            cubicInterpolationMode: "monotone",
          },
          {
             type: 'bar', 
             label: "Des barres stylées",
             data: [0, 50000, 120000, 190000, 50000, 0],
-            
             backgroundColor: ['#CED7EF', "#CED7EF", '#CED7EF', '#7083bb', "#CED7EF", "#CED7EF"],
          },
       ]},
@@ -82,28 +85,31 @@ function drawChart(canva) {
                   bottom: 30
                }
             },
-         },
-         elements: {
-            bar: {
-               borderRadius: 5,
+            legend: {
+               display: true
             }
-         }
+         },
+         // elements: {
+         //    bar: {
+         //       borderRadius: 5,
+         //    }
+         // }
       },
    }
    const chart = new Chart(ctx, config);
    chartList.push(chart);
 
-   if(window.innerWidth > 800) {
-      chart.resize(500, 400);
-   } else {
-      chart.resize(400, 350);
-   }
-   window.addEventListener("resize", (e) => {
-      if(window.innerWidth > 800) {
-         chart.resize(500, 400);
-      } else {
-         chart.resize(400, 350);
-      }
-   }) 
+   // if(window.innerWidth > 800) {
+   //    chart.resize(500, 400);
+   // } else {
+   //    chart.resize(400, 350);
+   // }
+   // window.addEventListener("resize", (e) => {
+   //    if(window.innerWidth > 800) {
+   //       chart.resize(500, 400);
+   //    } else {
+   //       chart.resize(400, 350);
+   //    }
+   // }) 
 }
 

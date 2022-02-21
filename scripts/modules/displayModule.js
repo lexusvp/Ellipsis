@@ -19,19 +19,12 @@ function sessionSpecific() {
    const loggedSpecific = document.querySelectorAll(".logged_specific");
    const unloggedSpecific = document.querySelectorAll(".unlogged_specific");
 
-   if (!logged) {
-      for (let element of loggedSpecific) element.style.display = "none";
-      for (let element of unloggedSpecific) element.style.display = "";
-   } else {
-      for (let element of loggedSpecific) element.style.display = "";
-      for (let element of unloggedSpecific) element.style.display = "none";
+   if (logged) {
+      for (let element of loggedSpecific) element.style.visibility = "visible";
+      for (let element of unloggedSpecific) element.style.visibility = "hidden";
    }
-
-
-   if (!adminRole) {
-      for (let element of adminSpecific) element.style.display = "none";
-   } else {
-      for (let element of adminSpecific) element.style.display = "";
+   if (adminRole) {
+      for (let element of adminSpecific) element.style.display = "flex";
    }
 }
 

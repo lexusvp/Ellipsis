@@ -148,7 +148,7 @@
                         <input type="email" name="email" required value="cav@zap.com">
 
                         <button type="submit" value="" name="submit" class="buttons forms_buttons">
-                            <i class="fas fa-arrow-right"></i>
+                            <img class="arrow_icon" src="./assets/images/icons/arrow_right.svg"></img>
                         </button>
                     </form>
                 </div>
@@ -162,8 +162,7 @@
                         <input type="password" name="password" required>
 
                         <button type="submit" value="" name="submit" class="buttons forms_buttons">
-
-                            <i class="fas fa-arrow-right"></i>
+                            <img class="arrow_icon" src="./assets/images/icons/arrow_right.svg"></img>
                         </button>
                     </form>
                 </div>

@@ -1,31 +1,71 @@
 <?php
+   session_start();
+   date_default_timezone_set('Europe/Paris');
+
+   //== NOTE: 1 day to seconds => 86,400;
+   //== NOTE: 1 week to seconds  => 604,800;
+   //== NOTE: 1 month to seconds  => 2,629,746;  
+
    //== TODO : Sanitize inputs
-   //== TODO : WHitelist inputs HERE
+   //== TODO : Whitelist inputs HERE
    
    require './model/connect.php';
    require './model/userModel.php';
    require './model/messageModel.php';
    require './model/logModel.php';
-
    require './helpers.php';
-   session_start();
 
    $regCondition = (
+      $_GET["type"] === "registerUser" &&
       isset($_POST['pseudo']) && 
       isset($_POST['password']) &&
       isset($_POST['email'])
    );   
-   $logCondition = (
+   $loginCondition = (
+      $_GET["type"] === "loginUser" &&
       isset($_POST['email']) && 
       isset($_POST['password'])
-   );   
-   $createMessageCondition = (
-      isset($_POST['message']) 
+   ); 
+   
+   //======= LOGGED ONLY FEATURES =========//
+   $logoutCondition = (
+      $_SESSION["logged"] &&
+      $_GET["type"] === "logoutUser"
+   );
+   $updateCondition = (
+      $_SESSION["logged"] &&
+      $_GET["type"] === "updateUser"
+   );
+   $deleteCondition = (
+      $_SESSION["logged"] &&
+      $_GET["type"] === "deleteUser"
    );
 
-   //======================>> USER BRANCHES <<============================//
+   $createMessageCondition = (
+      $_SESSION["logged"] &&
+      $_GET["type"] === "createMessage" &&
+      isset($_POST['message']) 
+   );
+   $readMessageCondition = (
+      $_SESSION["logged"] &&
+      $_GET["type"] === "readMessage"
+   );
 
-   if ($_GET["type"] === "registerUser" && $regCondition) {
+   //======= ADMIN ONLY FEATURES =========//
+   $closeConversationCondition = (
+      $_SESSION["admin"] &&
+      $_GET["type"] === "closeConversation" && 
+      isset($_GET["target"])
+   );
+   $getDataCondition = (
+      $_SESSION["admin"] &&
+      $_GET["type"] === "getData" && 
+      isset($_GET["query"])
+   );
+
+   //======================>> USER <<============================//
+
+   if ($regCondition) {
       $test = availableCheck();
 
       if ($test["check_success"]) {
@@ -34,20 +74,22 @@
       }
       echo json_encode($test);
    }
-   else if ($_GET["type"] === "loginUser" && $logCondition) {      
+   else if ($loginCondition) {      
       echo json_encode(connectUser());          //== NOTE: Non-sensitive data
    } 
-   else if ($_GET["type"] === "logoutUser") {
+
+   else if ($logoutCondition) {
       $_SESSION["logged"] = false;
       createLog("Logout", $_SESSION["pseudo"]);
 
       echo 0;
    }
-   else if ($_GET["type"] === "updateUser" && $updateCondition) {}  //== TODO 
+   else if ($updateCondition) {}  //== TODO 
+   else if ($deleteCondition) {}  //== TODO 
 
-   //=====================>> MESSAGES BRANCHES <<=======================//
+   //=====================>> MESSAGES <<=======================//
 
-   else if ($_GET["type"] === "createMessage" && $createMessageCondition) {   
+   else if ($createMessageCondition) {   
       if ($_SESSION["admin"] && isset($_GET["target"])) {
          createMessage($_GET["target"], $_SESSION["admin"]);
       } else {
@@ -55,18 +97,18 @@
       }
       echo 0;
    } 
-   else if ($_GET["type"] === "readMessage") {
+   else if ($readMessageCondition) {
       if ($_SESSION["admin"]) {
          $response = readMessage($_SESSION["pseudo"], true);    
       } else {
          $response = readMessage($_SESSION["pseudo"]);
       } 
       $messageHistory = $response->fetchAll(PDO::FETCH_ASSOC);
-      $messageHistory = formatConversations($messageHistory);
+      $messageHistory = json_encode(formatConversations($messageHistory));
       
-      echo json_encode($messageHistory);
+      echo $messageHistory;
    } 
-   else if ($_GET["type"] === "closeConversation" && isset($_GET["target"])) {
+   else if ($closeConversationCondition) {
       if ($_SESSION["admin"]) {
          $closed = closeConversation($_GET["target"]);
 
@@ -74,15 +116,64 @@
       }
    }
 
-   //=====================>> DASHBOARD BRANCHES <<=======================//
+   //=====================>> DASHBOARD <<=======================//
 
-   else if ($_GET["type"] === "getData" && isset($_GET["target"])) {
-      if ($_SESSION["admin"]) {
-         fileLog(json_encode(getData($_GET["target"])->fetchAll(PDO::FETCH_ASSOC)));
+   else if ($getDataCondition) {
+      if (isset($_GET["interval"])) {
+         $dataNeeded = getData($_GET["query"], $_GET["interval"]);
+      } else {
+         $dataNeeded = getData($_GET["query"]);
+      }
+      echo json_encode($dataNeeded);
+   } else {
+      echo json_encode("You're not allowed to do this, i'm watching you.");
+   }
+
+   function getData($target, $interval = null) {
+      if ($target === "countUsers") {
+         return countUsers()->fetchAll(PDO::FETCH_NUM);
+      } else if ($target === "countRegistrations") {
+         return countRegistrations()->fetchAll(PDO::FETCH_NUM);
+      } else if ($target === "countLogins") {
+         $ranges = formatRanges($interval);
+         return getConnectionsOnInterval($ranges)->fetchAll(PDO::FETCH_ASSOC);
+      } else if ($target === "countRegistrations") {
+         return countRegistrations()->fetchAll(PDO::FETCH_NUM);
+      } else if ($target === "getAllConnections") {
+         return countLogins()->fetchAll(PDO::FETCH_NUM);
+      } else if ($target === "getAllErrors") {
+         return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
+      } else {
+         return [];
+      }
+   }
+   
+   function formatRanges($interval) {
+      $arr = [];    
+      if ($interval === "daily") {
+         for ($i=0 ; $i<8 ; $i++) {
+            $intervalStart = date("Y-m-d", strtotime("-" . $i . " day"));
+            $arr[] = $intervalStart;
+         }
+         return array_reverse($arr);
+      } else if ($interval === "weekly") {
+         for ($i=1 ; $i<5 ; $i++) {
+            $intervalStart = date("Y-m-d", strtotime("-" . $i . " week"));
+            $arr[] = $intervalStart;
+         }
+         return array_reverse($arr);
+      } else if ($interval === "monthly") {
+         for ($i=1 ; $i<13 ; $i++) {
+            $intervalStart = date("Y-m-d", strtotime("-" . $i . " month"));
+            $arr[] = $intervalStart;
+         }
+         return array_reverse($arr);
+      } else {
+         fileLog("Are you dumb or what ?!?!");
       }
    }
 
-   
+
    function formatConversations($messageHistory) {
       $arr = array();
 
@@ -147,6 +238,5 @@
          $_POST[$key] = htmlspecialchars(strip_tags($value));
       }
    }
-
 
 ?>

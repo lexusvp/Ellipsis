@@ -1,12 +1,18 @@
-(function main() {
+(async function main() {
+   displayModule();                // Pure front && Sessions display filtering
+  
    if (logged) {
       logOut();
       chatModule();                     
       //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
    }
-
-   displayModule();                // Pure front && Sessions display filtering
    formModule();                   // Main user input handling
+
+   const errors = await queryControler([
+      `type=getData`,
+      `query=getAllErrors`
+   ]);
+   if (errors !== null) console.table("Errors : ", errors);
 })();
 
 async function logOut() {
@@ -17,7 +23,7 @@ async function logOut() {
       e.preventDefault();
       nav.style.animation = "fadeOut 0.3s forwards";
 
-      await queryControler("logoutUser");
+      await queryControler([`type=logoutUser`]);
       localStorage.removeItem("userData");
       localStorage.removeItem("target");
       

@@ -1,9 +1,6 @@
-(async function home() {
+(function home() {
 	logoAnim();
 	modalsHandler();
-	
-	const errors = await queryControler("getData", "errors");
-	console.table("errors : ", errors);
 })();
 
 

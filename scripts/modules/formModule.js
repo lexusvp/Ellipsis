@@ -38,7 +38,7 @@ async function formModule() {
 
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("registerUser", formattedFormData);
+   const answer = await queryControler([`type=registerUser`], formattedFormData);
 
    if (answer.check_success) {
       formAnim(form, true, "register");
@@ -48,7 +48,7 @@ async function registerAttempt(form) {
 }
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("loginUser", formattedFormData);
+   const answer = await queryControler([`type=loginUser`], formattedFormData);
 
    if (answer.logged) { 
       localStorage.setItem("userData", JSON.stringify(answer));
@@ -61,7 +61,7 @@ async function loginAttempt(form) {
 }
 async function updateAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("update", formattedFormData);
+   const answer = await queryControler([`type=updateUser`], formattedFormData);
 
    if (answer.check_success) {
       formAnim(currentForm, true, "update");
@@ -74,10 +74,15 @@ async function sendMessageAttempt(form) {
 
    if (adminRole) {
       const target = localStorage.getItem("currentTarget");
-      await queryControler("createMessage", formattedMessage, target);
+      await queryControler([
+         `type=updateUser`,
+         `target=${target}`
+      ], formattedMessage);
+
       fetchMessages(target);
    } else {
-      await queryControler("createMessage", formattedMessage);
+      await queryControler([`type=createMessage`], formattedMessage);
+      
       fetchMessages();
    }
 
