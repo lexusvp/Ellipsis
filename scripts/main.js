@@ -10,7 +10,7 @@
 
    const errors = await queryControler([
       `type=getData`,
-      `query=getAllErrors`
+      `target=allErrors`
    ]);
    if (errors !== null) console.table("Errors : ", errors);
 })();

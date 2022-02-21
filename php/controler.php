@@ -60,7 +60,7 @@
    $getDataCondition = (
       $_SESSION["admin"] &&
       $_GET["type"] === "getData" && 
-      isset($_GET["query"])
+      isset($_GET["target"])
    );
 
    //======================>> USER <<============================//
@@ -120,9 +120,9 @@
 
    else if ($getDataCondition) {
       if (isset($_GET["interval"])) {
-         $dataNeeded = getData($_GET["query"], $_GET["interval"]);
+         $dataNeeded = getData($_GET["target"], $_GET["interval"]);
       } else {
-         $dataNeeded = getData($_GET["query"]);
+         $dataNeeded = getData($_GET["target"]);
       }
       echo json_encode($dataNeeded);
    } else {
@@ -130,49 +130,54 @@
    }
 
    function getData($target, $interval = null) {
+
       if ($target === "countUsers") {
          return countUsers()->fetchAll(PDO::FETCH_NUM);
-      } else if ($target === "countRegistrations") {
-         return countRegistrations()->fetchAll(PDO::FETCH_NUM);
-      } else if ($target === "countLogins") {
-         $ranges = formatRanges($interval);
-         return getConnectionsOnInterval($ranges)->fetchAll(PDO::FETCH_ASSOC);
-      } else if ($target === "countRegistrations") {
-         return countRegistrations()->fetchAll(PDO::FETCH_NUM);
-      } else if ($target === "getAllConnections") {
-         return countLogins()->fetchAll(PDO::FETCH_NUM);
-      } else if ($target === "getAllErrors") {
+      }  else if ($target === "allErrors") {
          return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
-      } else {
+      } 
+      
+      else if ($target === "logins") {
+         $data = getDataWithinInterval($interval, "Login");
+         return $data->fetchAll(PDO::FETCH_ASSOC);
+      }
+      else if ($target === "registrations") {
+         $data = getDataWithinInterval($interval, "Registrations");
+         return $data->fetchAll(PDO::FETCH_ASSOC);
+      }
+      else if ($target === "errors") {
+         $data = getDataWithinInterval($interval, "Errors");
+         return $data->fetchAll(PDO::FETCH_ASSOC);
+      }
+
+      else {
          return [];
       }
    }
    
-   function formatRanges($interval) {
-      $arr = [];    
-      if ($interval === "daily") {
+   function getDataWithinInterval($interval, $type) {
+
+      if ($interval === "hourly") {
+         for ($i=0 ; $i<25 ; $i++) {
+            $intervalStart = date("Y-m-d H:i:s", strtotime("-" . $i . " hour"));
+            $arr[] = $intervalStart;
+         }
+         return getHourly(array_reverse($arr), $type);
+      } else if ($interval === "daily") {
          for ($i=0 ; $i<8 ; $i++) {
             $intervalStart = date("Y-m-d", strtotime("-" . $i . " day"));
             $arr[] = $intervalStart;
          }
-         return array_reverse($arr);
+         return  getDaily(array_reverse($arr), $type);
       } else if ($interval === "weekly") {
-         for ($i=1 ; $i<5 ; $i++) {
+         for ($i=0 ; $i<9 ; $i++) {
             $intervalStart = date("Y-m-d", strtotime("-" . $i . " week"));
             $arr[] = $intervalStart;
          }
-         return array_reverse($arr);
-      } else if ($interval === "monthly") {
-         for ($i=1 ; $i<13 ; $i++) {
-            $intervalStart = date("Y-m-d", strtotime("-" . $i . " month"));
-            $arr[] = $intervalStart;
-         }
-         return array_reverse($arr);
-      } else {
-         fileLog("Are you dumb or what ?!?!");
+         return getWeekly(array_reverse($arr), $type);
       }
    }
-
+   
 
    function formatConversations($messageHistory) {
       $arr = array();

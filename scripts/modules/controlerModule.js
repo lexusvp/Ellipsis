@@ -17,6 +17,7 @@ async function queryControler(args, data = null) {
          method: 'POST',
          body: data
       });
+
    const answer = await response.json() ?? null;                         
    return answer;
 } 

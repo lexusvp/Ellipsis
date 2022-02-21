@@ -9,21 +9,16 @@
       const regCountSlot = document.querySelector("#regCount");
       const userCount = await queryControler([
          `type=getData`,
-         `query=countUsers`
-      ]);
-      const regCount = await queryControler([
-         `type=getData`,
-         `query=countRegistrations`
+         `target=countUsers`
       ]);
       const loginCount = await queryControler([
          `type=getData`,
-         `query=countLogins`,
-         `interval=daily`
+         `target=logins`,
+         `interval=weekly`
       ]);
       console.log("loginCount : ", loginCount);
 
       userCountSlot.textContent = `Il y a ${userCount[0]} utilisateurs inscrits !`;
-      regCountSlot.textContent = `Il y a eu ${regCount[0]} inscriptions !`;
 
       drawChart(canva); 
       drawChart(canva2);
