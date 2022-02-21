@@ -27,6 +27,6 @@ async function logOut() {
       localStorage.removeItem("userData");
       localStorage.removeItem("target");
       
-      location.replace("/1%20-%20Ellipsis/index.php");
+      location.replace("/1%20-%20Ellipsis/index.html");
    })
 }

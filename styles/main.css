@@ -292,6 +292,7 @@ form[name=chat] img {
     font-weight: 600;
 }
 .chat_icons  {
+    display: none;
     fill: var(--main-black);
     left: 140px;
     position: relative;
