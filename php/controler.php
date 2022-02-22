@@ -2,10 +2,6 @@
    session_start();
    date_default_timezone_set('Europe/Paris');
 
-   //== NOTE: 1 day to seconds => 86,400;
-   //== NOTE: 1 week to seconds  => 604,800;
-   //== NOTE: 1 month to seconds  => 2,629,746;  
-
    //== TODO : Sanitize inputs
    //== TODO : Whitelist inputs HERE
    
@@ -15,10 +11,6 @@
    require './model/logModel.php';
    require './helpers.php';
 
-   $adminCondition = (
-      isset($_SESSION["admin"]) &&
-      $_SESSION["admin"]
-   );
    $regCondition = (
       $_GET["type"] === "registerUser" &&
       isset($_POST['pseudo']) && 
@@ -32,42 +24,33 @@
    ); 
    
    //======= LOGGED ONLY FEATURES =========//
-   $logoutCondition = (
+   $logged = (
       isset($_SESSION["logged"]) &&
-      $_SESSION["logged"] &&
-      $_GET["type"] === "logoutUser"
+      $_SESSION["logged"]
    );
-   $updateCondition = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"] &&      
-      $_GET["type"] === "updateUser"
-   );
-   $deleteCondition = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"] &&      
-      $_GET["type"] === "deleteUser"
-   );
+   $logoutCondition = ($logged && $_GET["type"] === "logoutUser");
+   $updateCondition = ($logged && $_GET["type"] === "updateUser");
+   $deleteCondition = ($logged && $_GET["type"] === "deleteUser");
 
+   $readMessageCondition = ($loggedCondition && $_GET["type"] === "readMessage");
    $createMessageCondition = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"] &&      
+      $loggedCondition &&      
       $_GET["type"] === "createMessage" &&
       isset($_POST['message']) 
    );
-   $readMessageCondition = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"] &&         
-      $_GET["type"] === "readMessage"
-   );
 
    //======= ADMIN ONLY FEATURES =========//
+   $admin = (
+      isset($_SESSION["admin"]) &&
+      $_SESSION["admin"]
+   );
    $closeConversationCondition = (
-      $adminCondition &&
+      $admin &&
       $_GET["type"] === "closeConversation" && 
       isset($_GET["target"])
    );
    $getDataCondition = (
-      $adminCondition &&
+      $admin &&
       $_GET["type"] === "getData" && 
       isset($_GET["target"])
    );
@@ -84,14 +67,12 @@
       echo json_encode($test);
    }
    else if ($loginCondition) {      
-      echo json_encode(connectUser());          //== NOTE: Non-sensitive data
+      echo json_encode(connectUser());
    } 
 
    else if ($logoutCondition) {
       $_SESSION["logged"] = false;
       createLog("Logout", $_SESSION["pseudo"]);
-
-      echo 0;
    }
    else if ($updateCondition) {}  //== TODO 
    else if ($deleteCondition) {}  //== TODO 
@@ -99,7 +80,7 @@
    //=====================>> MESSAGES <<=======================//
 
    else if ($createMessageCondition) {   
-      if ($_SESSION["admin"] && isset($_GET["target"])) {
+      if ($admin && isset($_GET["target"])) {
          createMessage($_GET["target"], $_SESSION["admin"]);
       } else {
          createMessage($_SESSION["pseudo"]);
@@ -107,7 +88,7 @@
       echo 0;
    } 
    else if ($readMessageCondition) {
-      if ($_SESSION["admin"]) {
+      if ($admin) {
          $response = readMessage($_SESSION["pseudo"], true);    
       } else {
          $response = readMessage($_SESSION["pseudo"]);
@@ -118,7 +99,7 @@
       echo $messageHistory;
    } 
    else if ($closeConversationCondition) {
-      if ($_SESSION["admin"]) {
+      if ($admin) {
          $closed = closeConversation($_GET["target"]);
 
          echo json_encode($closed === 1);
@@ -143,6 +124,8 @@
 
       if ($target === "userCount") {       
          return countUsers()->fetchAll(PDO::FETCH_NUM);
+      }  else if ($target === "messageCount") {
+         return countMessages()->fetchAll(PDO::FETCH_NUM);
       }  else if ($target === "allErrors") {
 
          return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
@@ -193,7 +176,8 @@
       $end = 
          "  END as `Interval`, COUNT(1) as `Amount`
          FROM logs
-         WHERE type_log LIKE CONCAT(:type, '%')
+         JOIN logs_type ON logs_type.id_log_type = logs.id_log_type
+         WHERE name_log_type LIKE CONCAT(:type, '%')
          GROUP BY `Interval`
          )  AS `Data`
          WHERE `Interval` IS NOT NULL

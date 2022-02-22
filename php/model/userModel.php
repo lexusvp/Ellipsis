@@ -1,5 +1,4 @@
 <?php
-
    function createUser() { 
       $database = connect(); 
       $userInsert = "INSERT INTO users (pseudo_user, pw_user, email_user)
@@ -18,11 +17,12 @@
             ":email" => $_POST['email'],
          )); 
       } catch (PDOException $e) {
-         errorLog("USER CREATION", $e);
+         errorLog("USER CREATION " . $e);
       }
 
       return $success;
    }  
+
    function readUser() {
       $database = connect(); 
       $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
@@ -33,7 +33,7 @@
             ":email" => $_POST['email']      
          ));     
       } catch (PDOException $e) {
-         errorLog("USER CONNECTION", $e);
+         errorLog("USER CONNECTION " . $e);
       }
 
       return $query;
@@ -72,15 +72,12 @@
             ":target" => $target
          ));   
       } catch (PDOException $e) {
-         errorLog("CONVERSATION CLOSE", $e);
+         errorLog("CONVERSATION CLOSE " . $e);
       }
       
       return $query->rowCount();
    }
    
-
-
-
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';
@@ -105,7 +102,6 @@
 
       return !is_array($result);
    }
-
 ?>
 
 

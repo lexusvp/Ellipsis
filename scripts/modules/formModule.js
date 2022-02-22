@@ -11,9 +11,10 @@ async function formModule() {
       currentForm.addEventListener("submit", (e) => {
          e.preventDefault();
          const formData = document.querySelectorAll(`form[name=${currentForm.name}] input`)
-
+         
          if (currentForm.name === "chat") {
             if(formData[0].value !== "") {
+               
                sendMessageAttempt(currentForm);
                formData[0].value = "";
             }
@@ -59,23 +60,23 @@ async function loginAttempt(form) {
       formAnim(form, false, "login");
    }
 }
-async function updateAttempt(form) {
-   const formattedFormData = new FormData(form);
-   const answer = await queryControler([`type=updateUser`], formattedFormData);
+// async function updateAttempt(form) {
+//    const formattedFormData = new FormData(form);
+//    const answer = await queryControler([`type=updateUser`], formattedFormData);
 
-   if (answer.check_success) {
-      formAnim(currentForm, true, "update");
-   } else {
-      //== TODO: User Feedback on failed constraints
-   }
-}
+//    if (answer.check_success) {
+//       formAnim(currentForm, true, "update");
+//    } else {
+//       //== TODO: User Feedback on failed constraints
+//    }
+// }
 async function sendMessageAttempt(form) {
    const formattedMessage = new FormData(form);
 
    if (adminRole) {
-      const target = localStorage.getItem("currentTarget");
+      const target = localStorage.getItem("target");
       await queryControler([
-         `type=updateUser`,
+         `type=createMessage`,
          `target=${target}`
       ], formattedMessage);
 

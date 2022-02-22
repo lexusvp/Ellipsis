@@ -4,8 +4,13 @@
       $database = connect(); 
       $now = date("y-m-d H:i:s", time());
 
-      $userInsert = "INSERT INTO logs (type_log, datetime_log, info_log, id_user)
-      VALUES (:type, :datetime, :description, (SELECT id_user FROM users WHERE pseudo_user = :pseudo)); 
+      $userInsert = 
+      "  INSERT INTO logs (datetime_log, info_log, id_log_type, id_user)
+         VALUES (
+            :datetime, 
+            :description, 
+            (SELECT id_log_type FROM logs_type WHERE name_log_type = :type), 
+            (SELECT id_user FROM users WHERE pseudo_user = :pseudo)); 
       ";
       
       try {
@@ -17,7 +22,7 @@
             ":pseudo" => $pseudo
          ));   
       } catch (PDOException $e) {
-         fileLog("LOG CREATION : " . json_encode($e) . "\n");
+         fileLog("LOG CREATION : " . $e);
       }
 
       return $success;   
@@ -32,19 +37,34 @@
          $query->execute();
 
       } catch (PDOException $e) {
-         errorLog("LOG READ", $e);
+         errorLog("LOG READ " . $e);
+      }
+      return $query;
+   }
+   function countMessages() {
+      $database = connect(); 
+      $query = "SELECT COUNT(id_messages) FROM messages"; 
+
+      try {
+         $query = $database->prepare($query);
+         $query->execute();
+
+      } catch (PDOException $e) {
+         errorLog("LOG READ " . $e);
       }
       return $query;
    }
 
+   //== TODO : Trouver comment calculer un temps de connexion moyen touts utilisateurs confondus
    function getAllConnections() {
       $database = connect(); 
       $query = 
-      "  SELECT pseudo_user, type_log, datetime_log FROM logs 
-         JOIN users
-         WHERE logs.id_user = users.id_user
-         AND type_log LIKE CONCAT(:arg, '%')
+      "  SELECT name_log_type, pseudo_user, datetime_log FROM logs 
 
+         JOIN users ON logs.id_user = users.id_user
+         JOIN logs_type ON logs_type.id_log_type = logs.id_log_type
+      
+         WHERE logs_type.name_log_type LIKE CONCAT(:arg, '%')
          ORDER BY datetime_log ASC;
       "; 
 
@@ -54,7 +74,7 @@
             ":arg" => "Log"
          ));
       } catch (PDOException $e) {
-         errorLog("LOG READ", $e);
+         errorLog("LOG READ " . $e);
       }
       return $query;
    }
@@ -62,8 +82,11 @@
       $database = connect(); 
       $query = 
       "  SELECT  info_log, datetime_log FROM logs 
-         WHERE type_log = :arg
 
+         JOIN logs_type
+         ON logs_type.id_log_type = logs.id_log_type
+
+         WHERE name_log_type = :arg
          ORDER BY datetime_log ASC;
       ";
 
@@ -73,11 +96,10 @@
             ":arg" => "Error"
          ));
       } catch (PDOException $e) {
-         errorLog("LOG READ", $e);
+         errorLog("LOG READ " . $e);
       }
       return $query;
    }
-
    function getDataPoints($query, $args) {
       $database = connect(); 
 
@@ -85,7 +107,7 @@
          $query = $database->prepare($query);
          $query->execute($args);
       } catch (PDOException $e) {
-         errorLog("LOG READ", $e);
+         errorLog("LOG READ " . $e);
       }
       return $query;
    }

@@ -1,43 +1,555 @@
-CREATE TABLE users (
-   id_user INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Feb 22, 2022 at 08:22 PM
+-- Server version: 8.0.27
+-- PHP Version: 7.4.26
 
-   admin_user BOOLEAN,
-   conversation_user BOOLEAN,
-   email_user VARCHAR(75),
-   pseudo_user VARCHAR(25),
-   pw_user VARCHAR(100)
-);
-CREATE TABLE images(
-   id_image INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-   path_image VARCHAR(100)
-);
-CREATE TABLE logs (
-   id_log INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-   id_user INT NOT NULL,
-   type_log VARCHAR(25), 
-   timestamp_log INT,
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-   CONSTRAINT fk_users_logs FOREIGN KEY(id_user) REFERENCES users(id_user)
-);
-CREATE TABLE messages (
-   id_message INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-   id_user INT NOT NULL,
-   direction_message INT NOT NULL,
-   content_message TEXT, 
-   timestamp_message INT,
 
-   CONSTRAINT fk_users_messages_user FOREIGN KEY(id_user) REFERENCES users(id_user)
-);
-CREATE TABLE services (
-   id_service INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-   name_service VARCHAR(50), 
-   content_service TEXT
-);
-CREATE TABLE illustrer (
-   id_service INT,
-   id_image INT,
-   PRIMARY KEY(id_service, id_image),
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-   CONSTRAINT fk_services_illustrer FOREIGN KEY(id_service) REFERENCES services(id_service),
-   CONSTRAINT fk_images_illustrer FOREIGN KEY(id_image) REFERENCES images(id_image)
-);
+--
+-- Database: `ellipsis`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id_log` int NOT NULL,
+  `id_user` int NOT NULL,
+  `id_log_type` int NOT NULL,
+  `info_log` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `datetime_log` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id_log`, `id_user`, `id_log_type`, `info_log`, `datetime_log`) VALUES
+(1, 1, 2, NULL, '2022-02-13 10:59:09'),
+(2, 2, 2, NULL, '2022-02-13 10:59:15'),
+(3, 1, 2, NULL, '2022-02-13 11:08:34'),
+(4, 1, 3, NULL, '2022-02-13 11:10:22'),
+(5, 2, 2, NULL, '2022-02-13 11:10:40'),
+(6, 2, 3, NULL, '2022-02-13 11:11:56'),
+(7, 2, 3, NULL, '2022-02-13 15:12:45'),
+(8, 2, 3, NULL, '2022-02-13 15:14:15'),
+(9, 2, 3, NULL, '2022-02-13 15:15:37'),
+(10, 2, 4, NULL, '2022-02-13 15:16:04'),
+(11, 2, 3, NULL, '2022-02-13 15:16:17'),
+(12, 2, 4, NULL, '2022-02-13 15:16:19'),
+(13, 2, 3, NULL, '2022-02-13 15:16:23'),
+(14, 2, 4, NULL, '2022-02-13 15:16:28'),
+(15, 2, 3, NULL, '2022-02-13 15:16:58'),
+(16, 2, 3, NULL, '2022-02-13 15:17:44'),
+(17, 2, 3, NULL, '2022-02-13 15:18:23'),
+(18, 2, 3, NULL, '2022-02-13 15:19:43'),
+(19, 2, 3, NULL, '2022-02-13 15:20:09'),
+(20, 2, 3, NULL, '2022-02-13 15:22:08'),
+(21, 2, 3, NULL, '2022-02-13 15:22:31'),
+(22, 1, 3, NULL, '2022-02-13 15:35:34'),
+(23, 2, 3, NULL, '2022-02-13 15:35:44'),
+(24, 2, 4, NULL, '2022-02-13 15:41:22'),
+(25, 2, 3, NULL, '2022-02-13 15:41:28'),
+(26, 2, 3, NULL, '2022-02-13 15:41:53'),
+(27, 2, 4, NULL, '2022-02-13 15:42:48'),
+(28, 2, 3, NULL, '2022-02-13 15:43:42'),
+(29, 2, 4, NULL, '2022-02-13 15:45:02'),
+(30, 2, 3, NULL, '2022-02-13 15:45:12'),
+(31, 2, 4, NULL, '2022-02-13 15:46:05'),
+(32, 1, 3, NULL, '2022-02-13 15:46:08'),
+(33, 1, 4, NULL, '2022-02-13 15:46:13'),
+(34, 2, 3, NULL, '2022-02-13 15:46:16'),
+(35, 2, 4, NULL, '2022-02-13 15:46:51'),
+(36, 2, 3, NULL, '2022-02-13 15:46:56'),
+(37, 2, 4, NULL, '2022-02-13 16:04:40'),
+(38, 2, 3, NULL, '2022-02-13 16:04:43'),
+(39, 2, 4, NULL, '2022-02-13 16:05:13'),
+(40, 2, 3, NULL, '2022-02-13 16:05:15'),
+(41, 2, 4, NULL, '2022-02-13 16:12:18'),
+(42, 2, 3, NULL, '2022-02-13 16:12:21'),
+(43, 2, 4, NULL, '2022-02-13 16:12:48'),
+(44, 2, 3, NULL, '2022-02-13 16:12:50'),
+(45, 2, 4, NULL, '2022-02-13 16:13:19'),
+(46, 2, 3, NULL, '2022-02-13 16:13:21'),
+(47, 2, 4, NULL, '2022-02-13 16:14:08'),
+(48, 2, 3, NULL, '2022-02-13 16:14:10'),
+(49, 2, 4, NULL, '2022-02-13 16:15:33'),
+(50, 2, 3, NULL, '2022-02-13 16:15:34'),
+(51, 2, 4, NULL, '2022-02-13 16:15:48'),
+(52, 2, 3, NULL, '2022-02-13 16:15:50'),
+(53, 2, 4, NULL, '2022-02-13 16:16:46'),
+(54, 2, 3, NULL, '2022-02-13 16:16:50'),
+(55, 2, 4, NULL, '2022-02-13 16:17:54'),
+(56, 2, 3, NULL, '2022-02-13 16:17:58'),
+(57, 2, 4, NULL, '2022-02-13 16:32:52'),
+(58, 2, 3, NULL, '2022-02-13 16:32:54'),
+(59, 2, 4, NULL, '2022-02-13 16:34:29'),
+(60, 2, 3, NULL, '2022-02-13 16:34:32'),
+(61, 2, 4, NULL, '2022-02-13 16:35:10'),
+(62, 2, 3, NULL, '2022-02-13 16:35:12'),
+(63, 2, 4, NULL, '2022-02-13 16:35:49'),
+(64, 2, 3, NULL, '2022-02-13 16:35:50'),
+(65, 2, 4, NULL, '2022-02-13 16:37:09'),
+(66, 2, 3, NULL, '2022-02-13 16:37:10'),
+(67, 2, 4, NULL, '2022-02-13 16:38:03'),
+(68, 2, 3, NULL, '2022-02-13 16:38:05'),
+(69, 2, 4, NULL, '2022-02-13 16:44:23'),
+(70, 2, 3, NULL, '2022-02-13 16:44:27'),
+(71, 3, 2, NULL, '2022-02-13 16:45:29'),
+(72, 2, 4, NULL, '2022-02-13 16:45:35'),
+(73, 3, 3, NULL, '2022-02-13 16:45:46'),
+(74, 2, 3, NULL, '2022-02-13 16:45:54'),
+(75, 2, 4, NULL, '2022-02-13 17:03:04'),
+(76, 2, 3, NULL, '2022-02-13 17:05:03'),
+(77, 2, 3, NULL, '2022-02-13 17:06:10'),
+(78, 2, 4, NULL, '2022-02-13 17:06:12'),
+(79, 2, 3, NULL, '2022-02-13 17:06:24'),
+(80, 2, 4, NULL, '2022-02-13 17:06:26'),
+(81, 2, 3, NULL, '2022-02-13 17:06:33'),
+(82, 2, 4, NULL, '2022-02-13 17:06:35'),
+(83, 2, 3, NULL, '2022-02-13 17:06:49'),
+(84, 2, 3, NULL, '2022-02-13 17:07:56'),
+(85, 2, 3, NULL, '2022-02-13 17:12:29'),
+(86, 2, 4, NULL, '2022-02-13 17:12:35'),
+(87, 2, 3, NULL, '2022-02-13 17:14:48'),
+(88, 2, 4, NULL, '2022-02-13 17:15:03'),
+(89, 2, 3, NULL, '2022-02-13 17:15:54'),
+(90, 2, 4, NULL, '2022-02-13 17:15:55'),
+(91, 2, 3, NULL, '2022-02-13 17:16:18'),
+(92, 2, 4, NULL, '2022-02-13 17:16:20'),
+(93, 2, 3, NULL, '2022-02-13 17:16:39'),
+(94, 2, 4, NULL, '2022-02-13 17:16:41'),
+(95, 2, 3, NULL, '2022-02-13 17:16:51'),
+(96, 2, 4, NULL, '2022-02-13 17:16:53'),
+(97, 2, 3, NULL, '2022-02-13 17:16:56'),
+(98, 2, 4, NULL, '2022-02-13 17:17:01'),
+(99, 2, 3, NULL, '2022-02-13 17:17:47'),
+(100, 2, 4, NULL, '2022-02-13 17:18:13'),
+(101, 2, 3, NULL, '2022-02-13 17:18:19'),
+(102, 2, 4, NULL, '2022-02-13 17:18:23'),
+(103, 2, 3, NULL, '2022-02-13 17:18:46'),
+(104, 2, 4, NULL, '2022-02-13 17:18:48'),
+(105, 2, 3, NULL, '2022-02-13 17:29:04'),
+(106, 2, 4, NULL, '2022-02-13 17:51:44'),
+(107, 2, 3, NULL, '2022-02-13 17:51:47'),
+(108, 2, 4, NULL, '2022-02-13 17:54:28'),
+(109, 1, 3, NULL, '2022-02-13 17:56:44'),
+(110, 1, 4, NULL, '2022-02-13 17:57:09'),
+(111, 1, 3, NULL, '2022-02-13 17:57:36'),
+(112, 1, 3, NULL, '2022-02-13 17:57:59'),
+(113, 1, 4, NULL, '2022-02-13 17:58:59'),
+(114, 1, 3, NULL, '2022-02-13 17:59:08'),
+(115, 1, 4, NULL, '2022-02-13 17:59:18'),
+(116, 3, 3, NULL, '2022-02-13 17:59:23'),
+(117, 3, 4, NULL, '2022-02-13 17:59:32'),
+(118, 1, 3, NULL, '2022-02-13 18:02:21'),
+(119, 1, 4, NULL, '2022-02-13 18:02:38'),
+(120, 3, 3, NULL, '2022-02-13 18:02:42'),
+(121, 3, 4, NULL, '2022-02-13 18:02:47'),
+(122, 2, 3, NULL, '2022-02-13 18:03:18'),
+(123, 2, 4, NULL, '2022-02-13 18:03:49'),
+(124, 2, 3, NULL, '2022-02-13 18:15:40'),
+(125, 2, 4, NULL, '2022-02-13 18:15:50'),
+(126, 2, 3, NULL, '2022-02-13 18:24:10'),
+(127, 2, 4, NULL, '2022-02-13 18:24:49'),
+(128, 2, 3, NULL, '2022-02-13 18:24:52'),
+(129, 2, 4, NULL, '2022-02-13 18:25:09'),
+(130, 2, 3, NULL, '2022-02-14 11:45:52'),
+(131, 1, 3, NULL, '2022-02-14 11:46:20'),
+(132, 1, 4, NULL, '2022-02-14 12:23:41'),
+(133, 2, 3, NULL, '2022-02-14 12:23:45'),
+(134, 2, 4, NULL, '2022-02-14 12:24:09'),
+(135, 2, 3, NULL, '2022-02-14 12:24:09'),
+(136, 2, 4, NULL, '2022-02-14 12:25:00'),
+(137, 1, 3, NULL, '2022-02-14 12:25:05'),
+(138, 1, 4, NULL, '2022-02-14 12:25:15'),
+(139, 1, 3, NULL, '2022-02-14 12:25:15'),
+(140, 1, 4, NULL, '2022-02-14 12:25:33'),
+(141, 2, 3, NULL, '2022-02-14 12:25:41'),
+(142, 2, 4, NULL, '2022-02-14 12:26:39'),
+(143, 1, 3, NULL, '2022-02-14 12:26:39'),
+(144, 1, 4, NULL, '2022-02-14 12:26:44'),
+(145, 1, 3, NULL, '2022-02-14 12:26:47'),
+(146, 1, 4, NULL, '2022-02-14 12:26:52'),
+(147, 1, 3, NULL, '2022-02-14 12:26:52'),
+(148, 1, 4, NULL, '2022-02-14 12:26:56'),
+(149, 1, 3, NULL, '2022-02-14 12:28:04'),
+(150, 1, 4, NULL, '2022-02-14 12:28:19'),
+(151, 1, 3, NULL, '2022-02-14 12:28:19'),
+(152, 1, 4, NULL, '2022-02-14 12:28:21'),
+(153, 1, 3, NULL, '2022-02-14 12:28:24'),
+(154, 1, 4, NULL, '2022-02-14 12:28:59'),
+(155, 1, 3, NULL, '2022-02-14 12:28:59'),
+(156, 1, 4, NULL, '2022-02-14 12:29:00'),
+(157, 1, 3, NULL, '2022-02-14 12:29:03'),
+(158, 1, 4, NULL, '2022-02-14 12:29:16'),
+(159, 1, 3, NULL, '2022-02-14 12:29:16'),
+(160, 1, 4, NULL, '2022-02-14 12:29:19'),
+(161, 1, 3, NULL, '2022-02-14 12:29:23'),
+(162, 1, 4, NULL, '2022-02-14 12:30:32'),
+(163, 1, 3, NULL, '2022-02-14 12:30:32'),
+(164, 1, 4, NULL, '2022-02-14 12:30:33'),
+(165, 1, 3, NULL, '2022-02-14 12:30:36'),
+(166, 1, 4, NULL, '2022-02-14 12:31:06'),
+(167, 1, 3, NULL, '2022-02-14 12:31:06'),
+(168, 1, 4, NULL, '2022-02-14 12:31:07'),
+(169, 1, 3, NULL, '2022-02-14 12:31:22'),
+(170, 1, 4, NULL, '2022-02-14 12:32:24'),
+(171, 1, 3, NULL, '2022-02-14 12:32:24'),
+(172, 1, 4, NULL, '2022-02-14 12:32:36'),
+(173, 1, 3, NULL, '2022-02-14 12:33:04'),
+(174, 1, 3, NULL, '2022-02-14 12:33:26'),
+(175, 1, 4, NULL, '2022-02-14 12:33:28'),
+(176, 1, 3, NULL, '2022-02-14 12:33:31'),
+(177, 2, 3, NULL, '2022-02-14 13:21:01'),
+(178, 1, 4, NULL, '2022-02-14 17:08:35'),
+(179, 2, 3, NULL, '2022-02-14 17:08:58'),
+(180, 2, 4, NULL, '2022-02-14 17:13:08'),
+(181, 2, 3, NULL, '2022-02-15 10:38:52'),
+(182, 2, 3, NULL, '2022-02-15 10:41:55'),
+(183, 2, 3, NULL, '2022-02-15 10:45:49'),
+(184, 2, 3, NULL, '2022-02-15 10:46:15'),
+(185, 2, 3, NULL, '2022-02-15 10:46:58'),
+(186, 2, 3, NULL, '2022-02-15 10:47:24'),
+(187, 2, 3, NULL, '2022-02-15 10:49:39'),
+(188, 2, 4, NULL, '2022-02-15 10:50:42'),
+(189, 2, 3, NULL, '2022-02-15 10:51:13'),
+(190, 2, 4, NULL, '2022-02-15 10:51:18'),
+(191, 2, 3, NULL, '2022-02-15 10:51:41'),
+(192, 2, 4, NULL, '2022-02-15 10:51:46'),
+(193, 2, 4, NULL, '2022-02-15 11:07:51'),
+(194, 2, 3, NULL, '2022-02-15 11:07:56'),
+(195, 2, 4, NULL, '2022-02-15 11:08:24'),
+(196, 2, 3, NULL, '2022-02-15 11:11:19'),
+(197, 2, 4, NULL, '2022-02-15 11:11:24'),
+(198, 2, 3, NULL, '2022-02-15 11:12:00'),
+(199, 2, 4, NULL, '2022-02-15 11:12:04'),
+(200, 2, 3, NULL, '2022-02-15 11:12:32'),
+(201, 2, 4, NULL, '2022-02-15 11:12:36'),
+(202, 2, 3, NULL, '2022-02-15 11:13:37'),
+(203, 2, 4, NULL, '2022-02-15 11:18:36'),
+(204, 2, 3, NULL, '2022-02-15 11:26:13'),
+(205, 2, 4, NULL, '2022-02-15 11:34:30'),
+(206, 2, 3, NULL, '2022-02-15 11:34:33'),
+(207, 2, 4, NULL, '2022-02-15 11:34:40'),
+(208, 2, 3, NULL, '2022-02-15 11:41:46'),
+(209, 2, 4, NULL, '2022-02-15 11:42:00'),
+(210, 2, 3, NULL, '2022-02-15 11:43:27'),
+(211, 2, 4, NULL, '2022-02-15 11:44:17'),
+(212, 2, 3, NULL, '2022-02-15 11:46:34'),
+(213, 2, 4, NULL, '2022-02-15 11:52:06'),
+(214, 2, 3, NULL, '2022-02-15 11:53:01'),
+(215, 2, 4, NULL, '2022-02-15 11:53:10'),
+(216, 1, 3, NULL, '2022-02-15 11:53:35'),
+(217, 1, 4, NULL, '2022-02-15 11:55:39'),
+(218, 2, 3, NULL, '2022-02-15 11:55:45'),
+(219, 2, 4, NULL, '2022-02-15 12:04:24'),
+(220, 1, 3, NULL, '2022-02-15 12:04:28'),
+(221, 1, 4, NULL, '2022-02-15 12:05:14'),
+(222, 2, 3, NULL, '2022-02-15 12:05:18'),
+(223, 2, 4, NULL, '2022-02-15 12:09:02'),
+(224, 1, 3, NULL, '2022-02-15 12:09:07'),
+(225, 1, 4, NULL, '2022-02-15 12:27:16'),
+(226, 2, 3, NULL, '2022-02-15 12:27:20'),
+(227, 2, 4, NULL, '2022-02-15 12:27:28'),
+(228, 2, 3, NULL, '2022-02-15 12:35:22'),
+(229, 2, 4, NULL, '2022-02-15 14:04:03'),
+(230, 2, 3, NULL, '2022-02-15 14:04:06'),
+(231, 2, 4, NULL, '2022-02-15 14:24:07'),
+(232, 1, 3, NULL, '2022-02-15 14:24:12'),
+(233, 1, 4, NULL, '2022-02-15 14:53:36'),
+(234, 2, 3, NULL, '2022-02-15 14:53:41'),
+(235, 2, 4, NULL, '2022-02-15 14:53:52'),
+(236, 1, 3, NULL, '2022-02-15 14:53:58'),
+(237, 1, 4, NULL, '2022-02-15 16:03:15'),
+(238, 2, 3, NULL, '2022-02-15 16:03:19'),
+(239, 2, 4, NULL, '2022-02-15 16:03:53'),
+(240, 1, 3, NULL, '2022-02-15 16:03:59'),
+(241, 1, 4, NULL, '2022-02-15 18:37:39'),
+(242, 2, 3, NULL, '2022-02-15 18:37:44'),
+(243, 2, 4, NULL, '2022-02-15 18:44:00'),
+(244, 1, 3, NULL, '2022-02-15 18:44:05'),
+(245, 1, 3, NULL, '2022-02-15 22:58:07'),
+(246, 1, 3, NULL, '2022-02-19 20:09:20'),
+(247, 1, 4, NULL, '2022-02-19 20:58:10'),
+(248, 2, 3, NULL, '2022-02-19 21:01:09'),
+(249, 2, 4, NULL, '2022-02-19 21:12:57'),
+(250, 2, 3, NULL, '2022-02-19 21:13:01'),
+(251, 2, 3, NULL, '2022-02-20 10:13:00'),
+(252, 2, 3, NULL, '2022-02-20 13:38:25'),
+(253, 2, 4, NULL, '2022-02-20 13:46:38'),
+(254, 1, 3, NULL, '2022-02-20 15:10:25'),
+(255, 1, 4, NULL, '2022-02-20 18:59:41'),
+(256, 1, 3, NULL, '2022-02-20 19:00:50'),
+(257, 1, 4, NULL, '2022-02-20 19:02:09'),
+(258, 1, 3, NULL, '2022-02-20 19:02:18'),
+(259, 1, 4, NULL, '2022-02-20 19:04:33'),
+(260, 1, 3, NULL, '2022-02-20 19:04:40'),
+(261, 1, 4, NULL, '2022-02-20 19:06:24'),
+(262, 1, 3, NULL, '2022-02-20 19:06:44'),
+(263, 1, 4, NULL, '2022-02-20 19:06:49'),
+(264, 1, 3, NULL, '2022-02-20 19:08:38'),
+(265, 1, 3, NULL, '2022-02-20 19:27:21'),
+(266, 1, 3, NULL, '2022-02-20 19:37:42'),
+(267, 1, 4, NULL, '2022-02-20 19:40:50'),
+(268, 1, 3, NULL, '2022-02-20 19:40:54'),
+(269, 1, 4, NULL, '2022-02-20 19:41:03'),
+(270, 2, 3, NULL, '2022-02-20 19:41:08'),
+(271, 2, 4, NULL, '2022-02-20 19:52:03'),
+(272, 2, 3, NULL, '2022-02-20 19:52:07'),
+(273, 2, 4, NULL, '2022-02-20 19:52:14'),
+(274, 1, 3, NULL, '2022-02-20 19:52:18'),
+(275, 1, 4, NULL, '2022-02-20 20:00:46'),
+(276, 1, 3, NULL, '2022-02-20 20:00:50'),
+(277, 1, 4, NULL, '2022-02-20 20:34:50'),
+(278, 2, 3, NULL, '2022-02-20 20:34:57'),
+(279, 1, 3, NULL, '2022-02-21 09:33:04'),
+(280, 1, 4, NULL, '2022-02-21 16:58:39'),
+(281, 2, 3, NULL, '2022-02-21 16:58:48'),
+(282, 2, 4, NULL, '2022-02-21 17:01:16'),
+(283, 2, 3, NULL, '2022-02-21 17:04:39'),
+(284, 2, 4, NULL, '2022-02-21 17:10:03'),
+(285, 1, 3, NULL, '2022-02-21 17:10:15'),
+(286, 1, 4, NULL, '2022-02-21 19:58:12'),
+(287, 1, 3, NULL, '2022-02-21 19:58:18'),
+(288, 1, 4, NULL, '2022-02-21 20:06:51'),
+(289, 1, 3, NULL, '2022-02-21 20:06:58'),
+(290, 1, 4, NULL, '2022-02-21 20:07:21'),
+(291, 2, 3, NULL, '2022-02-21 20:07:27'),
+(292, 2, 4, NULL, '2022-02-21 20:09:15'),
+(293, 1, 3, NULL, '2022-02-21 20:09:18'),
+(294, 1, 4, NULL, '2022-02-21 20:09:27'),
+(295, 2, 3, NULL, '2022-02-21 20:09:32'),
+(296, 2, 4, NULL, '2022-02-21 20:09:44'),
+(297, 1, 3, NULL, '2022-02-21 20:49:02'),
+(298, 1, 4, NULL, '2022-02-21 22:13:38'),
+(299, 1, 3, NULL, '2022-02-21 22:13:48'),
+(300, 1, 4, NULL, '2022-02-21 22:51:29'),
+(301, 1, 3, NULL, '2022-02-22 09:04:13'),
+(302, 1, 3, NULL, '2022-02-22 09:04:28'),
+(303, 1, 3, NULL, '2022-02-22 09:04:45'),
+(304, 1, 3, NULL, '2022-02-22 09:04:53'),
+(305, 1, 3, NULL, '2022-02-22 09:08:16'),
+(306, 1, 3, NULL, '2022-02-22 09:09:04'),
+(307, 1, 4, NULL, '2022-02-22 10:12:59'),
+(308, 1, 3, NULL, '2022-02-22 10:13:14'),
+(309, 1, 3, NULL, '2022-02-22 10:15:50'),
+(310, 1, 3, NULL, '2022-02-22 10:16:17'),
+(311, 1, 3, NULL, '2022-02-22 13:31:44'),
+(312, 1, 4, NULL, '2022-02-22 19:01:52'),
+(313, 1, 3, NULL, '2022-02-22 19:01:58'),
+(314, 1, 4, NULL, '2022-02-22 19:02:16'),
+(315, 2, 3, NULL, '2022-02-22 19:02:26'),
+(316, 2, 4, NULL, '2022-02-22 19:03:51'),
+(317, 1, 3, NULL, '2022-02-22 19:04:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs_type`
+--
+
+CREATE TABLE `logs_type` (
+  `id_log_type` int NOT NULL,
+  `name_log_type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `logs_type`
+--
+
+INSERT INTO `logs_type` (`id_log_type`, `name_log_type`) VALUES
+(1, 'Error'),
+(2, 'Registration'),
+(3, 'Login'),
+(4, 'Logout');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id_message` int NOT NULL,
+  `id_user` int NOT NULL,
+  `direction_message` int NOT NULL,
+  `content_message` text,
+  `timestamp_message` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id_message`, `id_user`, `direction_message`, `content_message`, `timestamp_message`) VALUES
+(1, 2, 1, 'Message envoyé', 0),
+(2, 2, 0, 'Message reçu', 500000),
+(3, 2, 1, 'Test', 1644766554),
+(4, 2, 1, 'Test', 1644766567),
+(5, 2, 1, 'Test2', 1644766636),
+(6, 2, 1, 'Test2', 1644766647),
+(7, 2, 1, 'Gogogog', 1644766691),
+(8, 2, 1, 'Test d\'un super long message parlant d\'une problématique super complexe à propos des articles de ce site pourri, sérieusement, JE VEUX PARLER AU SAV ET VIIIIITE', 80000000),
+(9, 2, 1, 't', 1644766985),
+(10, 2, 1, 'azazffaz', 1644771111),
+(11, 2, 1, 'Teeeeest', 1644841268),
+(12, 3, 1, 'Message envoyé par user2', 25000000),
+(13, 3, 0, 'Message reçu par user2', 25000050),
+(14, 2, 1, 'Hey !', 1645301043),
+(15, 2, 1, 'azfazf', 1645301108),
+(16, 2, 1, 'azfazf', 1645301134),
+(17, 2, 1, 'fazfazf', 1645301147),
+(18, 2, 1, '', 1645301234),
+(19, 2, 1, '', 1645301239),
+(20, 2, 1, '', 1645301243),
+(21, 2, 1, '', 1645301255),
+(22, 2, 1, 'azfazfzaf', 1645301267),
+(23, 2, 0, 'Teesst', 1645369054),
+(24, 2, 0, 'azfazfazf', 1645369134),
+(25, 2, 0, 'azfazf', 1645369413),
+(26, 3, 0, 'Hey !', 1645369444);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id_service` int NOT NULL,
+  `name_service` varchar(50) DEFAULT NULL,
+  `content_service` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id_user` int NOT NULL,
+  `admin_user` tinyint(1) NOT NULL DEFAULT '0',
+  `conversation_user` tinyint(1) NOT NULL DEFAULT '0',
+  `email_user` varchar(75) DEFAULT NULL,
+  `pseudo_user` varchar(25) DEFAULT NULL,
+  `pw_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `admin_user`, `conversation_user`, `email_user`, `pseudo_user`, `pw_user`) VALUES
+(1, 1, 0, 'cav@gmail.com', 'Vazn', '$argon2i$v=19$m=65536,t=4,p=1$VHVDV0d5R3ZPTVdLTlFLSw$DKmOPt4P/PZrudCYmcZ9scZ+J4U6aY/Dkyhxa3gR0iM'),
+(2, 0, 1, 'cav2@gmail.com', 'nonAdmin', '$argon2i$v=19$m=65536,t=4,p=1$STc3ZXNMVVB4SWVNcDFQVw$nL0bTFspFhf6y5AMQRsXw/e1c0R9azXUzAJ/RLu4C/0'),
+(3, 0, 1, 'cav3@gmail.com', 'nonAdmin2', '$argon2i$v=19$m=65536,t=4,p=1$ZGRjaThSN0pabU50Vk1XZQ$WADdmPgAAp7g1UHUhuOJTMBdgM2lz4ZFImWS73NYelk');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `fk_users_logs` (`id_user`),
+  ADD KEY `fk_logs_type_logs` (`id_log_type`);
+
+--
+-- Indexes for table `logs_type`
+--
+ALTER TABLE `logs_type`
+  ADD PRIMARY KEY (`id_log_type`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id_message`),
+  ADD KEY `fk_users_messages_user` (`id_user`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id_service`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
+
+--
+-- AUTO_INCREMENT for table `logs_type`
+--
+ALTER TABLE `logs_type`
+  MODIFY `id_log_type` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id_message` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id_service` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `fk_logs_type_logs` FOREIGN KEY (`id_log_type`) REFERENCES `logs_type` (`id_log_type`),
+  ADD CONSTRAINT `fk_users_logs` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+
+--
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `fk_users_messages_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

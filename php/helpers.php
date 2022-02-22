@@ -4,7 +4,7 @@
    function fileLog($text) {
       fwrite(fopen("./logs.json", "a+"), $text);
    }
-   function errorLog($type, $description) {
-      // createLog("Error", "Vazn", $type . " : " . json_encode($description));
+   function errorLog($description) {
+      createLog("Error", "Vazn", $description);
    }
 ?>

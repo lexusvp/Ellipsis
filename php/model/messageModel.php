@@ -1,8 +1,7 @@
 <?php
-
    function createMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
-      // $timestamp = getTimestamp();
+      $now = date("y-m-d H:i:s", time());
       $direction = null;
 
       if (!$admin) {
@@ -12,25 +11,25 @@
       }
 
       $createMessage = 
-      "  INSERT INTO messages (content_message, timestamp_message, direction_message, id_user)
+      "  INSERT INTO messages (id_user, content_message, direction_message, datetime_message)
          VALUES (
+            (SELECT id_user FROM users WHERE pseudo_user = :pseudo),
             :message,
-            :timestamp,
             :direction,
-            (SELECT id_user FROM users WHERE pseudo_user = :pseudo)
+            :datetime
          );
       ";
-      // try {
-      //    $query = $database->prepare($createMessage);
-      //    $query->execute(array(
-      //       ":message" => $_POST["message"],
-      //       ":timestamp" => $timestamp,
-      //       ":direction" => $direction,
-      //       ":pseudo" => $pseudo
-      //    ));
-      // } catch (PDOException $e) {
-      //    errorLog("MESSAGE CREATION", $e);
-      // }
+      try {
+         $query = $database->prepare($createMessage);
+         $query->execute(array(
+            ":message" => $_POST["message"],
+            ":datetime" => $now,
+            ":direction" => $direction,
+            ":pseudo" => $pseudo
+         ));
+      } catch (PDOException $e) {
+         errorLog("MESSAGE CREATION " . $e);
+      }
    }
    function readMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
@@ -38,25 +37,24 @@
 
       if ($admin) {        // Affiche toutes les conversations "ouvertes"
          $readMessage = 
-         "  SELECT direction_message, content_message, timestamp_message, pseudo_user FROM messages
+         "  SELECT direction_message, content_message, datetime_message, pseudo_user FROM messages
             JOIN users
             WHERE messages.id_user = users.id_user
             AND users.conversation_user = 1
 
-            ORDER BY pseudo_user ASC, timestamp_message ASC;         
+            ORDER BY pseudo_user ASC, datetime_message ASC;         
          ";
       } else {
          $readMessage = 
-         "  SELECT direction_message, content_message, timestamp_message FROM messages
+         "  SELECT direction_message, content_message, datetime_message FROM messages
             WHERE id_user = (SELECT id_user FROM users WHERE pseudo_user = :pseudo)
 
-            ORDER BY timestamp_message ASC;
+            ORDER BY datetime_message ASC;
          ";
       }
 
       try {
          $query = $database->prepare($readMessage);
-
          if ($admin) {
             $query->execute();
          } else {
@@ -65,7 +63,7 @@
             ));        
          }
       } catch (PDOException $e) {
-         errorLog("MESSAGE READ", $e);
+         errorLog("MESSAGE READ " . $e);
       }
 
       return $query;
