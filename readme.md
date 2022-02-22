@@ -14,7 +14,7 @@ Final project for my training exam
 ✅ **Live chat** with admin - 90% <br>
 ✅ Full logging - 90% <br><br>
 
-🔄 **Analytics dashboard** - In progress ... <br><br>
+🔄 **Analytics dashboard** - 75% ... <br><br>
 
 💤 Password recovery feature <br>
 💤 Services CRUD interface <br>

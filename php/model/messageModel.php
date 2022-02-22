@@ -2,7 +2,7 @@
 
    function createMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
-      $timestamp = getTimestamp();
+      // $timestamp = getTimestamp();
       $direction = null;
 
       if (!$admin) {
@@ -20,17 +20,17 @@
             (SELECT id_user FROM users WHERE pseudo_user = :pseudo)
          );
       ";
-      try {
-         $query = $database->prepare($createMessage);
-         $query->execute(array(
-            ":message" => $_POST["message"],
-            ":timestamp" => $timestamp,
-            ":direction" => $direction,
-            ":pseudo" => $pseudo
-         ));
-      } catch (PDOException $e) {
-         errorLog("MESSAGE CREATION", $e);
-      }
+      // try {
+      //    $query = $database->prepare($createMessage);
+      //    $query->execute(array(
+      //       ":message" => $_POST["message"],
+      //       ":timestamp" => $timestamp,
+      //       ":direction" => $direction,
+      //       ":pseudo" => $pseudo
+      //    ));
+      // } catch (PDOException $e) {
+      //    errorLog("MESSAGE CREATION", $e);
+      // }
    }
    function readMessage($pseudo = "Vazn", $admin = false) {
       $database = connect();
@@ -62,7 +62,7 @@
          } else {
             $query->execute(array(
                ":pseudo" => $pseudo
-            ));           
+            ));        
          }
       } catch (PDOException $e) {
          errorLog("MESSAGE READ", $e);

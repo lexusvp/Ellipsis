@@ -35,7 +35,6 @@ form[name=update] input, form[name=update] label  {
 
 #dashboard_title {
     background-color: var(--hard-red);
-    margin: 0px 0px 30px 0px ;
 }
 
 #admin_section {
@@ -55,7 +54,7 @@ form[name=update] input, form[name=update] label  {
     flex-direction: column;
     align-items: center;
 
-    padding: 30px;
+    margin: 30px;
     background-color: var(--main-white);
 
     width:80%;
@@ -66,8 +65,11 @@ form[name=update] input, form[name=update] label  {
     align-items: center;
 }
 .counts {
-    font-size: 2rem;
-    margin-bottom: 50px;
+    font-family: "Viga";
+    color: var(--light-black);
+    font-size: 1.8rem;
+    font-weight: 200;
+    margin-bottom: 15px;
 }
 canvas {
     background-color: var(--main-white);

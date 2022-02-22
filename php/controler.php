@@ -15,6 +15,10 @@
    require './model/logModel.php';
    require './helpers.php';
 
+   $adminCondition = (
+      isset($_SESSION["admin"]) &&
+      $_SESSION["admin"]
+   );
    $regCondition = (
       $_GET["type"] === "registerUser" &&
       isset($_POST['pseudo']) && 
@@ -29,36 +33,41 @@
    
    //======= LOGGED ONLY FEATURES =========//
    $logoutCondition = (
+      isset($_SESSION["logged"]) &&
       $_SESSION["logged"] &&
       $_GET["type"] === "logoutUser"
    );
    $updateCondition = (
-      $_SESSION["logged"] &&
+      isset($_SESSION["logged"]) &&
+      $_SESSION["logged"] &&      
       $_GET["type"] === "updateUser"
    );
    $deleteCondition = (
-      $_SESSION["logged"] &&
+      isset($_SESSION["logged"]) &&
+      $_SESSION["logged"] &&      
       $_GET["type"] === "deleteUser"
    );
 
    $createMessageCondition = (
-      $_SESSION["logged"] &&
+      isset($_SESSION["logged"]) &&
+      $_SESSION["logged"] &&      
       $_GET["type"] === "createMessage" &&
       isset($_POST['message']) 
    );
    $readMessageCondition = (
-      $_SESSION["logged"] &&
+      isset($_SESSION["logged"]) &&
+      $_SESSION["logged"] &&         
       $_GET["type"] === "readMessage"
    );
 
    //======= ADMIN ONLY FEATURES =========//
    $closeConversationCondition = (
-      $_SESSION["admin"] &&
+      $adminCondition &&
       $_GET["type"] === "closeConversation" && 
       isset($_GET["target"])
    );
    $getDataCondition = (
-      $_SESSION["admin"] &&
+      $adminCondition &&
       $_GET["type"] === "getData" && 
       isset($_GET["target"])
    );
@@ -119,8 +128,8 @@
    //=====================>> DASHBOARD <<=======================//
 
    else if ($getDataCondition) {
-      if (isset($_GET["interval"])) {
-         $dataNeeded = getData($_GET["target"], $_GET["interval"]);
+      if (isset($_GET["resolution"]) && isset($_GET["range"])) {
+         $dataNeeded = getData($_GET["target"], $_GET["resolution"], $_GET["range"]);
       } else {
          $dataNeeded = getData($_GET["target"]);
       }
@@ -129,55 +138,104 @@
       echo json_encode("You're not allowed to do this, i'm watching you.");
    }
 
-   function getData($target, $interval = null) {
+   //== TODO: FIND MORE &!@!*? DATA !!!
+   function getData($target, $resolution = null, $range = null) {
 
-      if ($target === "countUsers") {
+      if ($target === "userCount") {       
          return countUsers()->fetchAll(PDO::FETCH_NUM);
       }  else if ($target === "allErrors") {
+
          return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
-      } 
-      
+      }   
+
       else if ($target === "logins") {
-         $data = getDataWithinInterval($interval, "Login");
-         return $data->fetchAll(PDO::FETCH_ASSOC);
+         [$query, $bindArgs] = buildDataQuery("Login", $resolution, $range);
+         $answer = getDataPoints($query, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+
+         return formatData($answer, $bindArgs, $range, $resolution);
       }
-      else if ($target === "registrations") {
-         $data = getDataWithinInterval($interval, "Registrations");
-         return $data->fetchAll(PDO::FETCH_ASSOC);
-      }
-      else if ($target === "errors") {
-         $data = getDataWithinInterval($interval, "Errors");
-         return $data->fetchAll(PDO::FETCH_ASSOC);
+      else if ($target === "register") {
+         [$query, $bindArgs] = buildDataQuery("Reg", $resolution, $range);
+         $answer = getDataPoints($query, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+
+         return formatData($answer, $bindArgs, $range, $resolution);
       }
 
-      else {
-         return [];
-      }
    }
-   
-   function getDataWithinInterval($interval, $type) {
+   function buildDataQuery($target, $resolution, $range) {
+      //== NOTE: Construit une query pour une résolution et une intervalle donnée, sur le type de log "target"
 
-      if ($interval === "hourly") {
-         for ($i=0 ; $i<25 ; $i++) {
-            $intervalStart = date("Y-m-d H:i:s", strtotime("-" . $i . " hour"));
-            $arr[] = $intervalStart;
+      $intervalNb = $range + 1;
+      $bindArgs = array();
+
+      // Construit les binds nécessaires sur l'intervalle donnée
+      // Plus vieux indexé à zéro, plus récent à intervalNb
+      for ($i=$intervalNb ; $i>0 ; $i--) {
+         $bound = "";
+         if ($resolution === "Hourly") {
+            $bound = date("Y-m-d H:0:0", strtotime("-" . $i . " hour"));
+         } else if ($resolution === "Daily") {
+            $bound = date("Y-m-d 08:00:00", strtotime("-" . $i . " day"));
+         } else if ($resolution === "Weekly") {
+            $bound = date("Y-m-d 08:00:00", strtotime("-" . $i . " week"));
          }
-         return getHourly(array_reverse($arr), $type);
-      } else if ($interval === "daily") {
-         for ($i=0 ; $i<8 ; $i++) {
-            $intervalStart = date("Y-m-d", strtotime("-" . $i . " day"));
-            $arr[] = $intervalStart;
-         }
-         return  getDaily(array_reverse($arr), $type);
-      } else if ($interval === "weekly") {
-         for ($i=0 ; $i<9 ; $i++) {
-            $intervalStart = date("Y-m-d", strtotime("-" . $i . " week"));
-            $arr[] = $intervalStart;
-         }
-         return getWeekly(array_reverse($arr), $type);
+         $bindArgs[":". ($intervalNb - $i)] = $bound;
       }
+      $bindArgs[":type"] = $target;    
+      
+      // Formatte la requête nécessaire sur l'intervalle donnée
+      $start = "SELECT * FROM (SELECT CASE";
+      $queryIntervals = "";
+      for ($i = 0 ; $i < $range ; $i ++) {
+         $queryIntervals .= 
+         " WHEN datetime_log BETWEEN :" . $i . " AND :" . ($i + 1) . " THEN " . $i;
+      }    
+      $end = 
+         "  END as `Interval`, COUNT(1) as `Amount`
+         FROM logs
+         WHERE type_log LIKE CONCAT(:type, '%')
+         GROUP BY `Interval`
+         )  AS `Data`
+         WHERE `Interval` IS NOT NULL
+         ORDER BY `Interval` ASC;
+         ";
+      $query = $start.$queryIntervals.$end;
+
+      return [$query, $bindArgs];
    }
-   
+   function formatData($answer, $bindArgs, $range, $resolution) {
+      //== Prend le tableau retourné par la BDD et le transforme en associatif [Intervalle de temps => Donnée]
+
+      $numericArr = new SplFixedArray($range);
+      $finalArr = array();
+
+      for ($i=0 ; $i<count($numericArr); $i++) {
+         if (isset($answer[$i][0])) {
+            $indexToPush = intval($answer[$i][0]); 
+            $numericArr[$indexToPush] = intval($answer[$i][1]);      
+         }
+
+         $formatedIndex = "";
+         if ($resolution === "Hourly") {
+            $datetime = $bindArgs[":".$i];
+            $formatedIndex = date("H:00:00", strtotime($datetime));
+         } else if ($resolution === "Daily") {
+            $datetime = $bindArgs[":".$i];
+            $formatedIndex = date("d/m", strtotime($datetime));
+         } else if ($resolution === "Weekly") {
+            $datetime = $bindArgs[":".$i];
+            $formatedIndex = date("d/m/Y", strtotime($datetime));
+         }
+
+         $amount = $numericArr[$i];      // Remplace les champs null par zéro
+         if ($amount === null) {
+            $amount = 0;
+         }
+         $finalArr[$formatedIndex] = $amount;
+      }
+      return $finalArr;
+   }
+
 
    function formatConversations($messageHistory) {
       $arr = array();
