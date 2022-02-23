@@ -29,24 +29,27 @@ async function displayDatasets() {
       `target=userCount`
    ]);
 
-   const range = 48;
-   const resolution = "Hourly";
+   const setup = {
+      range: 15,
+      resolution: "Daily",
+      title: `Daily Connexions / Messages for the last 14 Days`
+   }
    const loginCount = await queryControler("adminControler", [
       `type=getData`,
       `target=logins`,
-      `resolution=${resolution}`,
-      `range=${range}`
+      `resolution=${setup.resolution}`,
+      `range=${setup.range}`
    ]);
    const regCount = await queryControler("adminControler", [
       `type=getData`,
-      `target=register`,
-      `resolution=${resolution}`,
-      `range=${range}`
+      `target=messages`,
+      `resolution=${setup.resolution}`,
+      `range=${setup.range}`
    ]);
 
    userCountSlot.textContent = `The website has ${userCount} registered users !`;
    drawChart(canva, [ loginCount, regCount ], [
-      `${resolution} Connexions / Registrations for the last ${range} ${resolution.slice(0, -2)}s`,
+      setup.title,
       ["Connexions", "Registrations"],
    ]); 
 }

@@ -46,53 +46,50 @@
       }  else if ($target === "messageCount") {
          return countMessages()->fetchAll(PDO::FETCH_NUM);
       }  else if ($target === "allErrors") {
-
          return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
       }   
 
       else if ($target === "logins") {
-         [$query, $bindArgs] = buildDataQuery("Login", $resolution, $range);
-         $answer = getDataPoints($query, $bindArgs)->fetchAll(PDO::FETCH_NUM);
-
+         [$prepared, $bindArgs] = buildQuery("logs", "Login", $range, $resolution);
+         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+         
          return formatData($answer, $bindArgs, $range, $resolution);
       }
       else if ($target === "register") {
-         [$query, $bindArgs] = buildDataQuery("Reg", $resolution, $range);
-         $answer = getDataPoints($query, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+         [$prepared, $bindArgs] = buildQuery("logs", "Reg", $range, $resolution);
+         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+
+         return formatData($answer, $bindArgs, $range, $resolution);
+      }
+      else if ($target === "messages") {
+         [$prepared, $bindArgs] = buildQuery("messages", null, $range, $resolution);
+         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
 
          return formatData($answer, $bindArgs, $range, $resolution);
       }
 
    }
-   function buildDataQuery($target, $resolution, $range) {
-      //== NOTE: Construit une query pour une résolution et une intervalle donnée, sur le type de log "target"
 
-      $intervalNb = $range + 1;
-      $bindArgs = array();
+   //== REMINDER: Build query on any interval with any res, on any table, with optionnal LIKE clause.
+   function buildQuery($table, $target, $range, $resolution) {
+      $prepared = buildPreparedQuery($table, $range);
+      $binds = buildBinds($table, $target, $range, $resolution);
 
-      // Construit les binds nécessaires sur l'intervalle donnée
-      // Plus vieux indexé à zéro, plus récent à intervalNb
-      for ($i=$intervalNb ; $i>0 ; $i--) {
-         $bound = "";
-         if ($resolution === "Hourly") {
-            $bound = date("Y-m-d H:0:0", strtotime("-" . $i . " hour"));
-         } else if ($resolution === "Daily") {
-            $bound = date("Y-m-d 08:00:00", strtotime("-" . $i . " day"));
-         } else if ($resolution === "Weekly") {
-            $bound = date("Y-m-d 08:00:00", strtotime("-" . $i . " week"));
-         }
-         $bindArgs[":". ($intervalNb - $i)] = $bound;
-      }
-      $bindArgs[":type"] = $target;    
-      
-      // Formatte la requête nécessaire sur l'intervalle donnée
+      return [$prepared, $binds];
+   }
+
+   function buildPreparedQuery($table, $range) {
       $start = "SELECT * FROM (SELECT CASE";
       $queryIntervals = "";
+
+      $rowPostfix = substr($table, 0, -1);
       for ($i = 0 ; $i < $range ; $i ++) {
          $queryIntervals .= 
-         " WHEN datetime_log BETWEEN :" . $i . " AND :" . ($i + 1) . " THEN " . $i;
-      }    
-      $end = 
+         " 
+         WHEN datetime_" . $rowPostfix . " >= :" . $i . " 
+         AND datetime_" . $rowPostfix . " < :" . ($i + 1) . " THEN " . $i;
+      }   
+      $logsEnd = 
          "  END as `Interval`, COUNT(1) as `Amount`
          FROM logs
          JOIN logs_type ON logs_type.id_log_type = logs.id_log_type
@@ -102,13 +99,60 @@
          WHERE `Interval` IS NOT NULL
          ORDER BY `Interval` ASC;
          ";
-      $query = $start.$queryIntervals.$end;
-
-      return [$query, $bindArgs];
+      $messEnd =
+         "
+         END as `Interval`, COUNT(1) as `Amount`
+         FROM messages
+         GROUP BY `Interval`
+         )  AS `Data`
+         WHERE `Interval` IS NOT NULL
+         ORDER BY `Interval` ASC;
+         ";
+      
+      
+      
+      
+      if ($table === "logs") {
+         $query = $start.$queryIntervals.$logsEnd;
+      } else if ($table === "messages") {
+         $query = $start.$queryIntervals.$messEnd;
+      }     
+      return $query;
    }
+   function buildBinds($table, $target, $range, $resolution) {
+         
+      $bindArgs = array();
+      
+      // Construit les binds nécessaires sur l'intervalle donnée
+      // Plus vieux indexé à zéro, plus récent à intervalNb
+      for ($i=$range ; $i>=0 ; $i--) {
+         if ($resolution === "Hourly") {
+            $bound = date("Y-m-d H:0:0", strtotime("-" . ($i) . " hour"));
+         } else if ($resolution === "Daily") {
+            $bound = date("Y-m-d 08:00:00", strtotime("-" . ($i). " day"));
+         } else if ($resolution === "Weekly") {
+            $bound = date("Y-m-d 08:00:00", strtotime("-" . ($i). " week"));
+         }
+
+         $bindArgs[":".($range - $i)] = $bound;
+      }
+
+
+      if ($table === "logs") {
+         $bindArgs[":type"] = $target; 
+      }
+      return $bindArgs;
+   }
+
+
+
+
+
+
+
+
    function formatData($answer, $bindArgs, $range, $resolution) {
       //== Prend le tableau retourné par la BDD et le transforme en associatif [Intervalle de temps => Donnée]
-
       $numericArr = new SplFixedArray($range);
       $finalArr = array();
 
@@ -117,8 +161,8 @@
             $indexToPush = intval($answer[$i][0]); 
             $numericArr[$indexToPush] = intval($answer[$i][1]);      
          }
-
-         $formatedIndex = "";
+         
+         //== Obligé de décaler manuellement de + 1  resolution ?
          if ($resolution === "Hourly") {
             $datetime = $bindArgs[":".$i];
             $formatedIndex = date("H:00:00", strtotime($datetime));
@@ -127,14 +171,14 @@
             $formatedIndex = date("d/m", strtotime($datetime));
          } else if ($resolution === "Weekly") {
             $datetime = $bindArgs[":".$i];
-            $formatedIndex = date("d/m/Y", strtotime($datetime));
+            $formatedIndex = date("d/m/Y", strtotime($datetime ."+ 1 week"));
          }
 
-         $amount = $numericArr[$i];      // Remplace les champs null par zéro
-         if ($amount === null) {
-            $amount = 0;
+         // Remplace les champs null par zéro
+         if ($numericArr[$i] === null) {
+            $numericArr[$i] = 0;
          }
-         $finalArr[$formatedIndex] = $amount;
+         $finalArr[$formatedIndex] = $numericArr[$i];
       }
       return $finalArr;
    }
