@@ -22,26 +22,30 @@
 
       return $success;
    }  
-
-   function readUser() {
+   function readUser($email) {
       $database = connect(); 
       $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
-
+      
       try {
          $query = $database->prepare($connectionCheck);
          $query->execute(array(
-            ":email" => $_POST['email']      
-         ));     
+            ":email" => $email    
+         ));    
+ 
       } catch (PDOException $e) {
          errorLog("USER CONNECTION " . $e);
       }
 
       return $query;
    }
+
+
    function updateUser($currentPseudo) {
       $database = connect(); 
 
-      $userUpdate = "UPDATE users (pseudo_user, pw_user, email_user)
+      $userUpdate = 
+      "
+      UPDATE users (pseudo_user, pw_user, email_user)
       VALUES (:pseudo, :pw, :email)
       WHERE pseudo_user = $currentPseudo; 
       ";
@@ -55,29 +59,37 @@
 
       return $success;
    }
-   function deleteUser() {}
+   function deleteUser($currentPseudo) {
+      $database = connect();  
+      $query = 
+      '  
+      START TRANSACTION;
 
-   function closeConversation($target) {
-      $database = connect(); 
+      UPDATE logs, messages
+      SET logs.id_user = NULL,
+          messages.id_user = NULL
+      WHERE
+          logs.id_user = (SELECT id_user from users WHERE pseudo_user = :pseudo)
+      AND 
+         messages.id_user = (SELECT id_user from users WHERE pseudo_user = :pseudo);
+          
+      DELETE FROM users WHERE pseudo_user = :pseudo;
 
-      $closeConv = 
-      "  UPDATE users 
-         SET conversation_user = 0
-         WHERE pseudo_user = :target; 
-      ";
-
-      try {
-         $query = $database->prepare($closeConv);
-         $query->execute(array(
-            ":target" => $target
-         ));   
-      } catch (PDOException $e) {
-         errorLog("CONVERSATION CLOSE " . $e);
-      }
+      COMMIT;
+      ';
       
-      return $query->rowCount();
-   }
-   
+      try {
+         $query = $database->prepare($query);
+         $success = $query->execute(array(
+            ":pseudo" => $currentPseudo    
+         ));     
+      } catch (PDOException $e) {
+         errorLog("USER REMOVAL " . $e);
+      }
+
+      return $success;
+   }   
+
    function checkPseudo() {  // Retourne true si pseudo dispo
       $database = connect(); 
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';

@@ -55,6 +55,7 @@
 
       try {
          $query = $database->prepare($readMessage);
+
          if ($admin) {
             $query->execute();
          } else {
@@ -69,4 +70,44 @@
       return $query;
    }
 
+   function openConversation($self) {
+      $database = connect(); 
+
+      $query = 
+      "  UPDATE users 
+         SET conversation_user = 1
+         WHERE pseudo_user = :self; 
+      ";
+
+      try {
+         $query = $database->prepare($query);
+         $query->execute(array(
+            ":self" => $self
+         ));   
+      } catch (PDOException $e) {
+         errorLog("CONVERSATION CLOSE " . $e);
+      }
+
+      return $query;
+   }
+   function closeConversation($target) {
+      $database = connect(); 
+
+      $closeConv = 
+      "  UPDATE users 
+         SET conversation_user = 0
+         WHERE pseudo_user = :target; 
+      ";
+
+      try {
+         $query = $database->prepare($closeConv);
+         $query->execute(array(
+            ":target" => $target
+         ));   
+      } catch (PDOException $e) {
+         errorLog("CONVERSATION CLOSE " . $e);
+      }
+      
+      return $query->rowCount();
+   }
 ?>

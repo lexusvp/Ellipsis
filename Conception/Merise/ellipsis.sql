@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2022 at 08:22 PM
+-- Generation Time: Feb 23, 2022 at 07:52 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `ellipsis`
 --
+CREATE DATABASE IF NOT EXISTS `ellipsis` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ellipsis`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +31,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `logs` (
   `id_log` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id_user` int DEFAULT NULL,
   `id_log_type` int NOT NULL,
   `info_log` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `datetime_log` datetime DEFAULT NULL
@@ -356,7 +358,59 @@ INSERT INTO `logs` (`id_log`, `id_user`, `id_log_type`, `info_log`, `datetime_lo
 (314, 1, 4, NULL, '2022-02-22 19:02:16'),
 (315, 2, 3, NULL, '2022-02-22 19:02:26'),
 (316, 2, 4, NULL, '2022-02-22 19:03:51'),
-(317, 1, 3, NULL, '2022-02-22 19:04:01');
+(317, 1, 3, NULL, '2022-02-22 19:04:01'),
+(318, 3, 3, NULL, '2022-02-23 19:42:11'),
+(319, 3, 3, NULL, '2022-02-23 19:42:53'),
+(320, 3, 3, NULL, '2022-02-23 19:43:19'),
+(321, 3, 3, NULL, '2022-02-23 19:44:18'),
+(322, 3, 4, NULL, '2022-02-23 19:44:21'),
+(323, 3, 3, NULL, '2022-02-23 19:44:23'),
+(324, 3, 3, NULL, '2022-02-23 19:47:00'),
+(325, 3, 3, NULL, '2022-02-23 19:47:24'),
+(326, 3, 3, NULL, '2022-02-23 19:48:02'),
+(327, 3, 3, NULL, '2022-02-23 19:48:47'),
+(328, 3, 3, NULL, '2022-02-23 19:49:14'),
+(329, 3, 3, NULL, '2022-02-23 19:49:42'),
+(330, 3, 3, NULL, '2022-02-23 19:50:42'),
+(331, 3, 3, NULL, '2022-02-23 19:52:41'),
+(332, 3, 3, NULL, '2022-02-23 19:54:07'),
+(333, 3, 3, NULL, '2022-02-23 19:54:59'),
+(334, 3, 3, NULL, '2022-02-23 19:55:33'),
+(335, 3, 3, NULL, '2022-02-23 19:55:49'),
+(336, 3, 3, NULL, '2022-02-23 19:57:34'),
+(337, 3, 3, NULL, '2022-02-23 19:57:51'),
+(338, 3, 3, NULL, '2022-02-23 19:58:40'),
+(339, 3, 3, NULL, '2022-02-23 20:04:11'),
+(340, 3, 3, NULL, '2022-02-23 20:05:17'),
+(341, 3, 3, NULL, '2022-02-23 20:06:41'),
+(342, 3, 3, NULL, '2022-02-23 20:18:44'),
+(343, 4, 2, NULL, '2022-02-23 20:20:37'),
+(344, 5, 2, NULL, '2022-02-23 20:21:11'),
+(345, 3, 3, NULL, '2022-02-23 20:21:22'),
+(346, 6, 2, NULL, '2022-02-23 20:22:29'),
+(347, 3, 3, NULL, '2022-02-23 20:22:32'),
+(348, 3, 3, NULL, '2022-02-23 20:30:20'),
+(349, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:31:17'),
+(350, 4, 3, NULL, '2022-02-23 20:31:27'),
+(351, 4, 4, NULL, '2022-02-23 20:44:27'),
+(352, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:44:28'),
+(353, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:44:53'),
+(354, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:45:00'),
+(355, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:46:20'),
+(356, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:47:06'),
+(357, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:47:41'),
+(358, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:48:07'),
+(359, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:48:21'),
+(360, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:48:26'),
+(361, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:48:52'),
+(362, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:49:08'),
+(363, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:50:07'),
+(364, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:51:19'),
+(365, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:52:03'),
+(366, 3, 3, NULL, '2022-02-23 20:52:05'),
+(367, 3, 4, NULL, '2022-02-23 20:52:07'),
+(368, 1, 1, 'Message controler what unable to parse the reqest !', '2022-02-23 20:52:08'),
+(369, 3, 3, NULL, '2022-02-23 20:52:24');
 
 -- --------------------------------------------------------
 
@@ -377,7 +431,8 @@ INSERT INTO `logs_type` (`id_log_type`, `name_log_type`) VALUES
 (1, 'Error'),
 (2, 'Registration'),
 (3, 'Login'),
-(4, 'Logout');
+(4, 'Logout'),
+(5, 'Removal');
 
 -- --------------------------------------------------------
 
@@ -387,43 +442,47 @@ INSERT INTO `logs_type` (`id_log_type`, `name_log_type`) VALUES
 
 CREATE TABLE `messages` (
   `id_message` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id_user` int DEFAULT NULL,
   `direction_message` int NOT NULL,
   `content_message` text,
-  `timestamp_message` int DEFAULT NULL
+  `datetime_message` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id_message`, `id_user`, `direction_message`, `content_message`, `timestamp_message`) VALUES
-(1, 2, 1, 'Message envoyé', 0),
-(2, 2, 0, 'Message reçu', 500000),
-(3, 2, 1, 'Test', 1644766554),
-(4, 2, 1, 'Test', 1644766567),
-(5, 2, 1, 'Test2', 1644766636),
-(6, 2, 1, 'Test2', 1644766647),
-(7, 2, 1, 'Gogogog', 1644766691),
-(8, 2, 1, 'Test d\'un super long message parlant d\'une problématique super complexe à propos des articles de ce site pourri, sérieusement, JE VEUX PARLER AU SAV ET VIIIIITE', 80000000),
-(9, 2, 1, 't', 1644766985),
-(10, 2, 1, 'azazffaz', 1644771111),
-(11, 2, 1, 'Teeeeest', 1644841268),
-(12, 3, 1, 'Message envoyé par user2', 25000000),
-(13, 3, 0, 'Message reçu par user2', 25000050),
-(14, 2, 1, 'Hey !', 1645301043),
-(15, 2, 1, 'azfazf', 1645301108),
-(16, 2, 1, 'azfazf', 1645301134),
-(17, 2, 1, 'fazfazf', 1645301147),
-(18, 2, 1, '', 1645301234),
-(19, 2, 1, '', 1645301239),
-(20, 2, 1, '', 1645301243),
-(21, 2, 1, '', 1645301255),
-(22, 2, 1, 'azfazfzaf', 1645301267),
-(23, 2, 0, 'Teesst', 1645369054),
-(24, 2, 0, 'azfazfazf', 1645369134),
-(25, 2, 0, 'azfazf', 1645369413),
-(26, 3, 0, 'Hey !', 1645369444);
+INSERT INTO `messages` (`id_message`, `id_user`, `direction_message`, `content_message`, `datetime_message`) VALUES
+(1, 2, 1, 'Message envoyé', '1970-01-01 01:00:00'),
+(2, 2, 0, 'Message reçu', '1970-01-06 19:53:20'),
+(3, 2, 1, 'Test', '2022-02-13 16:35:54'),
+(4, 2, 1, 'Test', '2022-02-13 16:36:07'),
+(5, 2, 1, 'Test2', '2022-02-13 16:37:16'),
+(6, 2, 1, 'Test2', '2022-02-13 16:37:27'),
+(7, 2, 1, 'Gogogog', '2022-02-13 16:38:11'),
+(8, 2, 1, 'Test d\'un super long message parlant d\'une problématique super complexe à propos des articles de ce site pourri, sérieusement, JE VEUX PARLER AU SAV ET VIIIIITE', '1972-07-15 00:13:20'),
+(9, 2, 1, 't', '2022-02-13 16:43:05'),
+(10, 2, 1, 'azazffaz', '2022-02-13 17:51:51'),
+(11, 2, 1, 'Teeeeest', '2022-02-14 13:21:08'),
+(12, 3, 1, 'Message envoyé par user2', '1970-10-17 10:26:40'),
+(13, 3, 0, 'Message reçu par user2', '1970-10-17 10:27:30'),
+(14, 2, 1, 'Hey !', '2022-02-19 21:04:03'),
+(15, 2, 1, 'azfazf', '2022-02-19 21:05:08'),
+(16, 2, 1, 'azfazf', '2022-02-19 21:05:34'),
+(17, 2, 1, 'fazfazf', '2022-02-19 21:05:47'),
+(18, 2, 1, '', '2022-02-19 21:07:14'),
+(19, 2, 1, '', '2022-02-19 21:07:19'),
+(20, 2, 1, '', '2022-02-19 21:07:23'),
+(21, 2, 1, '', '2022-02-19 21:07:35'),
+(22, 2, 1, 'azfazfzaf', '2022-02-19 21:07:47'),
+(23, 2, 0, 'Teesst', '2022-02-20 15:57:34'),
+(24, 2, 0, 'azfazfazf', '2022-02-20 15:58:54'),
+(25, 2, 0, 'azfazf', '2022-02-20 16:03:33'),
+(26, 3, 0, 'Hey !', '2022-02-20 16:04:04'),
+(27, 4, 1, 'azfazf', '2022-02-23 20:36:42'),
+(28, 4, 1, 'azfazf', '2022-02-23 20:38:04'),
+(29, 4, 1, 'qsfqsf', '2022-02-23 20:38:25'),
+(30, 4, 1, 'Test', '2022-02-23 20:44:09');
 
 -- --------------------------------------------------------
 
@@ -459,7 +518,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_user`, `admin_user`, `conversation_user`, `email_user`, `pseudo_user`, `pw_user`) VALUES
 (1, 1, 0, 'cav@gmail.com', 'Vazn', '$argon2i$v=19$m=65536,t=4,p=1$VHVDV0d5R3ZPTVdLTlFLSw$DKmOPt4P/PZrudCYmcZ9scZ+J4U6aY/Dkyhxa3gR0iM'),
 (2, 0, 1, 'cav2@gmail.com', 'nonAdmin', '$argon2i$v=19$m=65536,t=4,p=1$STc3ZXNMVVB4SWVNcDFQVw$nL0bTFspFhf6y5AMQRsXw/e1c0R9azXUzAJ/RLu4C/0'),
-(3, 0, 1, 'cav3@gmail.com', 'nonAdmin2', '$argon2i$v=19$m=65536,t=4,p=1$ZGRjaThSN0pabU50Vk1XZQ$WADdmPgAAp7g1UHUhuOJTMBdgM2lz4ZFImWS73NYelk');
+(3, 0, 1, 'cav3@gmail.com', 'nonAdmin2', '$argon2i$v=19$m=65536,t=4,p=1$ZGRjaThSN0pabU50Vk1XZQ$WADdmPgAAp7g1UHUhuOJTMBdgM2lz4ZFImWS73NYelk'),
+(4, 0, 1, 'cav@zap.com', 'Azerty1', '$argon2i$v=19$m=65536,t=4,p=1$czFVQTNLaUZxL25IRzJjaw$6D9IpHKSLtssP+4Pc83Fo8ZrL7yZm4ByZYfK9+z4Fo4'),
+(5, 0, 0, 'cav@zaap.com', 'Azerty2', '$argon2i$v=19$m=65536,t=4,p=1$MkxjOFdZcVVUZ09yelNFVQ$GFx5sFoXqQ2J8TpNTWzNs64s5I5aEdor5db8KIF6uAU'),
+(6, 0, 0, 'cav@zaaap.com', 'Aazerty1', '$argon2i$v=19$m=65536,t=4,p=1$YWd4Y0NtU2llNzFGSWVFbw$ucWZqNT5yj53N7bKIVo/MAacrYXbmxsB98qUFkNddcY');
 
 --
 -- Indexes for dumped tables
@@ -506,19 +568,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
 
 --
 -- AUTO_INCREMENT for table `logs_type`
 --
 ALTER TABLE `logs_type`
-  MODIFY `id_log_type` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_log_type` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_message` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -530,7 +592,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

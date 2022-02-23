@@ -4,7 +4,7 @@
       $database = connect(); 
       $now = date("y-m-d H:i:s", time());
 
-      $userInsert = 
+      $query = 
       "  INSERT INTO logs (datetime_log, info_log, id_log_type, id_user)
          VALUES (
             :datetime, 
@@ -14,7 +14,7 @@
       ";
       
       try {
-         $query = $database->prepare($userInsert);
+         $query = $database->prepare($query);
          $success = $query->execute(array(
             ":type" => $type,
             ":datetime" => $now,

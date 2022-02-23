@@ -40,22 +40,22 @@ async function displayChatWindow() {
 async function fetchMessages(currentUser = null) {
    const adminTabs = document.querySelector("#chat_tabs") ?? null;
    const headerName = document.querySelector("form[name=chat] #chat_name");
-   const messageHistory = await queryControler([`type=readMessage`]) ?? null;
-   const size = Object.keys(messageHistory).length;
 
-   if (messageHistory === null) return;
+   const messageHistory = await queryControler("messageControler", [`type=readMessage`]);
+   if (messageHistory.success !== undefined) return;
 
    if (!adminRole) {
       headerName.textContent = "Admin - Vazn";
-      displayMessages(messageHistory["Admin - Vazn"]);
+      if (messageHistory.length !== 0) displayMessages(messageHistory["Admin - Vazn"]);
    }  else if (currentUser !== null){
       displayMessages(messageHistory[currentUser]);
    }  else {
+
+      const size = Object.keys(messageHistory).length;
       if (size === 0) {
          const element = await createTab(adminTabs, null, true);
          element.textContent = "Pas de conversation en cours";
       } else {
-
          for (let i=0 ; i<size ; i++) {
             const user = Object.keys(messageHistory)[i];
             const userElement = createTab(adminTabs, user);
@@ -80,12 +80,12 @@ async function conversationEvent() {
 
       closeButton[i].addEventListener("click", async () => {
          const user = localStorage.getItem("target");
-         const closed = await queryControler([
+         const closed = await queryControler("adminControler", [
             `type=closeConversation`,
             `target=${user}`
          ]);
 
-         if (closed) {
+         if (closed.success) {
             usersDiv[i].style.zIndex = "0";
             usersDiv[i].style.animation = "slideRight 1.2s forwards";
             setTimeout(() => {

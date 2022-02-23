@@ -1,5 +1,3 @@
-//== TODO: Implement session handling, message author link handling
-
 //== NOTE: User feedback on failures / could be great too.
 
 async function formModule() {
@@ -39,17 +37,20 @@ async function formModule() {
 
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler([`type=registerUser`], formattedFormData);
+   const answer = await queryControler("userControler", [`type=registerUser`], formattedFormData);
 
-   if (answer.check_success) {
+   if (answer.success) {
       formAnim(form, true, "register");
    } else {
+
+      //Feedback
       formAnim(form, false, "register");
    }
 }
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler([`type=loginUser`], formattedFormData);
+   const answer = await queryControler("userControler", [`type=loginUser`], formattedFormData);
+   console.log("answer : ", answer);
 
    if (answer.logged) { 
       localStorage.setItem("userData", JSON.stringify(answer));
@@ -75,14 +76,14 @@ async function sendMessageAttempt(form) {
 
    if (adminRole) {
       const target = localStorage.getItem("target");
-      await queryControler([
+      await queryControler("messageControler", [
          `type=createMessage`,
          `target=${target}`
       ], formattedMessage);
 
       fetchMessages(target);
    } else {
-      await queryControler([`type=createMessage`], formattedMessage);
+      await queryControler("messageControler", [`type=createMessage`], formattedMessage);
       
       fetchMessages();
    }
