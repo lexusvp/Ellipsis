@@ -45,40 +45,43 @@
          return countUsers()->fetchAll(PDO::FETCH_NUM);
       }  else if ($target === "messageCount") {
          return countMessages()->fetchAll(PDO::FETCH_NUM);
-      }  else if ($target === "allErrors") {
-         return getAllErrors()->fetchAll(PDO::FETCH_NUM);; 
       }   
 
-      else if ($target === "logins") {
-         [$prepared, $bindArgs] = buildQuery("logs", "Login", $range, $resolution);
-         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
-         
-         return formatData($answer, $bindArgs, $range, $resolution);
-      }
-      else if ($target === "register") {
-         [$prepared, $bindArgs] = buildQuery("logs", "Reg", $range, $resolution);
-         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+      else if ($target === "Error") {
+         $bound = buildBinds($range, $resolution, "Error", "logs", true);
 
-         return formatData($answer, $bindArgs, $range, $resolution);
-      }
-      else if ($target === "messages") {
-         [$prepared, $bindArgs] = buildQuery("messages", null, $range, $resolution);
-         $answer = getDataPoints($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
-
-         return formatData($answer, $bindArgs, $range, $resolution);
+         return  getDataSince("Error", $bound)->fetchAll(PDO::FETCH_NUM);
       }
 
+
+      else if ($target === "Registration") {
+         [$prepared, $bindArgs] = getIntervalQuery("logs", "Registration", $range, $resolution);
+         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+      
+         return formatData($answer, $bindArgs, $range, $resolution);
+      }     
+      else if ($target === "Login") {
+         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, "Login");
+
+         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);     
+         return formatData($answer, $bindArgs, $range, $resolution);
+      }
+      else if ($target === "Messages") {
+         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, null, "messages");
+
+         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+         return formatData($answer, $bindArgs, $range, $resolution);
+      }
    }
 
    //== REMINDER: Build query on any interval with any res, on any table, with optionnal LIKE clause.
-   function buildQuery($table, $target, $range, $resolution) {
-      $prepared = buildPreparedQuery($table, $range);
-      $binds = buildBinds($table, $target, $range, $resolution);
+   function getIntervalQuery($range, $resolution, $target, $table = "logs") {
+      $binds = buildBinds($range, $resolution, $target, $table);
+      $prepared = buildIntervalQuery($table, $range);
 
       return [$prepared, $binds];
    }
-
-   function buildPreparedQuery($table, $range) {
+   function buildIntervalQuery($table, $range) {
       $start = "SELECT * FROM (SELECT CASE";
       $queryIntervals = "";
 
@@ -108,8 +111,7 @@
          WHERE `Interval` IS NOT NULL
          ORDER BY `Interval` ASC;
          ";
-      
-      
+
       
       
       if ($table === "logs") {
@@ -117,12 +119,12 @@
       } else if ($table === "messages") {
          $query = $start.$queryIntervals.$messEnd;
       }     
-      return $query;
-   }
-   function buildBinds($table, $target, $range, $resolution) {
-         
-      $bindArgs = array();
       
+      return $query;
+   }  
+   function buildBinds($range, $resolution, $target, $table, $single = false) {   
+      $bindArgs = array();
+
       // Construit les binds nécessaires sur l'intervalle donnée
       // Plus vieux indexé à zéro, plus récent à intervalNb
       for ($i=$range ; $i>=0 ; $i--) {
@@ -133,23 +135,18 @@
          } else if ($resolution === "Weekly") {
             $bound = date("Y-m-d 08:00:00", strtotime("-" . ($i). " week"));
          }
+         if ($single) {
+            return $bound;
+         }
 
          $bindArgs[":".($range - $i)] = $bound;
       }
-
-
       if ($table === "logs") {
          $bindArgs[":type"] = $target; 
       }
+
       return $bindArgs;
    }
-
-
-
-
-
-
-
 
    function formatData($answer, $bindArgs, $range, $resolution) {
       //== Prend le tableau retourné par la BDD et le transforme en associatif [Intervalle de temps => Donnée]

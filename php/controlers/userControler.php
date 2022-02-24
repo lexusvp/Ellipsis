@@ -6,10 +6,6 @@
    require '../model/userModel.php';
    require '../model/logModel.php';
 
-   $logged = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"]
-   );
    $regCondition = (
       $_GET["type"] === "registerUser" &&
       isset($_POST['pseudo']) && 
@@ -21,39 +17,46 @@
       isset($_POST['email']) && 
       isset($_POST['password'])
    ); 
-   $logoutCondition = ($_GET["type"] === "logoutUser" && $logged);
-   $updateCondition = ($_GET["type"] === "updateUser" && $logged);
-   $deleteCondition = ($_GET["type"] === "deleteUser" && $logged);
-
-
+   $logoutCondition = ($_GET["type"] === "logoutUser");
+   $updateCondition = ($_GET["type"] === "updateUser");
+   $deleteCondition = ($_GET["type"] === "deleteUser");
+   
    if ($regCondition) {
-      $test = availableCheck();
-
+      $test = availableCheck($_POST["pseudo"], $_POST["email"]);
+      
       if ($test["success"]) {
-         createUser();
+         $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
+
+         createUser($_POST["pseudo"], $_POST["email"], $password);
          createLog("Registration", $_POST["pseudo"]);
       }
       echo json_encode($test);
    }
    else if ($loginCondition) {   
-      $clientData = connectUser();
+      $clientData = connectUser($_POST["email"]);
       echo json_encode($clientData);
    } 
-   else if ($logoutCondition) {
-      createLog("Logout", $_SESSION["pseudo"]);
-      session_destroy();
-
-      echo json_encode(["success" => true]);
-   }
-   else if ($updateCondition) {}  //== TODO 
-   else if ($deleteCondition) {
-      $success = deleteUser($_SESSION["pseudo"]);
-
-      if ($success) {
+   else if ($logged) {
+      if ($logoutCondition) {
+         createLog("Logout", $_SESSION["pseudo"]);
          session_destroy();
+   
          echo json_encode(["success" => true]);
-      } else {
-         echo json_encode(["success" => false]);
+      }
+      else if ($updateCondition) {}  //== TODO 
+      else if ($deleteCondition) {
+         $success = deleteUser($_SESSION["pseudo"]);
+   
+         if ($success) {
+            session_destroy();
+            echo json_encode(["success" => true]);
+         } else {
+            echo json_encode(["success" => false]);
+         }
+      }
+      else {
+         errorLog("User controler was unable to parse the request !");
+         json_encode(["success" => false]);
       }
    }
    else {
@@ -61,8 +64,8 @@
       json_encode(["success" => false]);
    }
 
-   function connectUser() {
-      $query = readUser($_POST["email"]);
+   function connectUser($email) {
+      $query = readUser($email);
       $result = $query->fetch();    // Retourn tableau si ok      
       $data = [];
   
@@ -87,12 +90,12 @@
       }
       return $data;
    }
-   function availableCheck() {
+   function availableCheck($pseudo, $email) {
       $arr = [];
 
       try {
-         $arr["pseudo"] = checkPseudo();
-         $arr["email"] = checkMail();  
+         $arr["pseudo"] = checkPseudo($pseudo);
+         $arr["email"] = checkMail($email);  
       } catch (PDOException $e) {
          errorLog("USER DUPLICATE CHECK", $e);
       }

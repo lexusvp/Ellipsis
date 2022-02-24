@@ -1,6 +1,11 @@
 function chatModule() {
    displayChatWindow();
-   fetchMessages();     
+   refreshMessages();
+}
+
+function refreshMessages() {
+   fetchMessages();
+   setInterval(fetchMessages, 2500);
 }
 
 async function displayChatWindow() {   
@@ -44,6 +49,7 @@ async function fetchMessages(currentUser = null) {
    const messageHistory = await queryControler("messageControler", [`type=readMessage`]);
    if (messageHistory.success !== undefined) return;
 
+   adminTabs.innerHTML = "";
    if (!adminRole) {
       headerName.textContent = "Admin - Vazn";
       if (messageHistory.length !== 0) displayMessages(messageHistory["Admin - Vazn"]);
@@ -68,6 +74,9 @@ async function fetchMessages(currentUser = null) {
       
                displayMessages(messageHistory[user]);
             });
+
+            const currentUser = localStorage.getItem("target");
+            displayMessages(messageHistory[currentUser]);
          }
       }  
    }

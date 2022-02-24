@@ -6,42 +6,36 @@
    require '../model/messageModel.php';
    require '../model/logModel.php';
 
-   $logged = (
-      isset($_SESSION["logged"]) &&
-      $_SESSION["logged"]
-   );
-   $admin = (
-      isset($_SESSION["admin"]) &&
-      $_SESSION["admin"]
-   );
-   $readMessageCondition = ($logged && $_GET["type"] === "readMessage");
-   $createMessageCondition = (
-      $logged &&      
+   $readMessageQuery = ($_GET["type"] === "readMessage");
+   $createMessageQuery = (
       $_GET["type"] === "createMessage" &&
       isset($_POST['message']) 
    );
 
-
-   if ($createMessageCondition) {   
-      if ($admin && isset($_GET["target"])) {
-         createMessage($_GET["target"], $_SESSION["admin"]);
-      } else {
-         openConversation($_SESSION["pseudo"]);
-         createMessage($_SESSION["pseudo"]);
-      }
-
-      echo json_encode(["success" => true]);
-   } 
-   else if ($readMessageCondition) {
-      if ($admin) {
-         $response = readMessage($_SESSION["pseudo"], true);    
-      } else {
-         $response = readMessage($_SESSION["pseudo"]);
+   if ($logged) {
+      if ($createMessageQuery) {   
+         if ($admin && isset($_GET["target"])) {
+            createMessage($_GET["target"], $_SESSION["admin"]);
+         } else {
+            openConversation($_SESSION["pseudo"]);
+            createMessage($_SESSION["pseudo"]);
+         }
+   
+         echo json_encode(["success" => true]);
       } 
-      $messageHistory = formatConversations($response->fetchAll(PDO::FETCH_ASSOC));
-      echo json_encode($messageHistory);
+      else if ($readMessageQuery) {
+         if ($admin) {
+            $response = readMessage($_SESSION["pseudo"], true);    
+         } else {
+            $response = readMessage($_SESSION["pseudo"]);
+         } 
+         $messageHistory = formatConversations($response->fetchAll(PDO::FETCH_ASSOC));
+         echo json_encode($messageHistory);
+      } else {
+         errorLog("Message controler was unable to parse the request !");
+         echo json_encode(["success" => false]);
+      }    
    } else {
-      errorLog("Message controler was unable to parse the request !");
       echo json_encode(["success" => false]);
    }
 

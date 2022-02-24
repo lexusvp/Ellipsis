@@ -2,16 +2,9 @@
    displayModule();                // Pure front && Sessions display filtering
    
    logOutEvent();
-   chatModule();                     
-   //== TODO: Appels asynchrones récurrents pour refresh le chat, setInterval ?
+   chatModule();    
    
-   formModule();                   // Main user input handling
-
-   const errors = await queryControler("adminControler", [
-      `type=getData`,
-      `target=allErrors`
-   ]);
-   if (errors !== null) console.table("Errors : ", errors);
+   formModule();                   // Main user forms handling
 })();
 
 async function logOutEvent() {

@@ -10,8 +10,8 @@ Final project for my training exam
 
 ## ***Features***
 
+✅ **Live chat** with admin <br>
 ✅ Account **CRUD** interface - 90% <br>
-✅ **Live chat** with admin - 90% <br>
 ✅ Full logging - 90% <br><br>
 
 🔄 **Analytics dashboard** - 75% ... <br><br>

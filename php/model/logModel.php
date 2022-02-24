@@ -55,52 +55,30 @@
       return $query;
    }
 
-   //== TODO : Trouver comment calculer un temps de connexion moyen touts utilisateurs confondus
-   function getAllConnections() {
-      $database = connect(); 
-      $query = 
-      "  SELECT name_log_type, pseudo_user, datetime_log FROM logs 
-
-         JOIN users ON logs.id_user = users.id_user
-         JOIN logs_type ON logs_type.id_log_type = logs.id_log_type
-      
-         WHERE logs_type.name_log_type LIKE CONCAT(:arg, '%')
-         ORDER BY datetime_log ASC;
-      "; 
-
-      try {
-         $query = $database->prepare($query);
-         $query->execute(array(
-            ":arg" => "Log"
-         ));
-      } catch (PDOException $e) {
-         errorLog("LOG READ " . $e);
-      }
-      return $query;
-   }
-   function getAllErrors() {
+   function getDataSince($type, $range) {
       $database = connect(); 
       $query = 
       "  SELECT  info_log, datetime_log FROM logs 
 
          JOIN logs_type
          ON logs_type.id_log_type = logs.id_log_type
-
-         WHERE name_log_type = :arg
+         WHERE name_log_type = :type
+         AND datetime_log >= :range
          ORDER BY datetime_log ASC;
       ";
 
       try {
          $query = $database->prepare($query);
          $query->execute(array(
-            ":arg" => "Error"
+            ":type" => $type,
+            ":range" => $range,
          ));
       } catch (PDOException $e) {
          errorLog("LOG READ " . $e);
       }
       return $query;
    }
-   function getDataPoints($query, $args) {
+   function getDataIntervals($query, $args) {
       $database = connect(); 
 
       try {

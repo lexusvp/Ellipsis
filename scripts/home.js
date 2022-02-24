@@ -1,8 +1,8 @@
 (function home() {
 	logoAnim();
 	modalsHandler();
+	errorReview();
 })();
-
 
 function modalsHandler() {
 	const userEventsButtons = document.querySelectorAll(".modal_buttons"); 
@@ -40,4 +40,13 @@ function logoAnim() {
       strokeDashoffset: 0,
       duration: 1500,
    });
+}
+async function errorReview() {
+	const errors = await queryControler("adminControler", [
+		`type=getData`,
+		`target=Error`,
+		`resolution=Hourly`,
+		`range=${1}`
+	]);
+	if (errors !== null) console.table("Errors : ", errors);	
 }

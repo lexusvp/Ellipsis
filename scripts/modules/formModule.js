@@ -1,6 +1,6 @@
 //== NOTE: User feedback on failures / could be great too.
 
-async function formModule() {
+function formModule() {
    const forms = document.forms;
 
    for (let i=0 ; i<forms.length ; i++) {
@@ -71,6 +71,7 @@ async function loginAttempt(form) {
 //       //== TODO: User Feedback on failed constraints
 //    }
 // }
+
 async function sendMessageAttempt(form) {
    const formattedMessage = new FormData(form);
 

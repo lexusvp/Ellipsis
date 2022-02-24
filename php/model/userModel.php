@@ -1,20 +1,19 @@
 <?php
-   function createUser() { 
+   function createUser($pseudo, $email, $password) { 
       $database = connect(); 
-      $userInsert = "INSERT INTO users (pseudo_user, pw_user, email_user)
+      $userInsert = "INSERT INTO users (pseudo_user, email_user, pw_user)
       VALUES (
          :pseudo, 
-         :pw, 
-         :email); 
+         :email, 
+         :pw); 
       ";
-      $_POST['password'] = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
       try {
          $query = $database->prepare($userInsert);
          $success = $query->execute(array(
-            ":pseudo" => $_POST['pseudo'],
-            ":pw" => $_POST['password'],
-            ":email" => $_POST['email'],
+            ":pseudo" => $pseudo,
+            ":email" => $email,
+            ":pw" => $password,
          )); 
       } catch (PDOException $e) {
          errorLog("USER CREATION " . $e);
@@ -90,25 +89,25 @@
       return $success;
    }   
 
-   function checkPseudo() {  // Retourne true si pseudo dispo
+   function checkPseudo($pseudo) {  // Retourne true si pseudo dispo
       $database = connect(); 
       $checkPseudo = 'SELECT * FROM users WHERE pseudo_user = :pseudo';
       
       $query = $database->prepare($checkPseudo);
       $query->execute(array(
-         ":pseudo" => $_POST['pseudo']
+         ":pseudo" => $pseudo
       ));     
       $result = $query->fetch();
 
       return !is_array($result);
    }
-   function checkMail() {    // Retourne true si mail dispo
+   function checkMail($email) {    // Retourne true si mail dispo
       $database = connect(); 
       $checkMail = 'SELECT * FROM users WHERE email_user = :mail';
 
       $query = $database->prepare($checkMail);
       $query->execute(array(
-         ":mail" => $_POST['email']
+         ":mail" => $email
       ));
       $result = $query->fetch();
 
