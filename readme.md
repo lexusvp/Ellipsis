@@ -11,11 +11,12 @@ Final project for my training exam
 ## ***Features***
 
 ✅ **Live chat** with admin <br>
-✅ Account **CRUD** interface - 90% <br>
+✅ Account **CRUD** interface <br>
 ✅ Full logging - 90% <br><br>
 
 🔄 **Analytics dashboard** - 75% ... <br><br>
 
+💤 Security features <br>
 💤 Password recovery feature <br>
 💤 Services CRUD interface <br>
 💤 Strong mail authentication <br><br>

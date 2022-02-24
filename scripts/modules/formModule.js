@@ -30,6 +30,7 @@ function formModule() {
             loginAttempt(currentForm);            
          }
          else if (currentForm.name === "update") {
+            updateAttempt(currentForm)
          }
       })
    }
@@ -61,16 +62,16 @@ async function loginAttempt(form) {
       formAnim(form, false, "login");
    }
 }
-// async function updateAttempt(form) {
-//    const formattedFormData = new FormData(form);
-//    const answer = await queryControler([`type=updateUser`], formattedFormData);
+async function updateAttempt(form) {
+   const formattedFormData = new FormData(form);
+   const answer = await queryControler("userControler", [`type=updateUser`], formattedFormData);
 
-//    if (answer.check_success) {
-//       formAnim(currentForm, true, "update");
-//    } else {
-//       //== TODO: User Feedback on failed constraints
-//    }
-// }
+   // if (answer.check_success) {
+   //    formAnim(currentForm, true, "update");
+   // } else {
+   //    //== TODO: User Feedback on failed constraints
+   // }
+}
 
 async function sendMessageAttempt(form) {
    const formattedMessage = new FormData(form);

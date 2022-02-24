@@ -23,7 +23,7 @@
    }  
    function readUser($email) {
       $database = connect(); 
-      $connectionCheck = "SELECT pw_user, pseudo_user, admin_user FROM users WHERE email_user = :email";
+      $connectionCheck = "SELECT pw_user, pseudo_user, email_user, admin_user FROM users WHERE email_user = :email";
       
       try {
          $query = $database->prepare($connectionCheck);
@@ -38,26 +38,33 @@
       return $query;
    }
 
-
-   function updateUser($currentPseudo) {
+   function updateUser($currentMail, $pseudo, $email , $password) {
       $database = connect(); 
 
       $userUpdate = 
       "
       UPDATE users (pseudo_user, pw_user, email_user)
       VALUES (:pseudo, :pw, :email)
-      WHERE pseudo_user = $currentPseudo; 
+      WHERE email_user = :currentMail; 
       ";
-      $query = $database->prepare($userUpdate);
-      
-      $success = $query->execute(array(
-         ":pseudo" => $_POST["pseudo"],
-         ":pw" => $_POST["password"],
-         ":email" => $_POST["email"]
-      ));
+
+      try {
+         $query = $database->prepare($userUpdate);
+         $success = $query->execute(array(
+            ":currentMail" => $currentMail,
+   
+            ":pseudo" => $pseudo,
+            ":email" => $email,
+            ":pw" => $password
+         ));    
+      } catch (PDOException $e) {
+         errorLog("USER UPDATE " . $e);
+      }
 
       return $success;
    }
+
+
    function deleteUser($currentPseudo) {
       $database = connect();  
       $query = 

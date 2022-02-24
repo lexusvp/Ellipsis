@@ -1,6 +1,6 @@
 function chatModule() {
    displayChatWindow();
-   refreshMessages();
+   // refreshMessages();
 }
 
 function refreshMessages() {
@@ -76,7 +76,7 @@ async function fetchMessages(currentUser = null) {
             });
 
             const currentUser = localStorage.getItem("target");
-            displayMessages(messageHistory[currentUser]);
+            if (currentUser !== null) displayMessages(messageHistory[currentUser]);
          }
       }  
    }
