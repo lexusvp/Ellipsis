@@ -1,26 +1,22 @@
-/*=================================>> CHARTS  <<=================================*/
+import { sessionSpecific, responsiveModule } from './modules/displayModule.js';
+import { formModule, logOutEvent } from './modules/userModule.js';
+import { chatModule } from './modules/chatModule.js';
+import { deleteUserEvent } from './modules/userModule.js'
+import { displayDatasets } from './modules/dataModule.js'
 
 (async function main() {
-   if (adminRole) {
-      displayDatasets();
-   }
-   deleteUserEvent();
+   responsiveModule();
+   sessionSpecific();    
+   
+   chatModule();
+   formModule(); 
 
+   logOutEvent();
+
+   displayDatasets();
+   deleteUserEvent();
+   const userData = localStorage.getItem("userData");
    const userPseudoSlot = document.querySelector("#user_pseudo");
    userPseudoSlot.textContent = userData.pseudo;
    userPseudoSlot.style.fontWeight = 800;
 })();
-
-function deleteUserEvent() {
-   const deleteButton = document.querySelector("input[name=delete]");
-   
-   deleteButton.addEventListener("click", async (e) => {
-      e.preventDefault();  
-      if (confirm("Are you sure you want to delete your account ?")) {
-         const query = await queryControler("userControler", [`type=deleteUser`]);
-         if (query.success) {
-            logOut();
-         } 
-      }
-   })
-}

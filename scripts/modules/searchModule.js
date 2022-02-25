@@ -1,57 +1,56 @@
-const testList = [
-   "HTML",
-   "HTML",
-   "CSS",
-   "Blabla",
-   "Untextehasardeux",
-   "Bonjour !",
-   "Bonjour !",
-   "Haskell",
-   "WASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "ASM",
-   "MOBO",
-   "Fonctions",
-   "Virtualbox",
-   "Web",
-   "Yolo",
-   "SQL",
-   "PHP",
-   "MindFuck",
-   "Whatever?",
-   "What?",
-];
-const icon = document.querySelector("input[name='search'] + button");
+export { suggestionHandler };
 
 //== TODO: Send resulting input to server -> DB
 function suggestionHandler() {
+   const testList = [
+      "HTML",
+      "HTML",
+      "CSS",
+      "Blabla",
+      "Untextehasardeux",
+      "Bonjour !",
+      "Bonjour !",
+      "Haskell",
+      "WASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "ASM",
+      "MOBO",
+      "Fonctions",
+      "Virtualbox",
+      "Web",
+      "Yolo",
+      "SQL",
+      "PHP",
+      "MindFuck",
+      "Whatever?",
+      "What?",
+   ];
    const suggBox = document.querySelector(".autocomplete_box");
    const inputBox = document.querySelector("input[name='search']");
 
    inputBox.addEventListener("input", (key) => {     
       suggBox.innerHTML = "";  
-
       if(inputBox.value !== "") {
-         const suggestions = filterList(inputBox.value, testList);
 
+         const suggestions = filterList(inputBox.value, testList);
          for (let li of suggestions) {
             li.addEventListener("click", () => {
                inputBox.value = li.textContent;

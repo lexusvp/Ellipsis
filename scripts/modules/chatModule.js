@@ -1,47 +1,19 @@
+import { queryControler } from './controlerModule.js';
+import { admin } from "./userModule.js";
+
+export { chatModule, fetchMessages };
+
 function chatModule() {
    displayChatWindow();
+   fetchMessages();
+
    // refreshMessages();
 }
-
 function refreshMessages() {
    fetchMessages();
    setInterval(fetchMessages, 2500);
 }
 
-async function displayChatWindow() {   
-   const chatButton = document.querySelector("#chat_button");
-   const chatContext = document.querySelector("#chat_container");
-   const chat = document.querySelector("form[name=chat]");
-   const adminTabs = document.querySelector("#chat_tabs");
-   let clicked = false;
-   
-   chatButton.addEventListener("click", () => {
-      if(!clicked) {
-         if (adminRole) {
-            chat.style.display = "none";
-            adminTabs.style.display = "flex";
-         }
-
-         chatContext.style.visibility = "visible";
-         clicked = true;
-      } else {
-         if (adminTabs) {
-            adminTabs.style.display = "none";
-         }
-
-         chatContext.style.visibility = "hidden";
-         clicked = false;
-      }
-   }) 
-
-   const backButton = document.querySelector("#chat_back") ?? null;
-   if (backButton !== null) {
-      backButton.addEventListener("click", () => {
-         adminTabs.style.display = "flex";
-         chat.style.display = "none";
-      });  
-   }
-}
 async function fetchMessages(currentUser = null) {
    const adminTabs = document.querySelector("#chat_tabs") ?? null;
    const headerName = document.querySelector("form[name=chat] #chat_name");
@@ -50,7 +22,7 @@ async function fetchMessages(currentUser = null) {
    if (messageHistory.success !== undefined) return;
 
    adminTabs.innerHTML = "";
-   if (!adminRole) {
+   if (!admin()) {
       headerName.textContent = "Admin - Vazn";
       if (messageHistory.length !== 0) displayMessages(messageHistory["Admin - Vazn"]);
    }  else if (currentUser !== null){
@@ -78,9 +50,43 @@ async function fetchMessages(currentUser = null) {
             const currentUser = localStorage.getItem("target");
             if (currentUser !== null) displayMessages(messageHistory[currentUser]);
          }
+         conversationEvent();
       }  
    }
-   conversationEvent();
+}
+async function displayChatWindow() {   
+   const chatButton = document.querySelector("#chat_button");
+   const chatContext = document.querySelector("#chat_container");
+   const chat = document.querySelector("form[name=chat]");
+   const adminTabs = document.querySelector("#chat_tabs");
+   let clicked = false;
+   
+   chatButton.addEventListener("click", () => {
+      if(!clicked) {
+         if (admin()) {
+            chat.style.display = "none";
+            adminTabs.style.display = "flex";
+         }
+
+         chatContext.style.visibility = "visible";
+         clicked = true;
+      } else {
+         if (admin()) {
+            adminTabs.style.display = "none";
+         }
+
+         chatContext.style.visibility = "hidden";
+         clicked = false;
+      }
+   }) 
+
+   const backButton = document.querySelector("#chat_back") ?? null;
+   if (backButton !== null) {
+      backButton.addEventListener("click", () => {
+         adminTabs.style.display = "flex";
+         chat.style.display = "none";
+      });  
+   }
 }
 async function conversationEvent() {
    const usersDiv = Array.from(document.querySelectorAll("#tab_div"))
@@ -106,7 +112,6 @@ async function conversationEvent() {
       });
    }
 }
-
 function createTab(container, user, empty = false) {
    let div = document.createElement("div");
    let userElement = document.createElement("span");
@@ -117,17 +122,18 @@ function createTab(container, user, empty = false) {
       </svg>
    `;
    
-   if (!empty) div.innerHTML += crossIcon;
+   if (!empty) {
+      div.innerHTML += crossIcon;
+      div.addEventListener("mouseenter", () => {
+         localStorage.setItem("target", user);
+      });
+   }
    if (user !== null) userElement.textContent = user;
 
    div.appendChild(userElement);
    div.setAttribute("id", "tab_div");
    container.appendChild(div);         
    
-   div.addEventListener("mouseenter", () => {
-      localStorage.setItem("target", user);
-   });
-
    return userElement;
 }
 function displayMessages(data) {

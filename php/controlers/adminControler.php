@@ -128,7 +128,10 @@
       // Construit les binds nécessaires sur l'intervalle donnée
       // Plus vieux indexé à zéro, plus récent à intervalNb
       for ($i=$range ; $i>=0 ; $i--) {
-         if ($resolution === "Hourly") {
+
+         if ($resolution === "Minutely") {
+            $bound = date("Y-m-d H:i:0", strtotime("-" . ($i) . " minute"));
+         } else if ($resolution === "Hourly") {
             $bound = date("Y-m-d H:0:0", strtotime("-" . ($i) . " hour"));
          } else if ($resolution === "Daily") {
             $bound = date("Y-m-d 08:00:00", strtotime("-" . ($i). " day"));
@@ -160,12 +163,15 @@
          }
          
          //== Obligé de décaler manuellement de + 1  resolution ?
-         if ($resolution === "Hourly") {
+         if ($resolution === "Minutely") {
             $datetime = $bindArgs[":".$i];
-            $formatedIndex = date("H:00:00", strtotime($datetime));
+            $formatedIndex = date("H:i:00", strtotime($datetime."+ 1 minute"));
+         } else if ($resolution === "Hourly") {
+            $datetime = $bindArgs[":".$i];
+            $formatedIndex = date("H:00:00", strtotime($datetime."+ 1 hour"));
          } else if ($resolution === "Daily") {
             $datetime = $bindArgs[":".$i];
-            $formatedIndex = date("d/m", strtotime($datetime));
+            $formatedIndex = date("d/m", strtotime($datetime."+ 1 day"));
          } else if ($resolution === "Weekly") {
             $datetime = $bindArgs[":".$i];
             $formatedIndex = date("d/m/Y", strtotime($datetime ."+ 1 week"));

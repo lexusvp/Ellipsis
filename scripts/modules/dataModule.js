@@ -1,4 +1,12 @@
+import { queryControler } from './controlerModule.js';
+import { admin } from './userModule.js';
+
+export { displayDatasets, errorReview };
+
 async function displayDatasets() {
+
+   if (!admin()) return;
+
    const canva = document.querySelector("#chart1");   
    const userCountSlot = document.querySelector("#userCount");
    const userCount = await queryControler("adminControler", [
@@ -7,9 +15,9 @@ async function displayDatasets() {
    ]);
 
    const setup = {
-      range: 16,
-      resolution: "Daily",
-      title: `Daily Connexions / Messages for the last 8 Hours`
+      range: 30,
+      resolution: "Minutely",
+      title: `Hourly Connexions / Messages for the last 24 Hours`
    }
    const loginCount = await queryControler("adminControler", [
       `type=getData`,
@@ -17,15 +25,16 @@ async function displayDatasets() {
       `resolution=${setup.resolution}`,
       `range=${setup.range}`
    ]);
-   const regCount = await queryControler("adminControler", [
+   const messCount = await queryControler("adminControler", [
       `type=getData`,
       `target=Messages`,
       `resolution=${setup.resolution}`,
       `range=${setup.range}`
    ]);
+   console.log("messCount : ", messCount);
 
    userCountSlot.textContent = `The website has ${userCount} registered users !`;
-   drawChart(canva, [ loginCount, regCount ], [
+   drawChart(canva, [ loginCount, messCount ], [
       setup.title,
       ["Connexions", "Messages"],
    ]); 
@@ -118,4 +127,14 @@ function drawChart(canva, datasets, style) {
    }
    const chart = new Chart(ctx, config);
    chartList.push(chart);
+}
+
+async function errorReview() {
+	const errors = await queryControler("adminControler", [
+		`type=getData`,
+		`target=Error`,
+		`resolution=Hourly`,
+		`range=${1}`
+	]);
+	if (errors !== null) console.table("Errors : ", errors);	
 }

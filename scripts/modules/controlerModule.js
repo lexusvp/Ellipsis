@@ -1,3 +1,5 @@
+export { queryControler };
+
 async function queryControler(controler, args, data = null) {
    const url = buildUrl(controler, args);
    let answer = null;
@@ -19,9 +21,8 @@ async function queryControler(controler, args, data = null) {
 
    return answer;
 } 
-
 function buildUrl(controler, args) {
-   let url = `http://localhost/1%20-%20Ellipsis/php/controlers/${controler}.php?`; 
+   let url = `http://localhost/ellipsis/php/controlers/${controler}.php?`; 
    //== REMINDER: Build URL
    for (let i = 0 ; i<args.length ; i++) {
       if (i === 0) {

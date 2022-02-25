@@ -1,36 +1,85 @@
-const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
-let logged;
-let adminRole;
-if (userData !== null) {
-   logged = userData["logged"] ?? null;
-   adminRole = userData["admin"] ?? null;
-}
+import { logged, admin } from "./userModule.js";
 
-function displayModule() {
-   sessionSpecific();
-   initialState();
-   dynamicState();
-}
-
-//=====================>> RESPONSIVENESS <<======================//
+export { responsiveModule, sessionSpecific, modalsHandler, tabHandler, burgerHandler, formAnim };
 
 function sessionSpecific() {
    const adminSpecific = document.querySelectorAll(".admin_specific");
    const loggedSpecific = document.querySelectorAll(".logged_specific");
    const unloggedSpecific = document.querySelectorAll(".unlogged_specific");
-
-   if (logged) {
+   
+   
+   if (logged()) {
       for (let element of loggedSpecific) element.style.visibility = "visible";
       for (let element of unloggedSpecific) element.style.visibility = "hidden";
    }
-   if (adminRole) {
+   if (admin()) {
       for (let element of adminSpecific) element.style.display = "flex";
    }
 }
+function modalsHandler() {
+	const userEventsButtons = document.querySelectorAll(".modal_buttons"); 
+	const allModals = document.querySelectorAll(".modal");
+	
+	//== Info: open any modal
+	for (let i=0 ; i<userEventsButtons.length ; i++) {
+		userEventsButtons[i].addEventListener("click", () => {
+			allModals[i].style.visibility = "visible";
+			allModals[i].style.opacity = "100";
+		})
+	}
+	
+	//== Info: close any modal
+	window.addEventListener("mousedown", (e) => {					
+		for (let modal of allModals) {
+			if (e.target === modal) {
+				modal.style.opacity = '0';
+				modal.style.visibility = 'hidden';
+			}
+		}
+	})
+}
+function tabHandler() {  
+   let buttons = document.getElementsByClassName("tab_buttons");
+   let articles = document.querySelectorAll("article");
+   let section = document.querySelector("main section");
+   let clicked = false;
 
+   for (let i=0 ; i<buttons.length ; i++) {
+      buttons[i].addEventListener("click", () => {
+         if (!clicked) {
+            for (let article of articles) article.style.display = "none";
 
+            articles[i].style.display = "flex";
+            section.style.maxHeight = "1500px";
+
+            clicked = true;
+         } else {
+            section.style.maxHeight = "0";
+
+            clicked = false;
+         }
+      });
+   }
+}
+function burgerHandler() {
+   let burgerButton = document.querySelector("#drop_button");
+   let buttons = document.getElementsByClassName("tab_buttons");
+   burgerButton.addEventListener("click", () => {
+      for (let button of buttons) {
+         if (button.style.display === "block") {
+            button.style.display = "none";
+         } else {
+            button.style.display = "block";
+         }
+      }
+   })
+}
 //=====================>> RESPONSIVENESS <<======================//
 
+function responsiveModule() {
+   initialState();
+   dynamicState();
+}
 function initialState() {
    if (window.innerWidth < 1300) { 
       navIcons("small");
@@ -113,9 +162,7 @@ function navIcons(size) {
    }
 }
 
-//=======================>> FORM ANIMS <<========================//
-
-//== Note: Possbile refactoring / improvements possible
+//== BUG: That's a mess
 function formAnim(form, success, type, message="") {
 
    const childs = document.querySelectorAll(`form[name=${type}] *`);
