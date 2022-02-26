@@ -2,10 +2,13 @@ import { sessionSpecific, responsiveModule, modalsHandler } from './modules/disp
 import { formModule, logOutEvent } from './modules/userModule.js';
 import { chatModule } from './modules/chatModule.js';
 import { errorReview } from './modules/dataModule.js';
+import { homeAnim } from './modules/homeAnim.js';
 
 (async function main() {
    responsiveModule();
-   sessionSpecific();               
+   sessionSpecific();  
+   homeAnim();
+
    modalsHandler();
 
    chatModule();
@@ -15,3 +18,5 @@ import { errorReview } from './modules/dataModule.js';
 
    errorReview();
 })();
+
+

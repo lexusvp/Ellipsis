@@ -1,54 +1,68 @@
 body {
-    height: 2000px;
     width: 100vw;
-    overflow-x: hidden;
-
 }
 main {
+    display: none;
     width: 100vw;
+}
+
+canvas {
+    z-index: -5;
+    position: absolute;
+    left: 0;
+
+    width: 100%;
+    background: var(--soft-blue);
+    opacity: 0;
+    animation: fadeIn 2.5s 0.2s forwards;
 }
 
 /*====================================>>  HEADER  <<====================================*/
 
 body > header {    
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-
+    justify-content: center;
     height: 100vh;
 }
 
 #logo{   
-    z-index: 100;
     grid-column: 1;
-    margin-top: 20vh;
-    margin-left: 20px;
+    position: absolute;
+
     min-width: 200px;
-    max-width: 30%;
-    animation: breath_2 10s infinite;
-}
-.fadein {
+    max-width: 20%;
+
     opacity: 0;
-    animation: fadeIn 1.5s ease-in-out 1.2s forwards;
-}
-.path {
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards;
+    animation: fadeIn 1.5s ease-in-out 3.8s forwards;
 }
 
 #arrows {
-    margin-left: 20px;
-    z-index: 100;
     grid-column: 1;
-    position: relative;
+    position: absolute;
     opacity: 0;
 
-    margin-top: 10vh;
-    min-width: 50px;
-    max-width: 1%;
+    margin-top: 35vh;
+    margin-left: -7px;
+    min-width: 45px;
+    max-width: 4%;
 
-    animation: fadeIn 1.5s ease-in-out 1.8s forwards, bounce 0.5s infinite alternate;
+    animation: fadeIn 1.5s ease-in-out 4.2s forwards, bounce 0.5s infinite alternate;
+}
+
+
+.fadein {
+    opacity: 0;
+    fill: var(--main-black);
+    animation: fadeIn 1.5s ease-in-out 1.2s forwards;
+}
+.path {
+    position: absolute;
+    stroke: var(--main-black);
+
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
 }
 
 /*====================================>>  MAIN  <<====================================*/

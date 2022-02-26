@@ -1,12 +1,13 @@
 import { queryControler } from './controlerModule.js';
-import { admin } from "./userModule.js";
+import { admin, logged } from "./userModule.js";
 
 export { chatModule, fetchMessages };
 
 function chatModule() {
-   displayChatWindow();
-   fetchMessages();
-
+   if (logged()) {
+      displayChatWindow();
+      fetchMessages(); 
+   }
    // refreshMessages();
 }
 function refreshMessages() {

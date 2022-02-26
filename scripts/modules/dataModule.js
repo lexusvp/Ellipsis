@@ -130,11 +130,13 @@ function drawChart(canva, datasets, style) {
 }
 
 async function errorReview() {
-	const errors = await queryControler("adminControler", [
-		`type=getData`,
-		`target=Error`,
-		`resolution=Hourly`,
-		`range=${1}`
-	]);
-	if (errors !== null) console.table("Errors : ", errors);	
+   if (admin()) {
+      const errors = await queryControler("adminControler", [
+         `type=getData`,
+         `target=Error`,
+         `resolution=Hourly`,
+         `range=${1}`
+      ]);
+      if (errors !== null) console.table("Errors : ", errors);	
+   }
 }
