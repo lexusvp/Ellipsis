@@ -21,14 +21,16 @@ async function queryControler(controler, args, data = null) {
 
    return answer;
 } 
+
 function buildUrl(controler, args) {
+   const array = Object.keys(args).map((key) => [(`${key}=${args[key]}`)]);
    let url = `http://localhost/1%20-%20Ellipsis/php/controlers/${controler}.php?`; 
    //== REMINDER: Build URL
-   for (let i = 0 ; i<args.length ; i++) {
+   for (let i = 0 ; i<array.length ; i++) {
       if (i === 0) {
-         url += args[i];
+         url += array[i];
       } else {
-         url += "&" + args[i];
+         url += "&" + array[i];
       }
    }
    return url;

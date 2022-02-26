@@ -6,7 +6,7 @@
    require '../model/messageModel.php';
    require '../model/logModel.php';
 
-   $readMessageQuery = ($_GET["type"] === "readMessage");
+   $readMessageQuery = ($_GET["type"] === "readMessages");
    $createMessageQuery = (
       $_GET["type"] === "createMessage" &&
       isset($_POST['message']) 

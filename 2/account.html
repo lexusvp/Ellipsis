@@ -22,7 +22,6 @@
 
 <body>
    <h2 class="subtitles"> Account </h2>
-
    <section id="chat_container">
       <aside id="chat_tabs" class="admin_specific"></aside>
       <form name="chat">
@@ -48,7 +47,7 @@
          <img alt="account" src="../images/icons/account_icon.svg"/>
 
          <ul>
-            <li>Your actual pseudo is : <span id="user_pseudo"></span></li>
+            <li class="user_pseudo"> Welcome </li>
          </ul>
          <div>
             <label for="pseudo"> New pseudo :</label>
@@ -76,6 +75,26 @@
          <article id="viz_container">
             <p id="userCount" class="counts"></p>
             <p id="regCount" class="counts"></p>
+
+            <div id="controls">
+               <div id="buttons_container"> 
+                  <input class="buttons" type="button" value="Logins">
+                  <input class="buttons" type="button" value="Registrations">
+                  <input class="buttons" type="button" value="Messages">
+               </div>
+
+               <div class="slider_container">
+                  <input class="slider" min="1" max ="3" type="range" list="tickmarks" >
+                  <datalist id="tickmarks">
+                     <option value="Hourly" label="Hourly">
+                     <option value="Daily" label="Daily">
+                     <option value="Weekly" label="Weekly">
+                  </datalist>
+               </div>
+               <!-- <div class="slider_container">
+                  <input class="slider" id="res_slider" type="range" list="tickmarks2" min="0.1" step="2">
+               </div> -->
+            </div>
             <div class="charts_container">
                <canvas id="chart1" height="500px" width="1000px"></canvas>
             </div>

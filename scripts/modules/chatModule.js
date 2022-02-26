@@ -19,7 +19,7 @@ async function fetchMessages(currentUser = null) {
    const adminTabs = document.querySelector("#chat_tabs") ?? null;
    const headerName = document.querySelector("form[name=chat] #chat_name");
 
-   const messageHistory = await queryControler("messageControler", [`type=readMessage`]);
+   const messageHistory = await queryControler("messageControler", { type: "readMessages" });
    if (messageHistory.success !== undefined) return;
 
    adminTabs.innerHTML = "";
@@ -96,10 +96,10 @@ async function conversationEvent() {
 
       closeButton[i].addEventListener("click", async () => {
          const user = localStorage.getItem("target");
-         const closed = await queryControler("adminControler", [
-            `type=closeConversation`,
-            `target=${user}`
-         ]);
+         const closed = await queryControler("adminControler", {
+            type: "closeConversation",
+            target: user,
+         });
 
          if (closed.success) {
             usersDiv[i].style.zIndex = "0";

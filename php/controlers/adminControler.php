@@ -55,7 +55,7 @@
 
 
       else if ($target === "Registration") {
-         [$prepared, $bindArgs] = getIntervalQuery("logs", "Registration", $range, $resolution);
+         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, "Registration");
          $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
       
          return formatData($answer, $bindArgs, $range, $resolution);
@@ -66,7 +66,7 @@
          $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);     
          return formatData($answer, $bindArgs, $range, $resolution);
       }
-      else if ($target === "Messages") {
+      else if ($target === "Message") {
          [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, null, "messages");
 
          $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);

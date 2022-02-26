@@ -42,7 +42,7 @@ function formModule() {
 
 async function registerAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("userControler", [`type=registerUser`], formattedFormData);
+   const answer = await queryControler("userControler", { type: "registerUser"}, formattedFormData);
 
    if (answer.success) {
       formAnim(form, true, "register");
@@ -54,7 +54,7 @@ async function registerAttempt(form) {
 }
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("userControler", [`type=loginUser`], formattedFormData);
+   const answer = await queryControler("userControler", { type: "loginUser"}, formattedFormData);
 
    if (answer.logged) { 
       localStorage.setItem("userData", JSON.stringify(answer));
@@ -67,7 +67,7 @@ async function loginAttempt(form) {
 }
 async function updateAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("userControler", [`type=updateUser`], formattedFormData);
+   const answer = await queryControler("userControler", { type: "updateUser"}, formattedFormData);
 
    // if (answer.check_success) {
    //    formAnim(currentForm, true, "update");
@@ -81,14 +81,14 @@ async function sendMessageAttempt(form) {
 
    if (admin()) {
       const target = localStorage.getItem("target");
-      await queryControler("messageControler", [
-         `type=createMessage`,
-         `target=${target}`
-      ], formattedMessage);
+      await queryControler("messageControler", {
+         type: "createMessage",
+         target: target,
+      }, formattedMessage);
 
       fetchMessages(target);
    } else {
-      await queryControler("messageControler", [`type=createMessage`], formattedMessage);
+      await queryControler("messageControler", { type: "createMessage" }, formattedMessage);
       
       fetchMessages();
    }
@@ -102,7 +102,7 @@ async function logOutEvent() {
       e.preventDefault();
       nav.style.animation = "fadeOut 0.3s forwards";
 
-      const success = await queryControler("userControler", [`type=logoutUser`]);
+      const success = await queryControler("userControler", { type: "logoutUser" });
       if (success) {
          logOut();
       }
@@ -119,7 +119,7 @@ function deleteUserEvent() {
    deleteButton.addEventListener("click", async (e) => {
       e.preventDefault();  
       if (confirm("Are you sure you want to delete your account ?")) {
-         const query = await queryControler("userControler", [`type=deleteUser`]);
+         const query = await queryControler("userControler", { type: "deleteUser" });
          if (query.success) {
             logOut();
          } 

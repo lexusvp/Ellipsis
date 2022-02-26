@@ -14,7 +14,7 @@ body > header > img {
 /*================================>>  MAIN  <<================================*/
 
 main {
-    margin: 20px 0px 50px 0px;
+    margin: 10px 0px 50px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;

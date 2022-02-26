@@ -6,14 +6,28 @@ function sessionSpecific() {
    const adminSpecific = document.querySelectorAll(".admin_specific");
    const loggedSpecific = document.querySelectorAll(".logged_specific");
    const unloggedSpecific = document.querySelectorAll(".unlogged_specific");
-   
-   
+   let sessionColor = "";
+
+   if (!logged() && !admin()) return;
+
    if (logged()) {
       for (let element of loggedSpecific) element.style.visibility = "visible";
       for (let element of unloggedSpecific) element.style.visibility = "hidden";
-   }
+      sessionColor = "#a9b976";
+   } 
    if (admin()) {
       for (let element of adminSpecific) element.style.display = "flex";
+      sessionColor = "#c33f3f";
+   }
+
+   const userData = JSON.parse(localStorage.getItem("userData"));
+   const userPseudoSlot = document.querySelectorAll(".user_pseudo") ?? null;
+   if (userPseudoSlot !== null) {
+      for (let slots of userPseudoSlot) {
+         slots.textContent += userData.pseudo;
+         slots.style.color = sessionColor;
+         console.log("sessionColor : ", sessionColor)
+      }
    }
 }
 function modalsHandler() {

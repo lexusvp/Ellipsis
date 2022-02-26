@@ -1,71 +1,139 @@
 import { queryControler } from './controlerModule.js';
 import { admin } from './userModule.js';
 
-export { displayDatasets, errorReview };
+export {dashboardControls, errorReview };
 
-async function displayDatasets() {
-
-   if (!admin()) return;
-
+async function dashboardControls() {
+   const slide = Array.from(document.querySelectorAll(".slider_container > input"));
+   const buttons = Array.from(document.querySelectorAll("#buttons_container > input"));
    const canva = document.querySelector("#chart1");   
-   const userCountSlot = document.querySelector("#userCount");
-   const userCount = await queryControler("adminControler", [
-      `type=getData`,
-      `target=userCount`
-   ]);
 
-   const setup = {
-      range: 30,
-      resolution: "Minutely",
-      title: `Hourly Connexions / Messages for the last 24 Hours`
-   }
-   const loginCount = await queryControler("adminControler", [
-      `type=getData`,
-      `target=Login`,
-      `resolution=${setup.resolution}`,
-      `range=${setup.range}`
-   ]);
-   const messCount = await queryControler("adminControler", [
-      `type=getData`,
-      `target=Messages`,
-      `resolution=${setup.resolution}`,
-      `range=${setup.range}`
-   ]);
-   console.log("messCount : ", messCount);
+   let dataset = {};
+   let target = "Message";
+   let resolution = "Daily";
+   let range = "30";
+   let clicked1, clicked2, clicked3 = [ false, false, true ];
+   let args = {
+      type: "getData",
+      target: target,
+      resolution: resolution,
+      range: range
+   };
 
-   userCountSlot.textContent = `The website has ${userCount} registered users !`;
-   drawChart(canva, [ loginCount, messCount ], [
-      setup.title,
-      ["Connexions", "Messages"],
-   ]); 
+   dataset = await queryControler("adminControler", args);
+   const chart = drawChart(canva, dataset, {
+      titre: `${resolution} ${target}`,
+      label: target
+   })
+
+   slide[0].addEventListener("input", async (e) => {
+      const value = e.target.value;
+      args.resolution = value === "1" ? "Hourly" : value === "2" ? "Daily" : "Weekly";
+
+      // Aller chercher les datasets utilisés, query tout les data nécessaires => replace tout les anciens datasets
+      // avec la nouvelle résolution
+
+      dataset = await queryControler("adminControler", args);
+      replaceDataset(chart, dataset, chart.data.datasets[0].label);
+   });
+   // slide[1].addEventListener("input", async (e) => {
+   //    args.range = parseInt(e.target.value);
+
+   //    if (!used) {
+   //       used = true;
+   //       dataset = await queryControler("adminControler", args);
+   //       replaceDataset(chart, dataset);       
+   //    }
+   // });
+
+   buttons[0].addEventListener("click", async () => {
+      args.target = "Login";
+
+      if (!clicked1) {
+         dataset = await queryControler("adminControler", args);
+         addDataset(chart, dataset, "Login");     
+         clicked1 = true; 
+      } else {
+         chart.data.datasets.pop();
+         chart.update();
+         clicked1 = false; 
+      }
+   });
+   buttons[1].addEventListener("click", async () => {
+      args.target = "Registration";
+
+      if (!clicked2) {
+         dataset = await queryControler("adminControler", args);
+         addDataset(chart, dataset, "Registration");    
+         clicked2 = true; 
+      } else {
+         chart.data.datasets.pop();
+         chart.update();         
+         clicked2 = false; 
+      }      
+   });
+   buttons[2].addEventListener("click", async () => {
+      args.target = "Message";
+
+      if (!clicked3) {
+         dataset = await queryControler("adminControler", args);
+         addDataset(chart, dataset, "Message");         
+         clicked3 = true; 
+      } else {
+         chart.data.datasets.pop();
+         chart.update();
+         clicked3 = false; 
+      }        
+   });
 }
+function formatDataset(data, type) {
+   let color = ``;
+   if (type === "Message") {
+      color = `169, 185, 118`;
+   } else if (type === "Login") {
+      color = `118, 169, 185`;
+   } else {
+      color = `185, 118, 169`;
+   }
 
-function drawChart(canva, datasets, style) {
-   const chartList = [];
-   const ctx = canva;
+   return {
+      label: type,
+      data: data,  
+      normalized: true,
+      
+      fill: true,
+      backgroundColor: `rgba(${color}, 0.2)`,
+      borderColor: `rgb(${color})`,
+   }
+}
+function replaceDataset(chart, dataset, type) {
+   const datasetObj = formatDataset(dataset, type);
+   chart.data.datasets.pop();
+   chart.data.datasets.push(datasetObj);
+   chart.update();
+}
+function addDataset(chart, dataset, type) {
+   const datasetObj = formatDataset(dataset, type);
+   chart.data.datasets.push(datasetObj);
+   chart.update();
+}
+function drawChart(ctx, datasets, style) {
    const config = {
       type: 'line',
       data: {
-         datasets: [
+         datasets: 
+      [
          {
-            label: style[1][0],
-            data: datasets[0],  
+            label: style.label,
+            data: datasets,  
             normalized: true,
             
             fill: true,
             backgroundColor: 'rgba(169, 185, 118, 0.2)',
             borderColor: 'rgb(169, 185, 118)',
-         },
-         {
-            label: style[1][1],
-            data: datasets[1],
-            normalized: true,
-
-            fill: true,
-            backgroundColor: 'rgba(112, 131, 187, 0.2)',
-            borderColor: 'rgb(112, 131, 187)',
-         },
-      ]},
+         }
+      ]
+   },
       options: {
          responsive: false, 
          elements: {
@@ -77,10 +145,8 @@ function drawChart(canva, datasets, style) {
          },
          plugins: {
             title: {
-               display: true,
-               text: style[0],
+               display: false,
                align: "center",
-               position: "bottom",
                font: {
                   size: 20,
                   family: 'Viga',
@@ -93,6 +159,7 @@ function drawChart(canva, datasets, style) {
             },
             legend: {
                display: true,
+               position: "bottom",
                labels: {
                   font: {
                      size: 15,
@@ -124,19 +191,22 @@ function drawChart(canva, datasets, style) {
             }
          }
       },
-   }
+   };
    const chart = new Chart(ctx, config);
-   chartList.push(chart);
+   return chart;
 }
+
+
+
 
 async function errorReview() {
    if (admin()) {
-      const errors = await queryControler("adminControler", [
-         `type=getData`,
-         `target=Error`,
-         `resolution=Hourly`,
-         `range=${1}`
-      ]);
+      const errors = await queryControler("adminControler", {
+         type: "getData",
+         target: "Error",
+         resolution: "Hourly",
+         range: 1,
+      });
       if (errors !== null) console.table("Errors : ", errors);	
    }
 }
