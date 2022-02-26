@@ -7,12 +7,12 @@ async function dashboardControls() {
    const slide = Array.from(document.querySelectorAll(".slider_container > input"));
    const buttons = Array.from(document.querySelectorAll("#buttons_container > input"));
    const canva = document.querySelector("#chart1");   
+   buttons[0].classList.toggle("active_control");
 
    let dataset = {};
-   let target = "Message";
+   let target = "Login";
    let resolution = "Daily";
    let range = "30";
-   let clicked1, clicked2, clicked3 = [ false, false, true ];
    let args = {
       type: "getData",
       target: target,
@@ -27,14 +27,20 @@ async function dashboardControls() {
    })
 
    slide[0].addEventListener("input", async (e) => {
+      const datasetArr = [];
       const value = e.target.value;
       args.resolution = value === "1" ? "Hourly" : value === "2" ? "Daily" : "Weekly";
 
       // Aller chercher les datasets utilisés, query tout les data nécessaires => replace tout les anciens datasets
       // avec la nouvelle résolution
 
-      dataset = await queryControler("adminControler", args);
-      replaceDataset(chart, dataset, chart.data.datasets[0].label);
+      for (let i=0 ; i<chart.data.datasets.length ; i++) {
+         args.target = chart.data.datasets[i].label;
+         dataset = await queryControler("adminControler", args);
+         datasetArr.push([dataset, args.target]);
+      }
+      
+      replaceDatasetArr(chart, datasetArr);
    });
    // slide[1].addEventListener("input", async (e) => {
    //    args.range = parseInt(e.target.value);
@@ -49,44 +55,73 @@ async function dashboardControls() {
    buttons[0].addEventListener("click", async () => {
       args.target = "Login";
 
-      if (!clicked1) {
-         dataset = await queryControler("adminControler", args);
-         addDataset(chart, dataset, "Login");     
-         clicked1 = true; 
-      } else {
-         chart.data.datasets.pop();
-         chart.update();
-         clicked1 = false; 
+      const obj = chart.data.datasets;
+      for (let i=0 ; i<chart.data.datasets.length ; i++) {
+         if (obj[i].label === "Login") {
+            obj.splice(i, 1);
+            chart.update();
+            buttons[0].classList.toggle("active_control");
+            return;
+         }
       }
+
+      buttons[0].classList.toggle("active_control");
+      dataset = await queryControler("adminControler", args);
+      addDataset(chart, dataset, "Login");         
    });
    buttons[1].addEventListener("click", async () => {
       args.target = "Registration";
 
-      if (!clicked2) {
-         dataset = await queryControler("adminControler", args);
-         addDataset(chart, dataset, "Registration");    
-         clicked2 = true; 
-      } else {
-         chart.data.datasets.pop();
-         chart.update();         
-         clicked2 = false; 
-      }      
+      const obj = chart.data.datasets;
+      for (let i=0 ; i<chart.data.datasets.length ; i++) {
+         if (obj[i].label === "Registration") {
+            obj.splice(i, 1);
+            chart.update();
+            buttons[1].classList.toggle("active_control");
+            return;
+         }
+      }
+
+      buttons[1].classList.toggle("active_control");
+      dataset = await queryControler("adminControler", args);
+      addDataset(chart, dataset, "Registration");   
    });
    buttons[2].addEventListener("click", async () => {
       args.target = "Message";
 
-      if (!clicked3) {
-         dataset = await queryControler("adminControler", args);
-         addDataset(chart, dataset, "Message");         
-         clicked3 = true; 
-      } else {
-         chart.data.datasets.pop();
-         chart.update();
-         clicked3 = false; 
-      }        
+      const obj = chart.data.datasets;
+      for (let i=0 ; i<chart.data.datasets.length ; i++) {
+         if (obj[i].label === "Message") {
+            obj.splice(i, 1);
+            chart.update();
+            buttons[2].classList.toggle("active_control");
+            return;
+         }
+      }
+
+      buttons[2].classList.toggle("active_control");
+      dataset = await queryControler("adminControler", args);
+      addDataset(chart, dataset, "Message");   
    });
 }
-function formatDataset(data, type) {
+
+function addDataset(chart, dataset, type) {
+   const datasetObj = formatDataset(dataset, type);
+   chart.data.datasets.push(datasetObj);
+   chart.update();
+}
+function replaceDatasetArr(chart, datasetArr) {
+   chart.data.datasets = formatDatasetArr(datasetArr);
+   chart.update();
+}
+function formatDatasetArr(arr) {
+   let resultArr = [];
+   for (let i = 0; i<arr.length ; i++) {
+      resultArr.push(formatDataset(arr[i][0], arr[i][1])); 
+   }
+   return resultArr;
+}
+function formatDataset(dataset, type) {
    let color = ``;
    if (type === "Message") {
       color = `169, 185, 118`;
@@ -98,7 +133,7 @@ function formatDataset(data, type) {
 
    return {
       label: type,
-      data: data,  
+      data: dataset,  
       normalized: true,
       
       fill: true,
@@ -106,17 +141,9 @@ function formatDataset(data, type) {
       borderColor: `rgb(${color})`,
    }
 }
-function replaceDataset(chart, dataset, type) {
-   const datasetObj = formatDataset(dataset, type);
-   chart.data.datasets.pop();
-   chart.data.datasets.push(datasetObj);
-   chart.update();
-}
-function addDataset(chart, dataset, type) {
-   const datasetObj = formatDataset(dataset, type);
-   chart.data.datasets.push(datasetObj);
-   chart.update();
-}
+
+
+
 function drawChart(ctx, datasets, style) {
    const config = {
       type: 'line',
@@ -129,8 +156,8 @@ function drawChart(ctx, datasets, style) {
             normalized: true,
             
             fill: true,
-            backgroundColor: 'rgba(169, 185, 118, 0.2)',
-            borderColor: 'rgb(169, 185, 118)',
+            backgroundColor: 'rgba(118, 169, 185, 0.2)',
+            borderColor: 'rgb(118, 169, 185)',
          }
       ]
    },
@@ -195,10 +222,6 @@ function drawChart(ctx, datasets, style) {
    const chart = new Chart(ctx, config);
    return chart;
 }
-
-
-
-
 async function errorReview() {
    if (admin()) {
       const errors = await queryControler("adminControler", {

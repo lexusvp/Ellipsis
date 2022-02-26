@@ -82,6 +82,11 @@ input[name=delete] {
     padding: 5px;
     margin-bottom: 15px;
 }
+.active_control {
+    transition: 1s;
+    color: var(--very-light-grey);
+    background: var(--main-black);
+}
 .slider_container {
     margin-bottom: 15px;
 }
