@@ -10,7 +10,6 @@
       rel="stylesheet">
    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
-
    <link href="../styles/main.css" rel="stylesheet">
    <link href="../styles/account.css" rel="stylesheet">
    <link href="../styles/second_main.css" rel="stylesheet">
@@ -69,13 +68,9 @@
          <input type="button" name="delete" class="buttons forms_buttons" value="Delete Account"/>
       </form>
 
-
       <section id="admin_section" class="admin_specific">
          <h2 class="subtitles" id="dashboard_title"> Dashboard </h2>
          <article id="viz_container">
-            <p id="userCount" class="counts"></p>
-            <p id="regCount" class="counts"></p>
-
             <div id="controls">
                <div id="buttons_container"> 
                   <input class="buttons" type="button" value="Logins">
@@ -91,9 +86,18 @@
                      <option value="Weekly" label="Weekly">
                   </datalist>
                </div>
-               <!-- <div class="slider_container">
-                  <input class="slider" id="res_slider" type="range" list="tickmarks2" min="0.1" step="2">
-               </div> -->
+               <div class="slider_container">
+                  <input class="slider" id="res_slider" type="range" list="tickmarks2" min="0" max ="6">
+                  <datalist id="tickmarks2">
+                     <option>
+                     <option>
+                     <option>
+                     <option>
+                     <option>
+                     <option>
+                     <option>
+                  </datalist>
+               </div>
             </div>
             <div class="charts_container">
                <canvas id="chart1" height="500px" width="1000px"></canvas>

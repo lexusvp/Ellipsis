@@ -20,6 +20,7 @@ async function dashboardControls() {
       'resolution': resolution,
       'range': range
    };
+   let stepVal = [2, 4, 7, 14, 30, 60, 90];
 
    dataset = await queryControler("adminControler", args);
    const chart = drawChart(canva, dataset["Logins"], {
@@ -27,22 +28,36 @@ async function dashboardControls() {
       label: target
    })
 
-   sliders[0].addEventListener("input", async (e) => {
+   sliders[0].addEventListener("change", async (e) => {
       const value = e.target.value;
-      args.resolution = value === "1" ? "Hourly" : value === "2" ? "Daily" : "Weekly";
-      args["target[]"] = [];
+      if (value === "1") {
+         args.resolution = "Hourly";
+         stepVal = [2, 4, 6, 10, 12, 16, 24];
+      } else if (value === "2") {
+         args.resolution = "Daily";
+         stepVal = [2, 4, 7, 14, 30, 60, 90];
+      } else if (value === "3") {
+         args.resolution = "Weekly";
+         stepVal = [2, 3, 4, 6, 8, 10, 12];
+      }
       
+      args["target[]"] = [];
       for (let i=0 ; i < chart.data.datasets.length ; i++) {
          args["target[]"].push(chart.data.datasets[i].label);
       }
       const updatedDatasets = await queryControler("adminControler", args);
-
       replaceDatasetArr(chart, updatedDatasets);
    });
+   sliders[1].addEventListener("input", async (e) => {
+      args.range = stepVal[parseInt(e.target.value)];
 
-   // slide[1].addEventListener("input", async (e) => {
-   //    args.range = parseInt(e.target.value);
-   // });
+      args["target[]"] = [];  
+      for (let i=0 ; i < chart.data.datasets.length ; i++) {
+         args["target[]"].push(chart.data.datasets[i].label);
+      }
+      const updatedDatasets = await queryControler("adminControler", args);
+      replaceDatasetArr(chart, updatedDatasets);
+   });
 
    buttons[0].addEventListener("click", async () => {
       for (let i=0 ; i < chart.data.datasets.length ; i++) {

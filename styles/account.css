@@ -123,8 +123,6 @@ input[type=range] ~ datalist {
     display: flex;
     margin-top: 10px;
     justify-content: space-between;
-    position: relative;
-    right: -8px;
 }
 input[type=range] ~ datalist option {
     display: block;
@@ -140,6 +138,7 @@ input[type=range] ~ datalist option {
     margin-bottom: 20px;
 }
 
+
 #buttons_container input {
     transition: background-color 0.5s;
 }
@@ -147,10 +146,6 @@ input[type=range] ~ datalist option {
     color: var(--main-white);
     background-color: var(--main-black);
 }
-
-
-
-
 
 .charts_container {
     display: flex;
