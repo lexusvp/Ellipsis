@@ -1,16 +1,13 @@
 <?php
    session_start();
    date_default_timezone_set('Europe/Paris');
-
+   
    require '../helpers.php';
    require '../model/userModel.php';
    require '../model/messageModel.php';
    require '../model/logModel.php';
 
-   $admin = (
-      isset($_SESSION["admin"]) &&
-      $_SESSION["admin"]
-   );
+   $admin = ( isset($_SESSION["admin"]) && $_SESSION["admin"] );
    $closeConversationCondition = (
       $admin &&
       $_GET["type"] === "closeConversation" && 
@@ -39,52 +36,53 @@
 
    //=============>> DATA FETCH && FORMATTING <<===========//
 
-   function getData($target, $resolution = null, $range = null) {
+   function getData($target, $resolution = "", $range = "") {
+      $datasets = [];
 
-      if ($target === "userCount") {       
-         return countUsers()->fetchAll(PDO::FETCH_NUM);
-      }  else if ($target === "messageCount") {
-         return countMessages()->fetchAll(PDO::FETCH_NUM);
-      }   
+      if ($resolution !== "" && $range !== "") {
+         $intervalBinds = buildBinds($range, $resolution);
 
-      else if ($target === "Error") {
-         $bound = buildBinds($range, $resolution, "Error", "logs", true);
+         for ($i=0 ; $i<count($target) ; $i++) {
+            if ($target[$i] === "Logins") {
+               $intervalBinds[":type"] = "Login";
+               $prepared = buildIntervalQuery($range, "logs");
 
-         return  getDataSince("Error", $bound)->fetchAll(PDO::FETCH_NUM);
+               $datasets["Logins"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
+            }
+            else if ($target[$i] === "Registrations") {
+               $intervalBinds[":type"] = "Registrations";
+               $prepared = buildIntervalQuery($range, "logs");
+
+               $datasets["Registrations"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
+            }     
+            else if ($target[$i] === "Messages") {
+               $prepared = buildIntervalQuery($range, "messages");               
+               
+               $datasets["Messages"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
+            }
+         }
+      } else {
+         if ($target[0] === "Errors") {
+            $bound = date("Y-m-d H:i:0", strtotime("-" . $range . " day"));
+            $datasets["Errors"] = getDataSince("Error", $bound)->fetchAll(PDO::FETCH_NUM);
+         }  else if ($target[0] === "UserCount") {       
+            $datasets["Users total"] = countUsers()->fetchAll(PDO::FETCH_NUM);
+         }  else if ($target[0] === "MessageCount") {
+            $datasets["Messages total"] = countMessages()->fetchAll(PDO::FETCH_NUM);
+         }  
       }
 
+      return $datasets;
+   }
 
-      else if ($target === "Registration") {
-         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, "Registration");
-         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
+   function buildIntervalQuery($range, $table) {
+      $start = 
+      "
+      WITH Cte AS (
+         SELECT CASE
+      ";
       
-         return formatData($answer, $bindArgs, $range, $resolution);
-      }     
-      else if ($target === "Login") {
-         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, "Login");
-
-         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);     
-         return formatData($answer, $bindArgs, $range, $resolution);
-      }
-      else if ($target === "Message") {
-         [$prepared, $bindArgs] = getIntervalQuery($range, $resolution, null, "messages");
-
-         $answer = getDataIntervals($prepared, $bindArgs)->fetchAll(PDO::FETCH_NUM);
-         return formatData($answer, $bindArgs, $range, $resolution);
-      }
-   }
-
-   //== REMINDER: Build query on any interval with any res, on any table, with optionnal LIKE clause.
-   function getIntervalQuery($range, $resolution, $target, $table = "logs") {
-      $binds = buildBinds($range, $resolution, $target, $table);
-      $prepared = buildIntervalQuery($table, $range);
-
-      return [$prepared, $binds];
-   }
-   function buildIntervalQuery($table, $range) {
-      $start = "SELECT * FROM (SELECT CASE";
       $queryIntervals = "";
-
       $rowPostfix = substr($table, 0, -1);
       for ($i = 0 ; $i < $range ; $i ++) {
          $queryIntervals .= 
@@ -93,12 +91,14 @@
          AND datetime_" . $rowPostfix . " < :" . ($i + 1) . " THEN " . $i;
       }   
       $logsEnd = 
-         "  END as `Interval`, COUNT(1) as `Amount`
+         "  
+         END as `Interval`, COUNT(1) as `Amount`
          FROM logs
          JOIN logs_type ON logs_type.id_log_type = logs.id_log_type
          WHERE name_log_type LIKE CONCAT(:type, '%')
-         GROUP BY `Interval`
-         )  AS `Data`
+         GROUP BY `Interval`)
+
+         SELECT * FROM Cte
          WHERE `Interval` IS NOT NULL
          ORDER BY `Interval` ASC;
          ";
@@ -106,14 +106,12 @@
          "
          END as `Interval`, COUNT(1) as `Amount`
          FROM messages
-         GROUP BY `Interval`
-         )  AS `Data`
+         GROUP BY `Interval`)
+
+         SELECT * FROM Cte
          WHERE `Interval` IS NOT NULL
          ORDER BY `Interval` ASC;
-         ";
-
-      
-      
+         ";   
       if ($table === "logs") {
          $query = $start.$queryIntervals.$logsEnd;
       } else if ($table === "messages") {
@@ -122,13 +120,11 @@
       
       return $query;
    }  
-   function buildBinds($range, $resolution, $target, $table, $single = false) {   
+   function buildBinds($range, $resolution) {   
       $bindArgs = array();
 
       // Construit les binds nécessaires sur l'intervalle donnée
-      // Plus vieux indexé à zéro, plus récent à intervalNb
       for ($i=$range ; $i>=0 ; $i--) {
-
          if ($resolution === "Minutely") {
             $bound = date("Y-m-d H:i:0", strtotime("-" . ($i) . " minute"));
          } else if ($resolution === "Hourly") {
@@ -138,14 +134,7 @@
          } else if ($resolution === "Weekly") {
             $bound = date("Y-m-d 08:00:00", strtotime("-" . ($i). " week"));
          }
-         if ($single) {
-            return $bound;
-         }
-
          $bindArgs[":".($range - $i)] = $bound;
-      }
-      if ($table === "logs") {
-         $bindArgs[":type"] = $target; 
       }
 
       return $bindArgs;
@@ -162,7 +151,6 @@
             $numericArr[$indexToPush] = intval($answer[$i][1]);      
          }
          
-         //== Obligé de décaler manuellement de + 1  resolution ?
          if ($resolution === "Minutely") {
             $datetime = $bindArgs[":".$i];
             $formatedIndex = date("H:i:00", strtotime($datetime."+ 1 minute"));
@@ -185,4 +173,9 @@
       }
       return $finalArr;
    }
+   function getFormattedData($prepared, $binds, $range, $resolution) {
+      $answer = getDataIntervals($prepared, $binds)->fetchAll(PDO::FETCH_NUM);
+      return formatData($answer, $binds, $range, $resolution);
+   }
+
 ?>

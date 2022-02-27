@@ -14,7 +14,7 @@ Final project for my training exam
 ✅ Account **CRUD** interface <br>
 ✅ Full logging - 90% <br><br>
 
-🔄 **Analytics dashboard** - 75% ... <br><br>
+🔄 **Analytics dashboard** - 85% ... <br><br>
 
 💤 Security features <br>
 💤 Password recovery feature <br>

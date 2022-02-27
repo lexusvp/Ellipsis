@@ -97,8 +97,8 @@ async function conversationEvent() {
       closeButton[i].addEventListener("click", async () => {
          const user = localStorage.getItem("target");
          const closed = await queryControler("adminControler", {
-            type: "closeConversation",
-            target: user,
+            'type': "closeConversation",
+            'target[]': [user],
          });
 
          if (closed.success) {

@@ -23,15 +23,18 @@ async function queryControler(controler, args, data = null) {
 } 
 
 function buildUrl(controler, args) {
-   const array = Object.keys(args).map((key) => [(`${key}=${args[key]}`)]);
    let url = `http://localhost/1%20-%20Ellipsis/php/controlers/${controler}.php?`; 
-   //== REMINDER: Build URL
-   for (let i = 0 ; i<array.length ; i++) {
-      if (i === 0) {
-         url += array[i];
-      } else {
-         url += "&" + array[i];
-      }
+
+   for (let key in args) {
+      if (key === "type") {
+         url += `${key}=${args[key]}`;
+      } else if (key === "target[]") {
+         for (let target of args[key]) {
+            url += `&${key}=${target}`;
+         }
+      }  else {
+         url +=  `&${key}=${args[key]}`;
+      }   
    }
    return url;
 }

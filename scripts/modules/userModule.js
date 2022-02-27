@@ -54,7 +54,7 @@ async function registerAttempt(form) {
 }
 async function loginAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("userControler", { type: "loginUser"}, formattedFormData);
+   const answer = await queryControler("userControler", { type: "loginUser" }, formattedFormData);
 
    if (answer.logged) { 
       localStorage.setItem("userData", JSON.stringify(answer));
@@ -67,7 +67,7 @@ async function loginAttempt(form) {
 }
 async function updateAttempt(form) {
    const formattedFormData = new FormData(form);
-   const answer = await queryControler("userControler", { type: "updateUser"}, formattedFormData);
+   const answer = await queryControler("userControler", { type: "updateUser" }, formattedFormData);
 
    // if (answer.check_success) {
    //    formAnim(currentForm, true, "update");
@@ -82,8 +82,8 @@ async function sendMessageAttempt(form) {
    if (admin()) {
       const target = localStorage.getItem("target");
       await queryControler("messageControler", {
-         type: "createMessage",
-         target: target,
+         'type': "createMessage",
+         'target[]': target,
       }, formattedMessage);
 
       fetchMessages(target);

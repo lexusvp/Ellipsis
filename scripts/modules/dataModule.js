@@ -4,128 +4,114 @@ import { admin } from './userModule.js';
 export {dashboardControls, errorReview };
 
 async function dashboardControls() {
-   const slide = Array.from(document.querySelectorAll(".slider_container > input"));
+   const sliders = Array.from(document.querySelectorAll(".slider_container > input"));
    const buttons = Array.from(document.querySelectorAll("#buttons_container > input"));
    const canva = document.querySelector("#chart1");   
+
    buttons[0].classList.toggle("active_control");
 
    let dataset = {};
-   let target = "Login";
+   let target = "Logins";
    let resolution = "Daily";
    let range = "30";
    let args = {
-      type: "getData",
-      target: target,
-      resolution: resolution,
-      range: range
+      'type': "getData",
+      'target[]': [ target ],
+      'resolution': resolution,
+      'range': range
    };
 
    dataset = await queryControler("adminControler", args);
-   const chart = drawChart(canva, dataset, {
+   const chart = drawChart(canva, dataset["Logins"], {
       titre: `${resolution} ${target}`,
       label: target
    })
 
-   slide[0].addEventListener("input", async (e) => {
-      const datasetArr = [];
+   sliders[0].addEventListener("input", async (e) => {
       const value = e.target.value;
       args.resolution = value === "1" ? "Hourly" : value === "2" ? "Daily" : "Weekly";
-
-      // Aller chercher les datasets utilisés, query tout les data nécessaires => replace tout les anciens datasets
-      // avec la nouvelle résolution
-
-      for (let i=0 ; i<chart.data.datasets.length ; i++) {
-         args.target = chart.data.datasets[i].label;
-         dataset = await queryControler("adminControler", args);
-         datasetArr.push([dataset, args.target]);
-      }
+      args["target[]"] = [];
       
-      replaceDatasetArr(chart, datasetArr);
+      for (let i=0 ; i < chart.data.datasets.length ; i++) {
+         args["target[]"].push(chart.data.datasets[i].label);
+      }
+      const updatedDatasets = await queryControler("adminControler", args);
+
+      replaceDatasetArr(chart, updatedDatasets);
    });
+
    // slide[1].addEventListener("input", async (e) => {
    //    args.range = parseInt(e.target.value);
-
-   //    if (!used) {
-   //       used = true;
-   //       dataset = await queryControler("adminControler", args);
-   //       replaceDataset(chart, dataset);       
-   //    }
    // });
 
    buttons[0].addEventListener("click", async () => {
-      args.target = "Login";
-
-      const obj = chart.data.datasets;
-      for (let i=0 ; i<chart.data.datasets.length ; i++) {
-         if (obj[i].label === "Login") {
-            obj.splice(i, 1);
+      for (let i=0 ; i < chart.data.datasets.length ; i++) {
+         if (chart.data.datasets[i].label === "Logins") {
+            chart.data.datasets.splice(i, 1);
+            
             chart.update();
             buttons[0].classList.toggle("active_control");
             return;
          }
       }
 
+      args["target[]"].push("Logins");
       buttons[0].classList.toggle("active_control");
       dataset = await queryControler("adminControler", args);
-      addDataset(chart, dataset, "Login");         
+      addDataset(chart, dataset, "Logins");         
    });
    buttons[1].addEventListener("click", async () => {
-      args.target = "Registration";
-
-      const obj = chart.data.datasets;
-      for (let i=0 ; i<chart.data.datasets.length ; i++) {
-         if (obj[i].label === "Registration") {
-            obj.splice(i, 1);
+      for (let i=0 ; i < chart.data.datasets.length ; i++) {
+         if (chart.data.datasets[i].label === "Registrations") {
+            chart.data.datasets.splice(i, 1);
             chart.update();
             buttons[1].classList.toggle("active_control");
             return;
          }
       }
 
+      args["target[]"].push("Registrations");
       buttons[1].classList.toggle("active_control");
       dataset = await queryControler("adminControler", args);
-      addDataset(chart, dataset, "Registration");   
+      addDataset(chart, dataset, "Registrations");   
    });
    buttons[2].addEventListener("click", async () => {
-      args.target = "Message";
-
-      const obj = chart.data.datasets;
-      for (let i=0 ; i<chart.data.datasets.length ; i++) {
-         if (obj[i].label === "Message") {
-            obj.splice(i, 1);
+      for (let i=0 ; i < chart.data.datasets.length ; i++) {
+         if (chart.data.datasets[i].label === "Messages") {
+            chart.data.datasets.splice(i, 1);
             chart.update();
             buttons[2].classList.toggle("active_control");
             return;
          }
       }
 
+      args["target[]"].push("Messages");
       buttons[2].classList.toggle("active_control");
       dataset = await queryControler("adminControler", args);
-      addDataset(chart, dataset, "Message");   
+      addDataset(chart, dataset, "Messages");   
    });
 }
 
 function addDataset(chart, dataset, type) {
-   const datasetObj = formatDataset(dataset, type);
+   const datasetObj = formatDataset(dataset[type], type);
    chart.data.datasets.push(datasetObj);
    chart.update();
 }
-function replaceDatasetArr(chart, datasetArr) {
-   chart.data.datasets = formatDatasetArr(datasetArr);
-   chart.update();
-}
-function formatDatasetArr(arr) {
-   let resultArr = [];
-   for (let i = 0; i<arr.length ; i++) {
-      resultArr.push(formatDataset(arr[i][0], arr[i][1])); 
+function replaceDatasetArr(chart, datasetsObj) {
+   let datasetArr = [];
+   for (let dataset in datasetsObj) {
+      if (dataset === "authorized") return null;
+      datasetArr.push(formatDataset(datasetsObj[dataset], dataset)); 
    }
-   return resultArr;
+   chart.data.datasets = datasetArr;
+   console.log("datasetArr : ", datasetArr)
+   chart.update();
 }
 function formatDataset(dataset, type) {
    let color = ``;
-   if (type === "Message") {
+   if (type === "Messages") {
       color = `169, 185, 118`;
-   } else if (type === "Login") {
+   } else if (type === "Logins") {
       color = `118, 169, 185`;
    } else {
       color = `185, 118, 169`;
@@ -141,9 +127,6 @@ function formatDataset(dataset, type) {
       borderColor: `rgb(${color})`,
    }
 }
-
-
-
 function drawChart(ctx, datasets, style) {
    const config = {
       type: 'line',
@@ -222,13 +205,14 @@ function drawChart(ctx, datasets, style) {
    const chart = new Chart(ctx, config);
    return chart;
 }
+
 async function errorReview() {
    if (admin()) {
       const errors = await queryControler("adminControler", {
-         type: "getData",
-         target: "Error",
-         resolution: "Hourly",
-         range: 1,
+         'type': "getData",
+         'target[]': ["Errors"],
+         'resolution': "",
+         'range': 1,
       });
       if (errors !== null) console.table("Errors : ", errors);	
    }

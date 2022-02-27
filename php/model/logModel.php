@@ -27,7 +27,7 @@
 
       return $success;   
    }
-
+   
    function countUsers() {
       $database = connect(); 
       $query = "SELECT COUNT(id_user) FROM users"; 
