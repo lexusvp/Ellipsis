@@ -50,10 +50,16 @@
                $datasets["Logins"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
             }
             else if ($target[$i] === "Registrations") {
-               $intervalBinds[":type"] = "Registrations";
+               $intervalBinds[":type"] = "Registration";
                $prepared = buildIntervalQuery($range, "logs");
 
                $datasets["Registrations"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
+            }     
+            else if ($target[$i] === "Errors") {
+               $intervalBinds[":type"] = "Error";
+               $prepared = buildIntervalQuery($range, "logs");
+
+               $datasets["Errors"] = getFormattedData($prepared, $intervalBinds, $range, $resolution);
             }     
             else if ($target[$i] === "Messages") {
                $prepared = buildIntervalQuery($range, "messages");               
@@ -74,7 +80,6 @@
 
       return $datasets;
    }
-
    function buildIntervalQuery($range, $table) {
       $start = 
       "
@@ -173,9 +178,8 @@
       }
       return $finalArr;
    }
-   function getFormattedData($prepared, $binds, $range, $resolution) {
+   function getFormattedData($prepared, $binds, $range, $resolution) {      
       $answer = getDataIntervals($prepared, $binds)->fetchAll(PDO::FETCH_NUM);
       return formatData($answer, $binds, $range, $resolution);
    }
-
 ?>

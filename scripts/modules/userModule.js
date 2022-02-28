@@ -83,7 +83,7 @@ async function sendMessageAttempt(form) {
       const target = localStorage.getItem("target");
       await queryControler("messageControler", {
          'type': "createMessage",
-         'target[]': target,
+         'target[]': [target],
       }, formattedMessage);
 
       fetchMessages(target);

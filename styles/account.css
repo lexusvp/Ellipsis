@@ -1,3 +1,16 @@
+:root {
+    --curveOne: rgb(120, 150, 185);
+    --curveTwo: rgb(140, 185, 140);
+    --curveThree: rgb(200, 185, 100);
+    --curveFour: rgb(170, 105, 60); 
+
+    --curveOneAlpha: rgba(120, 150, 185, 0.2);
+    --curveTwoAlpha: rgba(140, 185, 140, 0.2);
+    --curveThreeAlpha: rgba(200, 185, 100, 0.2);
+    --curveFourAlpha: rgba(170, 105, 60, 0.2); 
+}
+
+
 body, main {
     background: var(--soft-blue);
 }
@@ -58,7 +71,6 @@ input[name=delete] {
 
     margin: 30px 0px 0px 0px ;
     width:100%;   
-    height: 1500px;
 }
 
 #viz_container {
@@ -74,7 +86,6 @@ input[name=delete] {
 }
 
 #controls {
-    width: 601px;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -135,17 +146,17 @@ input[type=range] ~ datalist option {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
 
 #buttons_container input {
     transition: background-color 0.5s;
 }
-#buttons_container input:hover {
+/* #buttons_container input:hover {
     color: var(--main-white);
     background-color: var(--main-black);
-}
+} */
 
 .charts_container {
     display: flex;
@@ -161,6 +172,8 @@ input[type=range] ~ datalist option {
 canvas {
     background-color: var(--main-white);
 }
+
+
 
 
 /*================================>>  RESPONSIVENESS  <<================================*/

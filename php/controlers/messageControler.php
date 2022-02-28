@@ -15,7 +15,7 @@
    if ($logged) {
       if ($createMessageQuery) {   
          if ($admin && isset($_GET["target"])) {
-            createMessage($_GET["target"], $_SESSION["admin"]);
+            createMessage($_GET["target"][0], $_SESSION["admin"]);
          } else {
             openConversation($_SESSION["pseudo"]);
             createMessage($_SESSION["pseudo"]);

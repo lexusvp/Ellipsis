@@ -6,7 +6,6 @@
    require '../model/userModel.php';
    require '../model/logModel.php';
 
-   fileLog("t");
    $regCondition = (
       $_GET["type"] === "registerUser" &&
       isset($_POST['pseudo']) && 
