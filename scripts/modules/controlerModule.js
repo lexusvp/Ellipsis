@@ -3,7 +3,6 @@ export { queryControler };
 async function queryControler(controler, args, data = null) {
    const url = buildUrl(controler, args);
    let answer = null;
-   console.log(url);   
    
    try {
       const response = await fetch
@@ -13,7 +12,6 @@ async function queryControler(controler, args, data = null) {
             body: data
       });  
       answer = await response.json();     
-      console.log("answer : ", answer)
    } catch (e) {
       console.error(e);
       return null;

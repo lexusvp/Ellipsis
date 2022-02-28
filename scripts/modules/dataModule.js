@@ -48,7 +48,7 @@ async function dashboardControls() {
    chart.show(0);
    chart.data.datasets[0].hidden = false;
 
-   sliders[0].addEventListener("change", async (e) => {
+   sliders[0].addEventListener("input", async (e) => {
       const value = e.target.value;
       if (value === "1") {
          args.resolution = "Hourly";
@@ -85,18 +85,11 @@ async function dashboardControls() {
       }
    });
 
-   buttons[0].addEventListener("click", async () => {
-      toogleCurve(buttons, 0, chart);
-   });
-   buttons[1].addEventListener("click", async () => {
-      toogleCurve(buttons, 1, chart);
-   });
-   buttons[2].addEventListener("click", async () => {
-      toogleCurve(buttons, 2, chart);
-   });
-   buttons[3].addEventListener("click", async () => {
-      toogleCurve(buttons, 3, chart);
-   });
+   for (let i = 0 ; i < buttons.length ; i++) {
+      buttons[i].addEventListener("click", async () => {
+         toogleCurve(buttons, i, chart);
+      });
+   }   
 }
 
 function toogleCurve(buttons, index, chart) {
