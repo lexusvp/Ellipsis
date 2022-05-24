@@ -35,7 +35,6 @@
    }
 
    //=============>> DATA FETCH && FORMATTING <<===========//
-
    function getData($target, $resolution = "", $range = "") {
       $datasets = [];
 
@@ -80,6 +79,7 @@
 
       return $datasets;
    }
+   
    function buildIntervalQuery($range, $table) {
       $start = 
       "

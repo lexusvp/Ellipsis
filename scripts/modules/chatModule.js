@@ -8,7 +8,7 @@ function chatModule() {
       displayChatWindow();
       fetchMessages(); 
    }
-   // refreshMessages();
+   refreshMessages();
 }
 function refreshMessages() {
    fetchMessages();

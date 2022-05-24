@@ -1,5 +1,4 @@
 <?php
-   //== REMINDER: Source des logs erreurs / visiteurs => "Vazn"
    function createLog($type, $pseudo, $description = NULL) { 
       $database = connect(); 
       $now = date("y-m-d H:i:s", time());
