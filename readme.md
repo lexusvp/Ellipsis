@@ -1,4 +1,4 @@
-![GitHub last commit](https://img.shields.io/github/last-commit/Vazn/Ellipsis?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/lexusvp/Ellipsis?style=for-the-badge)
 
 
 # ***Ellipsis***
@@ -17,8 +17,6 @@ Final project for my training exam
 🔄 **Analytics dashboard** - 85% ... <br><br>
 
 💤 Security features <br>
-
-[Launch Index.php](index.php)
 
 💤 Password recovery feature <br>
 💤 Services CRUD interface <br>
