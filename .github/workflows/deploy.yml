@@ -1,0 +1,26 @@
+name: Deploy PHP Website
+
+on:
+  push:
+    branches:
+      - main # Adjust branch name as needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0' # Adjust PHP version as needed
+
+      - name: Install Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+          sudo chmod +x /usr/local/bin/composer
+
+      # Add more steps to copy files, configure the server, and start PHP
